@@ -569,6 +569,75 @@ function MarketView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
 }
 
 function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const icpsData = [
+    {
+      "id": "A",
+      "name": "DIY / Baumarkthandel",
+      "firmographics": "Mittelständische bis große Einzelhändler mit tiefem Sortiment (100k+ SKUs) und bedeutender physischer Ladenpräsenz.",
+      "buyingCommittee": ["VP E-Commerce", "Leiter Ladenbetrieb", "Kundenservice-Leitung", "IT-Architekt"],
+      "pains": [
+        "Hohe Entscheidungshemmung durch komplexe Spezifikationen",
+        "Personalmangel im Geschäft",
+        "Fragmentierte Produktinfos über Systeme hinweg"
+      ],
+      "jtbd": "Kunden befähigen, über alle Kanäle hinweg sichere Kaufentscheidungen zu treffen, die Abhängigkeit von spezialisiertem Ladenpersonal zu verringern und gleichzeitig eine Expertenberatung aufrechtzuerhalten.",
+      "messaging": [
+        "Projektzentrierte Beratung: Komplexe Anforderungen in vollständige, umsetzbare Einkaufslisten verwandeln.",
+        "Unified Commerce: Überbrückung von Online-Recherche und In-Store-Ausführung innerhalb eines einzigen KI-Ökosystems.",
+        "Ergebnisorientierter ROI: Transparente Attribution, die KI-Interaktionen direkt mit dem Umsatzwachstum verknüpft."
+      ],
+      "adHooks": [
+        "Beratung auf der Produktdetailseite, wo Entscheidungen fallen.",
+        "Omnichannel: Online + POS + QR."
+      ],
+      "citations": ["18", "17"]
+    },
+    {
+      "id": "B",
+      "name": "Spezialisierte E-Commerce-Händler",
+      "firmographics": "Wachstumsstarke E-Commerce-Händler (Elektronik, Möbel, Sport), die moderne Plattformen wie Shopify oder Shopware nutzen.",
+      "buyingCommittee": ["Leiter Performance Marketing", "Produktleiter", "Kundensupport-Manager"],
+      "pains": [
+        "Bezahlter Traffic ist teuer; Conversion-Obergrenzen",
+        "Support-Personal skaliert nicht",
+        "Schwierigkeit, den Impact des Assistenten zu attribuieren"
+      ],
+      "jtbd": "Effizienz der Werbeausgaben maximieren: Kostenintensiven Traffic in treue Kunden verwandeln, indem Kaufhemmnisse durch sofortigen, intelligenten Dialog gelöst werden.",
+      "messaging": [
+        "Schnelle Bereitstellung: Nahtloses No-Code-Onboarding, um in wenigen Minuten live zu gehen und Ergebnisse zu sehen.",
+        "Granulare Attribution: Direkte Zuordnung von KI-Gesprächen zu abgeschlossenen Bestellungen für klare Performance-Sichtbarkeit.",
+        "Reibungslose Conversion: Ein optimierter Weg von der Expertenberatung direkt in den Warenkorb."
+      ],
+      "adHooks": [
+        "Klicks in Kunden verwandeln mit Echtzeit-Beratung.",
+        "Schnell live gehen + DSGVO-konform."
+      ],
+      "citations": ["16", "4"]
+    },
+    {
+      "id": "C",
+      "name": "Industrie-Distributoren",
+      "firmographics": "B2B-Hersteller & Distributoren, die komplexe Teilekataloge und verteilte Außendienstteams verwalten.",
+      "buyingCommittee": ["Leiter Digital B2B", "Sales Ops", "Produktdaten-Eigentümer", "Compliance"],
+      "pains": [
+        "Internes Wissen ist schwer zugänglich",
+        "Bedarf an geführter Suche (Teilenummern)",
+        "Außendienst benötigt Antworten direkt am Regal"
+      ],
+      "jtbd": "Technisches Wissen demokratisieren: 24/7-Zugriff auf komplexe Produktdaten ermöglichen und Außendienstmitarbeiter mit einem leistungsstarken mobilen KI-Begleiter befähigen.",
+      "messaging": [
+        "24/7 Wissenszugänglichkeit: Informationssilos beseitigen und sofortige Antworten auf technische Anfragen liefern.",
+        "Enterprise-Ready Integration: Robuste, offene APIs für die nahtlose Verbindung mit bestehenden ERP- und PIM-Systemen.",
+        "Befähigung auf der Verkaufsfläche: Ein Mobile-First KI-Begleiter, der dem Außendienst Expertenwissen am Point of Sale zur Verfügung stellt."
+      ],
+      "adHooks": [
+        "Befähigen Sie Ihren Außendienst mit KI-Wissen.",
+        "Enterprise-Integration für komplexe Kataloge."
+      ],
+      "citations": ["17", "1"]
+    }
+  ];
+
   const [activeIcp, setActiveIcp] = useState(icpsData[0]);
   const [selectedNarrative, setSelectedNarrative] = useState(activeIcp.messaging[0]);
 
@@ -590,10 +659,10 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             onClick={() => setActiveIcp(icp)}
             className={cn(
               "px-6 py-2.5 rounded-xl text-sm font-bold transition-all",
-              activeIcp.id === icp.id ? "bg-white shadow-sm text-blue-600" : "text-gray-500 hover:text-gray-700"
+              activeIcp.id === icp.id ? "bg-white shadow-sm text-homie-primary" : "text-gray-500 hover:text-gray-700"
             )}
           >
-            ICP {icp.id}: {icp.name.split('')[0]}
+            ICP {icp.id}: {icp.name.split(' ')[0]}
           </button>
         ))}
       </div>
@@ -648,7 +717,7 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
                     className={cn(
                       "px-4 py-2 rounded-xl text-xs font-bold border transition-all",
                       selectedNarrative === msg
-                        ? "bg-blue-600 text-white border-blue-600"
+                        ? "bg-homie-primary text-white border-homie-primary"
                         : "bg-white text-gray-500 border-gray-200 hover:border-gray-300"
                     )}
                   >
@@ -656,7 +725,7 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
                   </button>
                 ))}
               </div>
-              <div className="p-6 bg-gray-50 rounded-2xl border-l-4 border-blue-600">
+              <div className="p-6 bg-gray-50 rounded-2xl border-l-4 border-homie-primary">
                 <p className="text-lg font-medium text-gray-800 leading-relaxed">
                   {generatedMessage}
                 </p>
@@ -671,7 +740,7 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             <div className="space-y-4">
               {activeIcp.messaging.map((msg, i) => (
                 <div key={i} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                  <p className="text-sm font-bold text-blue-600 mb-1">Winkel {i + 1}</p>
+                  <p className="text-sm font-bold text-homie-primary mb-1">Winkel {i + 1}</p>
                   <p className="text-sm text-gray-600">{msg}</p>
                 </div>
               ))}
@@ -683,7 +752,7 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             <div className="space-y-4">
               {activeIcp.adHooks.map((hook, i) => (
                 <div key={i} className="flex gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-600 shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-homie-primary/10 flex items-center justify-center text-homie-primary shrink-0">
                     <Zap size={14} />
                   </div>
                   <p className="text-sm text-gray-600 font-medium">{hook}</p>
