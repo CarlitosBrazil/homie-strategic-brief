@@ -1432,12 +1432,12 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
       </div>
 
       {/* Why Tracking is Strategic */}
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+      <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 text-white premium-shadow">
         <h3 className="text-xl font-bold font-display mb-4">Warum Tracking hier strategisch ist</h3>
-        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+        <p className="text-sm text-slate-300 leading-relaxed mb-4">
           Bei homie ist Tracking keine reine Reporting-Funktion, sondern die Voraussetzung für belastbare Wachstumsentscheidungen. Erst wenn Paid-Daten, CRM-Stufen, Sales-Feedback und spätere Umsatzsignale sauber zusammenlaufen, lässt sich erkennen, welche Nachfrage tatsächlich wirtschaftlichen Wert erzeugt.
         </p>
-        <p className="text-sm text-gray-700 leading-relaxed">
+        <p className="text-sm text-slate-300 leading-relaxed">
           Gerade in einem Setup mit Trial- und Demo-Pfaden entscheidet Tracking darüber, ob das System auf echte Kaufabsicht optimiert oder nur auf sichtbare Aktivität. In diesem Sinne ist Messbarkeit nicht nachgelagert, sondern ein Teil der Growth-Architektur selbst.
         </p>
       </div>
@@ -1445,7 +1445,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
           <h3 className="text-xl font-bold font-display mb-8">Enterprise Measurement & Attributions-Architektur</h3>
-          <div className="relative h-[300px] flex items-center justify-between px-12">
+          <div className="relative h-[120px] flex items-center justify-between px-12">
             {/* Connector Line */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-emerald-500 via-blue-500 to-indigo-500 -translate-y-1/2 opacity-20" />
 
@@ -1463,69 +1463,107 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               </div>
             ))}
           </div>
+          <div className="mt-8 p-6 bg-slate-950 rounded-2xl border border-slate-800">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Strategische Implementierungs-Guidelines</h4>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <li className="flex gap-3 text-sm text-slate-300">
+                <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
+                <span>GA4 als primäre Verhaltens-Ebene; HubSpot als Single Source of Truth für Umsatz-Attribution.</span>
+              </li>
+              <li className="flex gap-3 text-sm text-slate-300">
+                <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
+                <span>Lückenlose Einbindung DSGVO-konformer Tags via Google Consent Mode v2.</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="p-8 rounded-2xl bg-slate-950 text-white premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6">Messbare Schlüssel-Events</h3>
+        <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 premium-shadow text-white">
+          <h3 className="text-xl font-bold font-display mb-6">Tracking-Validierung & Sanity Check</h3>
           <div className="space-y-4">
-            {measurementData.events.map((ev, i) => (
-              <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
-                <div className="flex justify-between items-start mb-1">
-                  <span className="text-[9px] font-bold text-blue-400 uppercase">{ev.category}</span>
-                  <code className="text-[10px] text-slate-400">{ev.event}</code>
+            {[
+              "GTM-Container auf allen Seiten geladen",
+              "Consent Mode v2 standardmäßig verweigert",
+              "GA4 Konfigurations-Tag feuert überall",
+              "HubSpot Tracking-Code aktiv",
+              "LinkedIn Insight Tag feuert bei Conversion",
+              "Erweiterte Conversions in Ads aktiv",
+              "Job für Offline-Conversion-Import geplant"
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-3 p-3 bg-slate-900 rounded-xl border border-slate-800">
+                <div className="w-5 h-5 rounded border border-slate-700 flex items-center justify-center bg-slate-950">
+                  {i < 3 && <CheckCircle2 size={12} className="text-blue-500" />}
                 </div>
-                <p className="text-xs text-slate-300">{ev.description}</p>
+                <span className="text-xs font-medium text-slate-300">{item}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6">CRM Lifecycle & Funnel-Stufen</h3>
-          <div className="space-y-4">
-            {measurementData.lifecycle.map((step, i) => (
-              <div key={i} className="flex gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-homie-primary/10 text-homie-primary flex items-center justify-center font-bold text-sm shrink-0">
-                  {i + 1}
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 text-sm">{step.stage}</h4>
-                  <p className="text-xs text-gray-500">{step.definition}</p>
-                </div>
+      <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
+        <h3 className="text-xl font-bold font-display mb-8">CRM Lifecycle-Architektur & Funnel-Mapping</h3>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative">
+          {/* Connector Line (Horizontal) */}
+          <div className="absolute top-8 left-0 w-full h-px bg-slate-800 hidden md:block" />
+
+          {measurementData.lifecycle.map((stage, i) => (
+            <div key={stage.stage} className="relative z-10 flex flex-col items-center text-center md:w-1/5 group">
+              <div className="w-16 h-16 rounded-full bg-white text-slate-950 border-4 border-slate-800 shadow-sm flex items-center justify-center text-xl font-black group-hover:scale-110 transition-transform mb-4">
+                {i + 1}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm font-bold text-white mb-1">{stage.stage}</p>
+                <p className="text-[10px] text-slate-400 leading-tight px-2 max-w-[140px]">{stage.definition}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow flex flex-col h-full">
+          <h4 className="text-sm font-bold text-gray-900 mb-8 uppercase tracking-widest">Event-Taxonomie</h4>
+          <div className="space-y-5 flex-1 flex flex-col justify-center">
+            {[
+              { label: 'Intent-Besuch:', value: 'view_enterprise' },
+              { label: 'Haupt-Conv. (Trial):', value: 'start_free_trial' },
+              { label: 'Haupt-Conv. (Demo):', value: 'book_demo' },
+              { label: 'Produkt-Aktion:', value: 'chat_open' }
+            ].map(item => (
+              <div key={item.label} className="flex justify-between items-center text-sm group">
+                <span className="text-gray-600 font-medium">{item.label}</span>
+                <span className="font-mono bg-gray-50 px-3 py-1 rounded-lg border border-gray-100 text-gray-500 transition-colors">
+                  {item.value}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6 text-gray-900">Scoring & Lead-Qualifizierung</h3>
-          <div className="space-y-6">
+        <div className="p-8 rounded-3xl bg-blue-600 text-white shadow-xl flex flex-col h-full">
+          <h4 className="text-sm font-bold text-white mb-8 uppercase tracking-widest">Lead-Scoring Rubrik</h4>
+          <div className="space-y-8 flex-1 flex flex-col justify-center">
             <div>
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Profile Fit (Wer?)</h4>
+              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-4">Fit-Score (Firmografie)</p>
               <div className="flex flex-wrap gap-2">
-                {measurementData.scoring.fit.map(f => (
-                  <span key={f} className="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-medium border border-emerald-100">
-                    {f}
+                {measurementData.scoring.fit.map(tag => (
+                  <span key={tag} className="px-3 py-1.5 bg-white/10 rounded-xl text-[10px] font-bold border border-white/10">
+                    {tag}
                   </span>
                 ))}
               </div>
             </div>
+
             <div>
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Intent Signal (Warum jetzt?)</h4>
+              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-4">Intent-Score (Verhalten)</p>
               <div className="flex flex-wrap gap-2">
-                {measurementData.scoring.intent.map(s => (
-                  <span key={s} className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium border border-blue-100">
-                    {s}
+                {measurementData.scoring.intent.map(tag => (
+                  <span key={tag} className="px-3 py-1.5 bg-white/20 rounded-xl text-[10px] font-bold border border-white/20">
+                    {tag}
                   </span>
                 ))}
               </div>
-            </div>
-            <div className="mt-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-              <p className="text-xs text-gray-500 italic">
-                Qualifizierte Leads werden automatisch an Werbeplattformen zurückgemeldet (Offline Conversion Tracking), um die Signalqualität der Algorithmen kontinuierlich zu steigern.
-              </p>
             </div>
           </div>
         </div>
