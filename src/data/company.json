@@ -1,0 +1,8 @@
+{
+  "valueProps": [
+    { "title": "Prop 1", "description": "Desc 1", "sourceId": "1" },
+    { "title": "Prop 2", "description": "Desc 2", "sourceId": "2" },
+    { "title": "Prop 3", "description": "Desc 3", "sourceId": "3" }
+  ],
+  "differentiation": ["Diff 1", "Diff 2"]
+}

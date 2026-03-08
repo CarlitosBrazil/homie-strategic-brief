@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "name": "ICP 1",
+    "firmographics": "Firm 1",
+    "buyingCommittee": ["Role 1"],
+    "pains": ["Pain 1"],
+    "messaging": ["Msg 1"],
+    "adHooks": ["Hook 1"],
+    "jtbd": "JTBD 1"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "EXP-01",
+    "status": "Aktiv",
+    "name": "Pricing-Page Redesign",
+    "hypothesis": "Eine klarere Darstellung der Tiers erhöht die Conversion Rate um 15%.",
+    "metric": "Trial Signups"
+  },
+  {
+    "id": "EXP-02",
+    "status": "Geplant",
+    "name": "LinkedIn Lead Gen Forms",
+    "hypothesis": "Native Forms senken den CPL im Vergleich zu Landing Pages um 20%.",
+    "metric": "Cost per Lead (CPL)"
+  },
+  {
+    "id": "EXP-03",
+    "status": "Geplant",
+    "name": "Onboarding-E-Mail-Sequenz",
+    "hypothesis": "Personalisierte E-Mails basierend auf der Rolle erhöhen die Aktivierungsrate.",
+    "metric": "Aktivierungsrate"
+  }
+]

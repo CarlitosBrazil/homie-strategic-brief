@@ -1,0 +1,33 @@
+{
+  "stack": [
+    {
+      "tool": "Google Analytics 4",
+      "purpose": "Web-Tracking & Event-Messung",
+      "status": "Aktiv"
+    },
+    {
+      "tool": "HubSpot CRM",
+      "purpose": "Lead-Management & Pipeline-Tracking",
+      "status": "Aktiv"
+    },
+    {
+      "tool": "Google Tag Manager",
+      "purpose": "Tag-Verwaltung & Pixel-Integration",
+      "status": "Aktiv"
+    }
+  ],
+  "attribution": [
+    {
+      "stage": "First Touch",
+      "model": "Position-Based (U-Shape)"
+    },
+    {
+      "stage": "Lead Creation",
+      "model": "Linear"
+    },
+    {
+      "stage": "Opportunity Creation",
+      "model": "Time Decay"
+    }
+  ]
+}

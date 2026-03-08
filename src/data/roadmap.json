@@ -1,0 +1,32 @@
+[
+  {
+    "phase": "Monat 1: Foundation",
+    "focus": "Tracking & Setup",
+    "deliverables": [
+      "HubSpot & GA4 Integration",
+      "Offline Conversion Tracking Setup",
+      "Kampagnen-Strukturierung"
+    ],
+    "outcome": "Saubere Datenbasis & erste Kampagnen live"
+  },
+  {
+    "phase": "Monat 2: Scale",
+    "focus": "Budget-Skalierung & Optimierung",
+    "deliverables": [
+      "A/B-Testing von Creatives",
+      "Retargeting-Kampagnen aktivieren",
+      "Budget-Shift zu Top-Performern"
+    ],
+    "outcome": "Senkung des CPL um 15% & Steigerung der Lead-Qualität"
+  },
+  {
+    "phase": "Monat 3: Expand",
+    "focus": "Neue Kanäle & Experimente",
+    "deliverables": [
+      "Start von LinkedIn ABM",
+      "Erste Growth-Experimente (z.B. Pricing-Page)",
+      "Webinar-Promotion"
+    ],
+    "outcome": "Diversifizierung der Lead-Quellen & Pipeline-Wachstum"
+  }
+]
