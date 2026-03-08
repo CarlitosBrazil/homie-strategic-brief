@@ -387,7 +387,7 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
           {[
             { day: '30', title: 'Fundament', desc: 'Tracking aktiv, erste SQLs attribuiert, Basis-Kampagnen in der Google-Suche laufen.', color: 'bg-emerald-500', ring: 'ring-emerald-100', text: 'text-emerald-700', badge: 'bg-emerald-50', kpi: 'Erster attribuierbarer SQL' },
             { day: '60', title: 'Skalierung', desc: 'Stabilisierung des SQL-Volumens, Retargeting aktiv, erste branchenspezifische Playbooks im Einsatz.', color: 'bg-blue-500', ring: 'ring-blue-100', text: 'text-blue-700', badge: 'bg-blue-50', kpi: '10+ SQLs / Monat' },
-            { day: '90', title: 'System Live', desc: 'Wiederholbarer Growth-Engine – ABM erweitert, CAC-zu-ARR Benchmarks etabliert.', color: 'bg-indigo-500', ring: 'ring-indigo-100', text: 'text-indigo-700', badge: 'bg-indigo-50', kpi: 'Vorhersehbare Pipeline' }
+            { day: '90', title: 'System Live', desc: 'Wiederholbarer Growth-Engine – ABM erweitert, CAC-zu-ARR Benchmarks etabliert.', color: 'bg-blue-400/80', ring: 'ring-blue-100/50', text: 'text-blue-600', badge: 'bg-blue-50', kpi: 'Vorhersehbare Pipeline' }
           ].map((item, i) => (
             <div key={item.day} className={cn("relative z-10 flex flex-col p-6 rounded-2xl border border-gray-100 shadow-sm", item.badge)}>
               <div className="flex items-center gap-4 mb-4">
@@ -937,7 +937,7 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             <tbody className="divide-y divide-slate-900">
               {competitorsData.map((comp) => (
                 <tr key={comp.name} className="hover:bg-slate-900/50 transition-colors cursor-pointer" onClick={() => setSelectedCompetitor(comp)}>
-                  <td className="py-4 font-bold text-blue-400">{comp.name}</td>
+                  <td className="py-4 font-bold text-blue-400/80">{comp.name}</td>
                   <td className="py-4 text-sm text-slate-300">{comp.icpFocus}</td>
                   <td className="py-4 text-sm text-slate-300">{comp.deployment}</td>
                   <td className="py-4 text-sm text-slate-300">{comp.dataNeeds}</td>
@@ -1463,15 +1463,15 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               </div>
             ))}
           </div>
-          <div className="p-6 bg-slate-950 rounded-2xl border border-slate-800 mt-2">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Strategische Implementierungs-Guidelines</h4>
+          <div className="p-6 bg-[#040814] rounded-2xl border border-slate-800/80 mt-2">
+            <h4 className="text-[10px] font-bold text-blue-400/80 uppercase tracking-widest mb-4">Strategische Implementierungs-Guidelines</h4>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <li className="flex gap-3 text-sm text-slate-300 items-start">
-                <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
+                <CheckCircle2 size={16} className="text-blue-400/80 shrink-0 mt-0.5" />
                 <span>GA4 als primäre Verhaltens-Ebene; HubSpot als Single Source of Truth für Umsatz-Attribution.</span>
               </li>
               <li className="flex gap-3 text-sm text-slate-300 items-start">
-                <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
+                <CheckCircle2 size={16} className="text-blue-400/80 shrink-0 mt-0.5" />
                 <span>Lückenlose Einbindung DSGVO-konformer Tags via Google Consent Mode v2.</span>
               </li>
             </ul>
@@ -1492,7 +1492,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 bg-slate-900 rounded-xl border border-slate-800">
                 <div className="w-5 h-5 rounded border border-slate-700 flex items-center justify-center bg-slate-950">
-                  {i < 3 && <CheckCircle2 size={12} className="text-blue-500" />}
+                  {i < 3 && <CheckCircle2 size={12} className="text-blue-400/80" />}
                 </div>
                 <span className="text-xs font-medium text-slate-300">{item}</span>
               </div>
@@ -1580,7 +1580,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             { title: 'Wachstum muss die Qualität des wiederkehrenden Umsatzes verbessern', desc: 'Nicht nur Conversions, sondern Retention, Expansion und Revenue-Qualität entscheiden über die Tragfähigkeit des Modells.' }
           ].map((item, i) => (
             <div key={i} className="p-6 bg-[#0f172a]/40 rounded-2xl border border-slate-800/60 shadow-inner flex flex-col justify-start">
-              <h4 className="text-[10px] font-bold text-blue-500 mb-4 uppercase tracking-[0.15em] leading-relaxed">{item.title}</h4>
+              <h4 className="text-[10px] font-bold text-blue-400/80 mb-4 uppercase tracking-[0.15em] leading-relaxed">{item.title}</h4>
               <p className="text-[11px] text-slate-300 leading-relaxed font-medium">{item.desc}</p>
             </div>
           ))}
@@ -1607,37 +1607,37 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
   return (
     <div className="space-y-8">
       {/* Experiment Logic */}
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-4 text-gray-900">Experiment-Logik</h3>
-        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+      <div className="p-8 rounded-3xl bg-[#0B1120] border border-slate-800/60 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-4 text-white">Experiment-Logik</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-4">
           Experimente dienen hier nicht der reinen Conversion-Optimierung, sondern der Validierung von Signalqualität, ICP-Fit und Pipeline-Wert. Die zentrale Frage ist nicht nur, welche Kampagne günstiger Leads erzeugt, sondern welche Tests die belastbarsten Hinweise auf qualifizierte Pipeline und wiederholbares Wachstum liefern.
         </p>
-        <p className="text-sm text-gray-700 leading-relaxed">
+        <p className="text-sm text-slate-300 leading-relaxed">
           Gerade in einem Setup mit Trial- und Demo-Pfaden muss das Experimentieren enger an Sales-Feedback, Lead-Scoring und spätere Umsatzsignale gekoppelt werden. Erst dann entsteht ein Testprogramm, das nicht Aktivität maximiert, sondern Entscheidungsqualität verbessert.
         </p>
       </div>
 
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow overflow-hidden">
-        <h3 className="text-xl font-bold font-display mb-6 text-gray-900">Strategischer Growth-Experiment Backlog</h3>
+      <div className="p-8 rounded-3xl bg-white border border-slate-100 premium-shadow overflow-hidden">
+        <h3 className="text-xl font-bold font-display mb-6 text-slate-900">Strategischer Growth-Experiment Backlog</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Experiment</th>
-                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">KPI</th>
-                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Erfolgskriterium</th>
-                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Zieldatum</th>
+              <tr className="border-b border-slate-100">
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Experiment</th>
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">KPI</th>
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Erfolgskriterium</th>
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Zieldatum</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-slate-50">
               {experimentsData.map((exp) => (
-                <tr key={exp.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4">
-                    <p className="font-bold text-homie-primary">{exp.hypothesis}</p>
+                <tr key={exp.id} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="py-4 pr-6">
+                    <p className="font-semibold text-indigo-900 leading-relaxed">{exp.hypothesis}</p>
                   </td>
-                  <td className="py-4 text-sm text-gray-600">{exp.kpi}</td>
-                  <td className="py-4 text-sm font-bold text-homie-primary">{exp.success}</td>
-                  <td className="py-4 text-sm text-gray-400">{exp.date}</td>
+                  <td className="py-4 pr-6 text-sm font-medium text-slate-600">{exp.kpi}</td>
+                  <td className="py-4 pr-6 text-sm font-semibold text-blue-600">{exp.success}</td>
+                  <td className="py-4 text-sm font-medium text-slate-400 whitespace-nowrap">{exp.date}</td>
                 </tr>
               ))}
             </tbody>
