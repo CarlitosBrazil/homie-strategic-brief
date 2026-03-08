@@ -767,6 +767,69 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
 }
 
 function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const competitorsData = [
+    {
+      "name": "Zoovu",
+      "positioning": "KI-gestützte Produktentdeckung: KI-Suche + Guided Selling.",
+      "icpFocus": "Enterprise-Marken/Einzelhändler; B2B-Kataloge.",
+      "deployment": "Web-Erlebnisse: Shopping-Assistent, Produktfinder.",
+      "dataNeeds": "Strukturierte Produktdaten; Kataloge.",
+      "winCounter": "homie-Vorteil: Überlegene Omnichannel/POS-Integration und radikal schnellere Time-to-Value (Minuten statt Monate der Implementierung).",
+      "x": 0.8,
+      "y": 0.9
+    },
+    {
+      "name": "iAdvize",
+      "positioning": "KI-Shopping-Assistent mit Fokus auf Conversion.",
+      "icpFocus": "350+ E-Commerce-Marken.",
+      "deployment": "On-Site KI-Assistent; testphasenbasiertes Onboarding.",
+      "dataNeeds": "SKU/Katalog, PDP-Kontext, Preis-FAQs.",
+      "winCounter": "homie-Vorteil: Tiefere ERP/PIM-Systemintegration und native, EU-fokussierte DSGVO-Konformität für Enterprise-Sicherheit.",
+      "x": 0.3,
+      "y": 0.7
+    },
+    {
+      "name": "Constructor",
+      "positioning": "KI-native Suche + Entdeckung im Handel.",
+      "icpFocus": "Enterprise E-Commerce-Marken.",
+      "deployment": "Suche, Browsing, Empfehlungen.",
+      "dataNeeds": "Clickstream, Produktkatalog, Conversion-Events.",
+      "winCounter": "homie-Vorteil: Über die Suche hinaus – ein echter beratender Begleiter, der Kunden durch komplexe, produktübergreifende Projekte führt.",
+      "x": 0.2,
+      "y": 0.8
+    },
+    {
+      "name": "Coveo",
+      "positioning": "KI-Suche + generative Produktentdeckung.",
+      "icpFocus": "Enterprise E-Commerce + B2B-Kataloge.",
+      "deployment": "Suche, Empfehlungen, Konversation.",
+      "dataNeeds": "Katalog + Verhaltensdaten.",
+      "winCounter": "homie-Vorteil: Spezialisierte 'Berater'-Logik für den Handel, die generische Suchrelevanz in High-Intent-Szenarien übertrifft.",
+      "x": 0.4,
+      "y": 0.6
+    },
+    {
+      "name": "Algolia",
+      "positioning": "KI-Such- & Entdeckungsplattform.",
+      "icpFocus": "Breit (E-Commerce + SaaS + Apps).",
+      "deployment": "API-first Suche/Empfehlung.",
+      "dataNeeds": "Indexierungssätze + Klick/Conversion-Events.",
+      "winCounter": "homie-Vorteil: Eine schlüsselfertige, ergebnisorientierte Lösung im Vergleich zu Algolias entwicklerzentrierten Bausteinen.",
+      "x": 0.1,
+      "y": 0.5
+    },
+    {
+      "name": "moinAI",
+      "positioning": "KI-Plattform für automatisierte Kundenkommunikation.",
+      "icpFocus": "Kundenservice + Marketing; DACH + EU.",
+      "deployment": "Chatbots + Live-Chat + KI-Agenten.",
+      "dataNeeds": "Wissensdatenbank + Übergaberegeln.",
+      "winCounter": "homie-Vorteil: Speziell für Handelsabsichten und Conversion entwickelt, während moinAI auf allgemeine Service- und FAQ-Automatisierung fokussiert bleibt.",
+      "x": 0.5,
+      "y": 0.3
+    }
+  ];
+
   const [selectedCompetitor, setSelectedCompetitor] = useState<any>(null);
 
   return (
@@ -777,7 +840,7 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
           <div className="flex justify-between items-center mb-8">
             <h3 className="text-xl font-bold font-display">Positionierungskarte</h3>
             <div className="flex gap-4 text-[10px] font-bold text-gray-400 uppercase">
-              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-blue-600" /> homie</div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-homie-primary" /> homie</div>
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-gray-300" /> Wettbewerber</div>
             </div>
           </div>
@@ -816,10 +879,10 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
-              className="absolute w-6 h-6 rounded-full bg-blue-600 border-4 border-white shadow-lg z-10"
+              className="absolute w-6 h-6 rounded-full bg-homie-primary border-4 border-white shadow-lg z-10"
               style={{ left: '85%', bottom: '85%', transform: 'translate(-50%, 50%)' }}
             >
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-blue-600 text-white rounded shadow-sm text-[10px] font-bold whitespace-nowrap">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-homie-primary text-white rounded shadow-sm text-[10px] font-bold whitespace-nowrap">
                 homie
               </div>
             </motion.div>
@@ -841,11 +904,11 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
                 <p className="text-sm text-gray-600">{selectedCompetitor.positioning}</p>
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">ICP Focus</h4>
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">ICP-Fokus</h4>
                 <p className="text-sm text-gray-600">{selectedCompetitor.icpFocus}</p>
               </div>
-              <div className="p-4 bg-blue-600/5 border border-blue-600/10 rounded-2xl">
-                <h4 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Wie homie gewinnt</h4>
+              <div className="p-4 bg-homie-primary/5 border border-homie-primary/10 rounded-2xl">
+                <h4 className="text-xs font-bold text-homie-primary uppercase tracking-widest mb-2">Wie homie gewinnt</h4>
                 <p className="text-sm text-gray-700 font-medium">{selectedCompetitor.winCounter}</p>
               </div>
             </div>
