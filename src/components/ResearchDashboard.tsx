@@ -100,7 +100,7 @@ export default function ResearchDashboard() {
     { id: 'icps', label: 'ICPs', title: 'Ideale Kundenprofile & Messaging', icon: Users },
     { id: 'competitors', label: 'Wettbewerb', title: 'Wettbewerbslandschaft', icon: Map },
     { id: 'funnel', label: 'GTM Funnel', title: 'Go-to-Market Funnel & Routing', icon: Layers },
-    { id: 'paid', label: 'Bezahlt', title: 'Plan für bezahlte Akquise', icon: Zap },
+    { id: 'paid', label: 'Akquise', title: 'Plan für Akquise', icon: Zap },
     { id: 'measurement', label: 'Messung', title: 'Messung & Attribution', icon: BarChart3 },
     { id: 'experiments', label: 'Experimente', title: 'Experiment-Backlog & Testplan', icon: Zap },
     { id: 'roadmap', label: '90-Tage Plan', title: '90-Tage Implementierungsplan', icon: Rocket },
@@ -952,6 +952,18 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 }
 
 function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const modelData = {
+    "assumptions": {
+      "sessions": 10000,
+      "engagementRate": 0.15,
+      "leadRate": 0.08,
+      "mqlRate": 0.5,
+      "sqlRate": 0.4,
+      "closeRate": 0.2,
+      "avgArr": 18000
+    }
+  };
+
   const a = modelData.assumptions;
 
   // Explicit step-by-step computation (lead rate applies to engaged sessions)
@@ -965,8 +977,8 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
   const arrRounded = Math.round(arrExact / 1000) * 1000;
 
   const funnelData = [
-    { stage: 'Paid Sessions', volume: a.sessions },
-    { stage: 'Engaged Sessions', volume: engagedSessions },
+    { stage: 'Paid-Sitzungen', volume: a.sessions },
+    { stage: 'Engaged-Sitzungen', volume: engagedSessions },
     { stage: 'Leads (Trial+Demo)', volume: leads },
     { stage: 'MQLs', volume: mqls },
     { stage: 'SQLs', volume: sqls },
@@ -988,7 +1000,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-          <h3 className="text-xl font-bold font-display mb-8">Wachstums-Funnel (Szenario: Basis)</h3>
+          <h3 className="text-xl font-bold font-display mb-8">Growth-Funnel: Strategisches Basis-Szenario</h3>
           <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -1023,7 +1035,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
 
         <div className="space-y-6">
           <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-            <h3 className="text-xl font-bold font-display mb-6">Pipeline-Annahmen</h3>
+            <h3 className="text-xl font-bold font-display mb-6">Strategische Pipeline-Parameter</h3>
             <div className="grid grid-cols-2 gap-4">
               {([
                 { key: 'Sitzungen', val: a.sessions.toLocaleString() },
@@ -1036,7 +1048,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
               ] as { key: string; val: string }[]).map(({ key, val }) => (
                 <div key={key} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
                   <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{key}</p>
-                  <p className="text-xl font-bold text-blue-600">{val}</p>
+                  <p className="text-xl font-bold text-homie-primary">{val}</p>
                 </div>
               ))}
             </div>
@@ -1045,8 +1057,8 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
             </p>
           </div>
 
-          <div className="p-8 rounded-3xl bg-blue-600 text-white">
-            <h3 className="text-xl font-bold font-display mb-6">Prognostizierte Ergebnisse</h3>
+          <div className="p-8 rounded-3xl bg-homie-primary text-white">
+            <h3 className="text-xl font-bold font-display mb-6">Projizierte Performance-Outcomes</h3>
             <div className="flex justify-between items-end">
               <div>
                 <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-1">Zusätzlicher monatlicher ARR</p>
@@ -1079,7 +1091,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
               {funnelSteps.map(({ label, value, note }) => (
                 <tr key={label} className="hover:bg-gray-50 transition-colors">
                   <td className="py-3 font-bold text-gray-800">{label}</td>
-                  <td className="py-3 pr-8 font-mono font-bold text-blue-600 text-right">{value}</td>
+                  <td className="py-3 pr-8 font-mono font-bold text-homie-primary text-right">{value}</td>
                   <td className="py-3 text-sm text-gray-500 italic">{note}</td>
                 </tr>
               ))}
@@ -1088,22 +1100,42 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
         </div>
       </div>
 
+      {/* Paid Performance as Revenue System */}
+      <div className="p-8 rounded-3xl bg-gray-50 border border-gray-100">
+        <h3 className="text-lg font-bold mb-4">Paid Performance als Revenue-System</h3>
+        <p className="text-sm text-gray-600 mb-6">
+          Paid sollte nicht isoliert bewertet werden. Budget schafft nur dann Wert, wenn daraus qualifizierte Pipeline entsteht, Sales diese Pipeline verarbeiten kann und die gewonnenen Kunden stark genug sind, um zu bleiben und sich weiterzuentwickeln.
+          <br /><br />
+          Aus dieser Perspektive ist Paid nicht einfach ein Lead-Kanal, sondern ein Input in ein größeres Revenue-System. Erst wenn Signalqualität, Routing, Sales-Verarbeitung und Retention zusammenpassen, entsteht skalierbares Wachstum.
+        </p>
+        <div className="flex items-center gap-4 flex-wrap">
+          {['Budget', 'Qualifizierte Pipeline', 'Sales-Kapazität', 'Retained ARR'].map((step, i) => (
+            <React.Fragment key={step}>
+              <div className="px-4 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-homie-primary shadow-sm">
+                {step}
+              </div>
+              {i < 3 && <ArrowRight size={14} className="text-gray-300" />}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
       {/* Dual Path Visualization */}
       <div className="space-y-4">
-        <h3 className="text-xl font-bold font-display ml-2">Routing-Logik nach Intent-Stufen. <Citation id="3" onClick={onOpenEvidence} /></h3>
+        <h3 className="text-xl font-bold font-display ml-2">Intelligente Routing-Logik basierend auf Intent-Segmentierung. <Citation id="3" onClick={onOpenEvidence} /></h3>
 
         {/* Path 1: PLG */}
         <div className="p-6 rounded-2xl bg-white border border-gray-100 premium-shadow relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-blue-500" />
           <div className="flex flex-col md:flex-row items-center gap-4 relative z-10">
             <div className="md:w-64">
-              <h4 className="font-bold text-gray-900">Pfad 1: PLG / Trial-Led Modell</h4>
+              <h4 className="font-bold text-gray-900">Pfad 1: Product-Led Growth (PLG) / Trial-First Motion</h4>
             </div>
 
             <div className="flex-1 flex flex-wrap items-center gap-3">
               <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
                 <p className="text-[10px] font-bold text-gray-900 mb-1">High-Intent Anzeige</p>
-                <p className="text-[10px] text-gray-400 italic">z.B.'Shopify KI Berater'</p>
+                <p className="text-[10px] text-gray-400 italic">z.B. 'Shopify KI Berater'</p>
               </div>
               <ChevronRight size={16} className="text-gray-200" />
               <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
@@ -1111,7 +1143,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
                 <p className="text-[10px] text-gray-400 italic">Live in wenigen Minuten</p>
               </div>
               <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-blue-600 p-3 rounded-xl min-w-[140px] shadow-lg shadow-blue-600/20">
+              <div className="bg-homie-primary p-3 rounded-xl min-w-[140px] shadow-lg shadow-homie-primary/20">
                 <p className="text-[10px] font-bold text-white mb-1">Testphase starten</p>
                 <p className="text-[10px] text-white/50 italic">Primäre Conversion</p>
               </div>
@@ -1133,13 +1165,13 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
           <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500" />
           <div className="flex flex-col md:flex-row items-center gap-4 relative z-10">
             <div className="md:w-64">
-              <h4 className="font-bold text-gray-900">Pfad 2: Sales-Led Enterprise Modell</h4>
+              <h4 className="font-bold text-gray-900">Pfad 2: Sales-Led Growth (SLG) / Enterprise-First Motion</h4>
             </div>
 
             <div className="flex-1 flex flex-wrap items-center gap-3">
               <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
                 <p className="text-[10px] font-bold text-gray-900 mb-1">Omnichannel Anzeige</p>
-                <p className="text-[10px] text-gray-400 italic">z.B.'POS KI Terminal'</p>
+                <p className="text-[10px] text-gray-400 italic">z.B. 'POS KI Terminal'</p>
               </div>
               <ChevronRight size={16} className="text-gray-200" />
               <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
@@ -1171,69 +1203,182 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
 }
 
 function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const paidPlanData = {
+    "budget": [
+      { "channel": "Google Search", "budget": "8.000-12.000", "rationale": "High-Intent Capture: Erfassung der aktiven Nachfrage für kategoriespezifische und lösungsorientierte Suchbegriffe." },
+      { "channel": "LinkedIn ABM", "budget": "6.000-10.000", "rationale": "Enterprise Pipeline-Aufbau: Strategisches ABM-Targeting von Entscheidungsträgern und Einkaufsgremien in Zielaccounts." },
+      { "channel": "Meta Retargeting", "budget": "1.500-3.000", "rationale": "High-Value Retargeting: Reibungsarme Verstärkung für Website-Besucher mit hoher Kaufabsicht und Testphasen-Teilnehmer." }
+    ]
+  };
+
+  const modelData = {
+    "assumptions": {
+      "sessions": 10000,
+      "engagementRate": 0.15,
+      "leadRate": 0.08,
+      "mqlRate": 0.5,
+      "sqlRate": 0.4,
+      "closeRate": 0.2
+    }
+  };
+
   return (
     <div className="space-y-8">
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-6">Budget-Allokation (Q1)</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {paidPlanData.channels.map((channel) => (
-            <div key={channel.name} className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
-              <div className="flex justify-between items-center mb-4">
-                <h4 className="font-bold text-gray-900">{channel.name}</h4>
-                <span className="text-sm font-bold text-blue-600">{channel.allocation}</span>
-              </div>
-              <p className="text-sm text-gray-600 mb-4">{channel.focus}</p>
-              <div className="space-y-2">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Ziel-KPIs</p>
-                {channel.kpis.map(kpi => (
-                  <div key={kpi} className="flex items-center gap-2 text-sm text-gray-700">
-                    <Target size={14} className="text-blue-500" />
-                    {kpi}
-                  </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Google Search Card */}
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-blue-600">
+              <Search size={22} />
+            </div>
+            <h3 className="text-xl font-bold font-display text-gray-900">Google Search</h3>
+          </div>
+          <p className="text-sm text-gray-500 mb-8 font-medium">Präzise Erfassung von High-Intent-Nachfrage für wettbewerbsrelevante Kategorie- und Lösungsbegriffe.</p>
+
+          <div className="space-y-6">
+            <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+              <h4 className="text-sm font-bold text-blue-600 mb-4">Category Search</h4>
+              <div className="flex flex-wrap gap-2">
+                {['KI-Shopping-Assistent', 'Guided Selling Software', 'E-Commerce KI-Assistent'].map(kw => (
+                  <span key={kw} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-[10px] font-bold text-gray-400">
+                    {kw}
+                  </span>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6">Kampagnen-Struktur</h3>
-          <div className="space-y-4">
-            {paidPlanData.campaigns.map((camp, i) => (
-              <div key={i} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase">
-                    {camp.type}
+            <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+              <h4 className="text-sm font-bold text-blue-600 mb-4">Integration Search</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Shopify KI-Assistent', 'Shopware Produktberater', 'GTM Consent Mode'].map(kw => (
+                  <span key={kw} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-[10px] font-bold text-gray-400">
+                    {kw}
                   </span>
-                  <h4 className="font-bold text-gray-900">{camp.name}</h4>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* LinkedIn ABM Card */}
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-blue-700">
+              <Linkedin size={22} />
+            </div>
+            <h3 className="text-xl font-bold font-display text-gray-900">LinkedIn ABM</h3>
+          </div>
+          <p className="text-sm text-gray-500 mb-8 font-medium">Skalierbarer Enterprise-Pipeline-Aufbau durch strategisches ABM-Targeting relevanter Einkaufsgremien.</p>
+
+          <div className="space-y-4">
+            <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+              <h4 className="text-sm font-bold text-blue-600 mb-1">Tier 1 (Named)</h4>
+              <p className="text-[10px] text-gray-400 mb-3">Baumarktketten, Elektronikfachmärkte, große Fachhändler.</p>
+              <p className="text-[11px] font-bold text-blue-700">Angebot: Retail KI Berater ROI & Compliance (Demo)</p>
+            </div>
+
+            <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
+              <h4 className="text-sm font-bold text-blue-600 mb-1">Tier 2 (Category)</h4>
+              <p className="text-[10px] text-gray-400 mb-3">E-Commerce-Händler + B2B-Distributoren nach Firmografie.</p>
+              <p className="text-[11px] font-bold text-blue-700">Angebot: DIY Vertical Playbook (Download)</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Meta Retargeting Card */}
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-pink-600">
+              <Instagram size={22} />
+            </div>
+            <h3 className="text-xl font-bold font-display text-gray-900">Meta Retargeting</h3>
+          </div>
+          <p className="text-sm text-gray-500 mb-8 font-medium">Reibungslose Conversion-Verstärkung für Website-Besucher und Trial-Nutzer zur Maximierung des ROAS.</p>
+
+          <div className="space-y-5 px-4 pt-4">
+            {[
+              'Website-Besucher',
+              'Preisseiten-Besucher',
+              'Testnutzer'
+            ].map(item => (
+              <div key={item} className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center">
+                  <Check size={12} className="text-blue-500" />
                 </div>
-                <p className="text-sm text-gray-600">{camp.description}</p>
+                <span className="text-sm font-medium text-gray-600">{item}</span>
               </div>
             ))}
           </div>
         </div>
+      </div>
 
-        <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-          <h3 className="text-xl font-bold font-display mb-6">Retargeting-Logik</h3>
-          <div className="space-y-6">
-            <div className="relative pl-6 border-l-2 border-slate-800">
-              <div className="absolute w-3 h-3 bg-blue-500 rounded-full -left-[7px] top-1.5" />
-              <h4 className="font-bold mb-1">Besucher (Kein Intent)</h4>
-              <p className="text-sm text-slate-400">Ausschluss aus Performance-Kampagnen nach 3 Tagen ohne Interaktion.</p>
-            </div>
-            <div className="relative pl-6 border-l-2 border-slate-800">
-              <div className="absolute w-3 h-3 bg-emerald-500 rounded-full -left-[7px] top-1.5" />
-              <h4 className="font-bold mb-1">Pricing-Page Besucher</h4>
-              <p className="text-sm text-slate-400">Retargeting via LinkedIn mit Case Studies (Social Proof).</p>
-            </div>
-            <div className="relative pl-6 border-l-2 border-slate-800">
-              <div className="absolute w-3 h-3 bg-purple-500 rounded-full -left-[7px] top-1.5" />
-              <h4 className="font-bold mb-1">Abgebrochener Trial-Signup</h4>
-              <p className="text-sm text-slate-400">Aggressives Retargeting via Meta/Google Display (Setup-Hilfe anbieten).</p>
-            </div>
-          </div>
+      <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 premium-shadow text-white">
+        <h3 className="text-xl font-bold font-display mb-6">Strategische Budget-Allokation (Initiales Starter-System)</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-slate-800">
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Kanal</th>
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Starter-Budget (EUR)</th>
+                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Begründung</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-900">
+              {paidPlanData.budget.map((item) => (
+                <tr key={item.channel} className="hover:bg-slate-900/50 transition-colors">
+                  <td className="py-4 font-bold text-emerald-400">{item.channel}</td>
+                  <td className="py-4 text-sm font-bold text-slate-200">€{item.budget}</td>
+                  <td className="py-4 text-sm text-slate-400 italic">{item.rationale}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Baseline Math Model Chart */}
+      <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-8">Mathematisches Basis-Modell (Validierung in Woche 1-2)</h3>
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            {(() => {
+              const a = modelData.assumptions;
+              const engagedSessions = Math.round(a.sessions * a.engagementRate);
+              const leads = Math.round(engagedSessions * a.leadRate);
+              const mqls = Math.round(leads * a.mqlRate);
+              const sqls = Math.round(mqls * a.sqlRate);
+              const closedDeals = Math.round(sqls * a.closeRate);
+              const chartData = [
+                { stage: 'Sitzungen', volume: a.sessions },
+                { stage: 'Interaktionen', volume: engagedSessions },
+                { stage: 'Leads', volume: leads },
+                { stage: 'MQLs', volume: mqls },
+                { stage: 'SQLs', volume: sqls },
+                { stage: 'Abschlüsse', volume: closedDeals },
+              ];
+              return (
+                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                  <XAxis
+                    dataKey="stage"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 11, fontWeight: 500, fill: '#94a3b8' }}
+                  />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                  <Tooltip
+                    cursor={{ fill: '#f8fafc' }}
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
+                  />
+                  <Bar dataKey="volume" radius={[4, 4, 0, 0]} barSize={60}>
+                    {chartData.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#3b82f6' : '#6366f1'} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              );
+            })()}
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
@@ -1241,58 +1386,146 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
 }
 
 function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const measurementData = {
+    "stack": ["Vercel", "Cookiebot", "LinkedIn Insight Tag", "HubSpot", "GTM", "GA4"],
+    "events": [
+      { "category": "Akquisition", "event": "view_pricing", "description": "High-Intent Signal: Interaktion mit der Preisseite" },
+      { "category": "Conversion", "event": "start_free_trial", "description": "Primäre PLG-Conversion: Testphasen-Aktivierung" },
+      { "category": "Conversion", "event": "book_demo", "description": "Primäre Enterprise-Conversion: Demo-Anfrage" },
+      { "category": "Engagement", "event": "chat_open", "description": "Kern-Interaktion: Engagement mit dem Assistenten" }
+    ],
+    "lifecycle": [
+      { "stage": "Lead", "definition": "Inbound-Akquisition via Formular, Registrierung oder Buchung." },
+      { "stage": "MQL", "definition": "Marketing Qualified: Entspricht ICP + High-Intent Schwellenwert." },
+      { "stage": "SQL", "definition": "Sales Qualified: Vom Vertrieb nach strenger Qualifizierung akzeptiert." },
+      { "stage": "Opportunity", "definition": "Aktive Pipeline: Qualifizierter Deal mit projiziertem Umsatz." },
+      { "stage": "Closed Won", "definition": "Umsatzrealisierung: Erfolgreicher Vertragsabschluss." }
+    ],
+    "scoring": {
+      "fit": ["Branche: Retail/DIY", "Unternehmensgröße (Proxy)", "Region: DACH"],
+      "intent": ["Enterprise-Seite aufgerufen", "Klick auf 'Termin vereinbaren'", "Trial-Start"]
+    }
+  };
+
   return (
     <div className="space-y-8">
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-6">Tech-Stack &amp; Datenfluss</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {measurementData.stack.map((item) => (
-            <div key={item.tool} className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
-              <h4 className="font-bold text-gray-900 mb-2">{item.tool}</h4>
-              <p className="text-sm text-gray-600 mb-4">{item.purpose}</p>
-              <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">
-                Status: {item.status}
-              </div>
+      {/* Measurement Risks */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-bold font-display ml-2">Messrisiken, die Wachstumsentscheidungen verzerren</h3>
+        <p className="text-sm text-gray-500 ml-2 max-w-3xl">
+          Das Problem ist selten ein kompletter Mangel an Daten. Häufiger ist das Problem, dass auf Signale optimiert wird, die nützlich aussehen, aber wirtschaftlich irreführend sind.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {[
+            { title: 'Plattform-Wahrheit ≠ Business-Wahrheit', desc: 'Plattform-Metriken sind nützlich, aber sie sind nicht die endgültige Scorecard. Paid Performance muss gegen CRM-Stufen, Pipeline-Qualität und Umsatzrealität gespiegelt werden.' },
+            { title: 'CRM-Disconnect', desc: 'Wenn Paid-Daten nicht sauber mit CRM-Ergebnissen verbunden sind, optimiert das System schnell auf billige Aktivität statt auf wertvolle Pipeline.' },
+            { title: 'Lifecycle-Unschärfe', desc: 'Wenn Begriffe wie Lead, MQL, SQL und Opportunity nicht klar definiert sind, wird Reporting politisch statt steuerbar.' },
+            { title: 'Offline-Conversion-Blindheit', desc: 'Ohne Rückkopplung aus Sales lernen Plattformen nicht, welche Signale tatsächlich kommerzielle Qualität abbilden.' },
+            { title: 'Optimierung auf Aktivität statt Umsatz', desc: 'Die am einfachsten zählbaren Signale sind nicht automatisch die wertvollsten. Volumen ist nicht Qualität.' }
+          ].map((item, i) => (
+            <div key={i} className="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <h4 className="text-[10px] font-bold text-red-500 mb-2 uppercase tracking-wider">{item.title}</h4>
+              <p className="text-[11px] text-gray-500 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6">Attributions-Modell</h3>
+      {/* Why Tracking is Strategic */}
+      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-4">Warum Tracking hier strategisch ist</h3>
+        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+          Bei homie ist Tracking keine reine Reporting-Funktion, sondern die Voraussetzung für belastbare Wachstumsentscheidungen. Erst wenn Paid-Daten, CRM-Stufen, Sales-Feedback und spätere Umsatzsignale sauber zusammenlaufen, lässt sich erkennen, welche Nachfrage tatsächlich wirtschaftlichen Wert erzeugt.
+        </p>
+        <p className="text-sm text-gray-700 leading-relaxed">
+          Gerade in einem Setup mit Trial- und Demo-Pfaden entscheidet Tracking darüber, ob das System auf echte Kaufabsicht optimiert oder nur auf sichtbare Aktivität. In diesem Sinne ist Messbarkeit nicht nachgelagert, sondern ein Teil der Growth-Architektur selbst.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="text-xl font-bold font-display mb-8">Enterprise Measurement & Attributions-Architektur</h3>
+          <div className="relative h-[300px] flex items-center justify-between px-12">
+            {/* Connector Line */}
+            <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-emerald-500 via-blue-500 to-indigo-500 -translate-y-1/2 opacity-20" />
+
+            {[
+              { label: 'GTM + Consent', icon: ShieldCheck, color: 'bg-emerald-500' },
+              { label: 'GA4 Events', icon: Activity, color: 'bg-blue-500' },
+              { label: 'HubSpot CRM', icon: Layers, color: 'bg-orange-500' },
+              { label: 'Lead-Dashboard', icon: LayoutDashboard, color: 'bg-indigo-500' }
+            ].map((node, i) => (
+              <div key={node.label} className="relative z-10 flex flex-col items-center">
+                <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg mb-4", node.color)}>
+                  <node.icon size={32} />
+                </div>
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{node.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-8 rounded-2xl bg-slate-950 text-white premium-shadow">
+          <h3 className="text-xl font-bold font-display mb-6">Messbare Schlüssel-Events</h3>
           <div className="space-y-4">
-            {measurementData.attribution.map((attr, i) => (
-              <div key={i} className="flex items-start gap-4 p-4 bg-gray-50 rounded-2xl">
-                <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mt-0.5">
-                  <CheckCircle2 size={14} />
+            {measurementData.events.map((ev, i) => (
+              <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="flex justify-between items-start mb-1">
+                  <span className="text-[9px] font-bold text-blue-400 uppercase">{ev.category}</span>
+                  <code className="text-[10px] text-slate-400">{ev.event}</code>
+                </div>
+                <p className="text-xs text-slate-300">{ev.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="text-xl font-bold font-display mb-6">CRM Lifecycle & Funnel-Stufen</h3>
+          <div className="space-y-4">
+            {measurementData.lifecycle.map((step, i) => (
+              <div key={i} className="flex gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-homie-primary/10 text-homie-primary flex items-center justify-center font-bold text-sm shrink-0">
+                  {i + 1}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 text-sm mb-1">{attr.stage}</h4>
-                  <p className="text-sm text-gray-600">{attr.model}</p>
+                  <h4 className="font-bold text-gray-900 text-sm">{step.stage}</h4>
+                  <p className="text-xs text-gray-500">{step.definition}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="p-8 rounded-3xl bg-blue-600 text-white premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-6">Offline Conversion Tracking (OCT)</h3>
-          <p className="text-white/90 leading-relaxed mb-6 text-sm">
-            Der Schlüssel zur Skalierung von B2B-Kampagnen. Anstatt Algorithmen auf"Leads" (Formular-Fills) zu optimieren, senden wir qualifizierte Pipeline-Stufen (MQL, SQL) aus HubSpot an Google/LinkedIn Ads zurück.
-          </p>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 bg-white/10 p-3 rounded-xl">
-              <ArrowRight size={16} className="text-blue-200" />
-              <span className="text-sm font-medium">HubSpot Lifecycle Stage ändert sich</span>
+        <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="text-xl font-bold font-display mb-6 text-gray-900">Scoring & Lead-Qualifizierung</h3>
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Profile Fit (Wer?)</h4>
+              <div className="flex flex-wrap gap-2">
+                {measurementData.scoring.fit.map(f => (
+                  <span key={f} className="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-medium border border-emerald-100">
+                    {f}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex items-center gap-3 bg-white/10 p-3 rounded-xl">
-              <ArrowRight size={16} className="text-blue-200" />
-              <span className="text-sm font-medium">Webhook / Native Integration feuert</span>
+            <div>
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Intent Signal (Warum jetzt?)</h4>
+              <div className="flex flex-wrap gap-2">
+                {measurementData.scoring.intent.map(s => (
+                  <span key={s} className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium border border-blue-100">
+                    {s}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex items-center gap-3 bg-white/10 p-3 rounded-xl">
-              <ArrowRight size={16} className="text-blue-200" />
-              <span className="text-sm font-medium">Ad-Netzwerk optimiert auf Qualität</span>
+            <div className="mt-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+              <p className="text-xs text-gray-500 italic">
+                Qualifizierte Leads werden automatisch an Werbeplattformen zurückgemeldet (Offline Conversion Tracking), um die Signalqualität der Algorithmen kontinuierlich zu steigern.
+              </p>
             </div>
           </div>
         </div>
@@ -1302,47 +1535,63 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 }
 
 function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+  const experimentsData = [
+    { "id": "1", "hypothesis": "Motion-Optimierung: Trial-First vs. Demo-First Conversion-Pfade für High-Intent Integrations-Keywords.", "kpi": "CAC pro qualifizierter Opportunity", "success": "Niedrigerer CAC auf dem Trial-Pfad", "date": "Woche 2" },
+    { "id": "2", "hypothesis": "Vertikalspezifischer Proof: DIY-thematisierte Creatives mit vertikalspezifischen Proof-Points vs. generisches Messaging.", "kpi": "SQL-Rate Lift", "success": ">20% Lift vs. generisch", "date": "Woche 4" },
+    { "id": "3", "hypothesis": "PDP-Level Intent: Merkmalspezifische Anzeigen (z.B. Batterielaufzeit, Gewicht) vs. generische Produkt-Value-Propositions.", "kpi": "CTR & CVR", "success": "Höherer Impact bei Produktdaten", "date": "Woche 3" },
+    { "id": "4", "hypothesis": "Winkel-Optimierung: Support-Deflection vs. conversion-fokussiertes Messaging zur Identifizierung der Lead-Qualität.", "kpi": "Lead-Qualität", "success": "Identifizierung des Winkels mit höherem Intent", "date": "Woche 5" },
+    { "id": "5", "hypothesis": "Content-Asset-Testing: DIY-spezifischer Case Study One-Pager vs. Enterprise Security Checklist.", "kpi": "CPL", "success": "Niedrigerer CPL bei Case Study", "date": "Woche 6" },
+    { "id": "6", "hypothesis": "Persona-Performance: E-Commerce vs. Store Operations vs. IT-Leadership Zielgruppensegmente.", "kpi": "SQL-Akzeptanz", "success": "Identifizierung der bestperformenden Persona", "date": "Woche 7" },
+    { "id": "7", "hypothesis": "Frequenz-Optimierung: Varianten des 7-Tage-Frequenz-Caps zur Minimierung von Ad Fatigue und Maximierung der Conversion-Effizienz.", "kpi": "CVR", "success": "Reduzierung von Verschwendung/Fatigue", "date": "Woche 4" },
+    { "id": "8", "hypothesis": "Trust-Sequencing: Proof-First vs. Feature-First Retargeting-Sequenzen für verbesserten Vertrauensaufbau.", "kpi": "Assisted Conversion", "success": "Bessere Sequenz für Vertrauen", "date": "Woche 5" },
+    { "id": "9", "hypothesis": "Conversion-Pfad-Friktion: Kalender-Einbettung vs. Kurzform-Demo-Anfrage für höhere Abschlussraten.", "kpi": "Demo-Abschlussrate", "success": "Höherer Abschluss bei Einbettung", "date": "Woche 3" },
+    { "id": "10", "hypothesis": "Bidding-Präzision: Optimierung des Offline-Conversion-Imports für gezieltes Bidding auf SQL-Ebene.", "kpi": "CAC-Reduzierung", "success": "Besseres Bidding auf SQLs", "date": "Woche 8" }
+  ];
+
   return (
     <div className="space-y-8">
+      {/* Experiment Logic */}
       <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-6">Growth Experimente Backlog</h3>
-        <div className="space-y-4">
-          {experimentsData.map((exp) => (
-            <div key={exp.id} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col md:flex-row gap-6">
-              <div className="md:w-1/4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{exp.id}</span>
-                  <span className={cn(
-                    "px-2 py-0.5 text-[10px] font-bold rounded uppercase",
-                    exp.status === 'Geplant' ? 'bg-blue-100 text-blue-700' : 'bg-gray-200 text-gray-600'
-                  )}>
-                    {exp.status}
-                  </span>
-                </div>
-                <h4 className="font-bold text-gray-900">{exp.name}</h4>
-              </div>
-              <div className="md:w-1/2">
-                <p className="text-sm text-gray-600 mb-2">{exp.hypothesis}</p>
-                <div className="flex gap-2">
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Metrik:</span>
-                  <span className="text-[10px] font-bold text-gray-700">{exp.metric}</span>
-                </div>
-              </div>
-              <div className="md:w-1/4 flex flex-col justify-center">
-                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Aufwand / Impact</div>
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className={cn("w-full h-1.5 rounded-full", i < (exp.id === 'EXP-01' ? 4 : 3) ? "bg-blue-500" : "bg-gray-200")} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+        <h3 className="text-xl font-bold font-display mb-4 text-gray-900">Experiment-Logik</h3>
+        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+          Experimente dienen hier nicht der reinen Conversion-Optimierung, sondern der Validierung von Signalqualität, ICP-Fit und Pipeline-Wert. Die zentrale Frage ist nicht nur, welche Kampagne günstiger Leads erzeugt, sondern welche Tests die belastbarsten Hinweise auf qualifizierte Pipeline und wiederholbares Wachstum liefern.
+        </p>
+        <p className="text-sm text-gray-700 leading-relaxed">
+          Gerade in einem Setup mit Trial- und Demo-Pfaden muss das Experimentieren enger an Sales-Feedback, Lead-Scoring und spätere Umsatzsignale gekoppelt werden. Erst dann entsteht ein Testprogramm, das nicht Aktivität maximiert, sondern Entscheidungsqualität verbessert.
+        </p>
+      </div>
+
+      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow overflow-hidden">
+        <h3 className="text-xl font-bold font-display mb-6 text-gray-900">Strategischer Growth-Experiment Backlog</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-gray-100">
+                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Experiment</th>
+                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">KPI</th>
+                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Erfolgskriterium</th>
+                <th className="pb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Zieldatum</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {experimentsData.map((exp) => (
+                <tr key={exp.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="py-4">
+                    <p className="font-bold text-homie-primary">{exp.hypothesis}</p>
+                  </td>
+                  <td className="py-4 text-sm text-gray-600">{exp.kpi}</td>
+                  <td className="py-4 text-sm font-bold text-homie-primary">{exp.success}</td>
+                  <td className="py-4 text-sm text-gray-400">{exp.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   );
 }
+
 
 function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
   return (
