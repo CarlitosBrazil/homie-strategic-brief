@@ -1443,9 +1443,9 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
-          <h3 className="text-xl font-bold font-display mb-8">Enterprise Measurement & Attributions-Architektur</h3>
-          <div className="relative h-[120px] flex items-center justify-between px-12">
+        <div className="lg:col-span-2 p-8 rounded-3xl bg-white border border-gray-100 premium-shadow flex flex-col justify-between">
+          <h3 className="text-xl font-bold font-display mb-2">Enterprise Measurement & Attributions-Architektur</h3>
+          <div className="relative py-10 my-2 flex items-center justify-between px-8 z-10">
             {/* Connector Line */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-emerald-500 via-blue-500 to-indigo-500 -translate-y-1/2 opacity-20" />
 
@@ -1463,14 +1463,14 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               </div>
             ))}
           </div>
-          <div className="mt-8 p-6 bg-slate-950 rounded-2xl border border-slate-800">
+          <div className="p-6 bg-slate-950 rounded-2xl border border-slate-800 mt-2">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Strategische Implementierungs-Guidelines</h4>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <li className="flex gap-3 text-sm text-slate-300">
+              <li className="flex gap-3 text-sm text-slate-300 items-start">
                 <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
                 <span>GA4 als primäre Verhaltens-Ebene; HubSpot als Single Source of Truth für Umsatz-Attribution.</span>
               </li>
-              <li className="flex gap-3 text-sm text-slate-300">
+              <li className="flex gap-3 text-sm text-slate-300 items-start">
                 <CheckCircle2 size={16} className="text-blue-500 shrink-0 mt-0.5" />
                 <span>Lückenlose Einbindung DSGVO-konformer Tags via Google Consent Mode v2.</span>
               </li>
@@ -1478,7 +1478,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
           </div>
         </div>
 
-        <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 premium-shadow text-white">
+        <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
           <h3 className="text-xl font-bold font-display mb-6">Tracking-Validierung & Sanity Check</h3>
           <div className="space-y-4">
             {[
@@ -1566,6 +1566,24 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="p-8 rounded-3xl bg-[#0B1120] border border-slate-800 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-8 text-white">Was wahr sein muss, damit Skalierung funktioniert</h3>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {[
+            { title: 'Die Signalqualität muss vertrauenswürdig sein', desc: 'Ohne belastbare Signale wird Skalierung teuer und unpräzise.' },
+            { title: 'Lead-Qualität muss wichtiger sein als bloßes Volumen', desc: 'Mehr Nachfrage ist nicht automatisch besser, wenn sie nicht in tragfähige Pipeline übergeht.' },
+            { title: 'Paid- und CRM-Daten müssen sauber zusammenlaufen', desc: 'Nur dann lässt sich erkennen, welche Akquisition wirklich wirtschaftlichen Wert erzeugt.' },
+            { title: 'Sales- und Customer-Success-Kapazitäten müssen mithalten', desc: 'Wachstum verliert an Qualität, wenn nachgelagerte Teams nicht im gleichen Takt skalieren.' },
+            { title: 'Wachstum muss die Qualität des wiederkehrenden Umsatzes verbessern', desc: 'Nicht nur Conversions, sondern Retention, Expansion und Revenue-Qualität entscheiden über die Tragfähigkeit des Modells.' }
+          ].map((item, i) => (
+            <div key={i} className="p-6 bg-[#0f172a]/40 rounded-2xl border border-slate-800/60 shadow-inner flex flex-col justify-start">
+              <h4 className="text-[10px] font-bold text-blue-500 mb-4 uppercase tracking-[0.15em] leading-relaxed">{item.title}</h4>
+              <p className="text-[11px] text-slate-300 leading-relaxed font-medium">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
