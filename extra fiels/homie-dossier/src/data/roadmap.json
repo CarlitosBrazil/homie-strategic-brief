@@ -1,0 +1,28 @@
+{
+  "phases": [
+    {
+      "weeks": "1-2",
+      "title": "Strategisches Fundament & Basis-Etablierung",
+      "deliverables": ["Event-Taxonomie implementiert", "CRM-Lifecycle-Definitionen", "Zwei-Pfad-LP-System"],
+      "outcomes": "Aktivierung von Google Search-Kampagnen für die Top 20 High-Intent-Keywords."
+    },
+    {
+      "weeks": "3-4",
+      "title": "Optimierung & Retargeting-Launch",
+      "deliverables": ["Erster Full-Funnel-Report", "Retargeting live (LinkedIn + Meta)", "3-4 Creative-Tests"],
+      "outcomes": "Operatives Dashboard, validiertes Conversion-Tracking und initiale SQL-Attribution."
+    },
+    {
+      "weeks": "5-8",
+      "title": "Vertikale Skalierung & Performance-Präzision",
+      "deliverables": ["DIY-Vertikalkampagnen-Set", "Offline-Conversion-Import für SQL", "Test-Kadenz: 2/Woche"],
+      "outcomes": "Etablierung eines vorhersehbaren wöchentlichen SQL-Volumens mit validierten CPL-Benchmarks."
+    },
+    {
+      "weeks": "9-12",
+      "title": "Enterprise Pipeline-Beschleunigung",
+      "deliverables": ["ABM-Liste erweitern", "Branchenspezifische LP-Varianten", "Pipeline-Influence-Reporting"],
+      "outcomes": "Vollständig wiederholbarer Growth-Engine mit etablierten CAC-zu-ARR Performance-Benchmarks."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "assumptions": {
+    "sessions": 10000,
+    "engagementRate": 0.15,
+    "leadRate": 0.08,
+    "mqlRate": 0.5,
+    "sqlRate": 0.4,
+    "closeRate": 0.2,
+    "avgArr": 18000
+  }
+}

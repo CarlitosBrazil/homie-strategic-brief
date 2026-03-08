@@ -1,0 +1,10 @@
+[
+  { "id": "1", "label": "homie Homepage", "url": "https://yourhomie.ai/", "note": "Primäre Quelle für strategische Positionierung und Kern-Value-Propositions." },
+  { "id": "16", "label": "Online Beratung", "url": "https://yourhomie.ai/produkt/online-beratung", "note": "Strategische Dokumentation für die E-Commerce Conversion-Optimierung." },
+  { "id": "17", "label": "Stationäre Lösungen", "url": "https://yourhomie.ai/produkt/stationaere-loesungen", "note": "Technischer Überblick über digitale Transformationslösungen für In-Store/POS." },
+  { "id": "15", "label": "Lead Qualifizierung", "url": "https://yourhomie.ai/produkt/lead-qualifizierung", "note": "Dokumentation für automatisierte Lead-Generierung und Qualifizierungs-Workflows." },
+  { "id": "18", "label": "hagebau Case Study", "url": "https://www.mynewsdesk.com/de/hagebau/news/wie-hagebau-kunden-per-ki-automatisch-beraet-495628", "note": "High-Impact Proof-Point, der den Erfolg in der DIY/Baumarkt-Vertikale demonstriert." },
+  { "id": "23", "label": "OMR Reviews", "url": "https://omr.com/en/reviews/product/homie", "note": "Unabhängige externe Validierung und verifizierte Kundenmeinungen." },
+  { "id": "22", "label": "Trade Interview", "url": "https://www.diyonline.de/d/diy/2025/11-2025/unendliche-beratung.html", "note": "Branchenvalidierter Beleg für den Performance-Benchmark von ~3x Kaufwahrscheinlichkeit." },
+  { "id": "4", "label": "Datenschutzerklärung", "url": "https://yourhomie.ai/datenschutz", "note": "Technische Quelle für den DSGVO-konformen Tech-Stack und die Messarchitektur." }
+]

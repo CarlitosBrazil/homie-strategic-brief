@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Zoovu",
+    "positioning": "KI-gestützte Produktentdeckung: KI-Suche + Guided Selling.",
+    "icpFocus": "Enterprise-Marken/Einzelhändler; B2B-Kataloge.",
+    "deployment": "Web-Erlebnisse: Shopping-Assistent, Produktfinder.",
+    "dataNeeds": "Strukturierte Produktdaten; Kataloge.",
+    "winCounter": "homie-Vorteil: Überlegene Omnichannel/POS-Integration und radikal schnellere Time-to-Value (Minuten statt Monate der Implementierung).",
+    "x": 0.8,
+    "y": 0.9
+  },
+  {
+    "name": "iAdvize",
+    "positioning": "KI-Shopping-Assistent mit Fokus auf Conversion.",
+    "icpFocus": "350+ E-Commerce-Marken.",
+    "deployment": "On-Site KI-Assistent; testphasenbasiertes Onboarding.",
+    "dataNeeds": "SKU/Katalog, PDP-Kontext, Preis-FAQs.",
+    "winCounter": "homie-Vorteil: Tiefere ERP/PIM-Systemintegration und native, EU-fokussierte DSGVO-Konformität für Enterprise-Sicherheit.",
+    "x": 0.3,
+    "y": 0.7
+  },
+  {
+    "name": "Constructor",
+    "positioning": "KI-native Suche + Entdeckung im Handel.",
+    "icpFocus": "Enterprise E-Commerce-Marken.",
+    "deployment": "Suche, Browsing, Empfehlungen.",
+    "dataNeeds": "Clickstream, Produktkatalog, Conversion-Events.",
+    "winCounter": "homie-Vorteil: Über die Suche hinaus – ein echter beratender Begleiter, der Kunden durch komplexe, produktübergreifende Projekte führt.",
+    "x": 0.2,
+    "y": 0.8
+  },
+  {
+    "name": "Coveo",
+    "positioning": "KI-Suche + generative Produktentdeckung.",
+    "icpFocus": "Enterprise E-Commerce + B2B-Kataloge.",
+    "deployment": "Suche, Empfehlungen, Konversation.",
+    "dataNeeds": "Katalog + Verhaltensdaten.",
+    "winCounter": "homie-Vorteil: Spezialisierte 'Berater'-Logik für den Handel, die generische Suchrelevanz in High-Intent-Szenarien übertrifft.",
+    "x": 0.4,
+    "y": 0.6
+  },
+  {
+    "name": "Algolia",
+    "positioning": "KI-Such- & Entdeckungsplattform.",
+    "icpFocus": "Breit (E-Commerce + SaaS + Apps).",
+    "deployment": "API-first Suche/Empfehlung.",
+    "dataNeeds": "Indexierungssätze + Klick/Conversion-Events.",
+    "winCounter": "homie-Vorteil: Eine schlüsselfertige, ergebnisorientierte Lösung im Vergleich zu Algolias entwicklerzentrierten Bausteinen.",
+    "x": 0.1,
+    "y": 0.5
+  },
+  {
+    "name": "moinAI",
+    "positioning": "KI-Plattform für automatisierte Kundenkommunikation.",
+    "icpFocus": "Kundenservice + Marketing; DACH + EU.",
+    "deployment": "Chatbots + Live-Chat + KI-Agenten.",
+    "dataNeeds": "Wissensdatenbank + Übergaberegeln.",
+    "winCounter": "homie-Vorteil: Speziell für Handelsabsichten und Conversion entwickelt, während moinAI auf allgemeine Service- und FAQ-Automatisierung fokussiert bleibt.",
+    "x": 0.5,
+    "y": 0.3
+  }
+]

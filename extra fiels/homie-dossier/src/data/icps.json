@@ -1,0 +1,68 @@
+[
+  {
+    "id": "A",
+    "name": "DIY / Baumarkthandel",
+    "firmographics": "Mittelständische bis große Einzelhändler mit tiefem Sortiment (100k+ SKUs) und bedeutender physischer Ladenpräsenz.",
+    "buyingCommittee": ["VP E-Commerce", "Leiter Ladenbetrieb", "Kundenservice-Leitung", "IT-Architekt"],
+    "pains": [
+      "Hohe Entscheidungshemmung durch komplexe Spezifikationen",
+      "Personalmangel im Geschäft",
+      "Fragmentierte Produktinfos über Systeme hinweg"
+    ],
+    "jtbd": "Kunden befähigen, über alle Kanäle hinweg sichere Kaufentscheidungen zu treffen, die Abhängigkeit von spezialisiertem Ladenpersonal zu verringern und gleichzeitig eine Expertenberatung aufrechtzuerhalten.",
+    "messaging": [
+      "Projektzentrierte Beratung: Komplexe Anforderungen in vollständige, umsetzbare Einkaufslisten verwandeln.",
+      "Unified Commerce: Überbrückung von Online-Recherche und In-Store-Ausführung innerhalb eines einzigen KI-Ökosystems.",
+      "Ergebnisorientierter ROI: Transparente Attribution, die KI-Interaktionen direkt mit dem Umsatzwachstum verknüpft."
+    ],
+    "adHooks": [
+      "Beratung auf der Produktdetailseite, wo Entscheidungen fallen.",
+      "Omnichannel: Online + POS + QR."
+    ],
+    "citations": ["18", "17"]
+  },
+  {
+    "id": "B",
+    "name": "Spezialisierte E-Commerce-Händler",
+    "firmographics": "Wachstumsstarke E-Commerce-Händler (Elektronik, Möbel, Sport), die moderne Plattformen wie Shopify oder Shopware nutzen.",
+    "buyingCommittee": ["Leiter Performance Marketing", "Produktleiter", "Kundensupport-Manager"],
+    "pains": [
+      "Bezahlter Traffic ist teuer; Conversion-Obergrenzen",
+      "Support-Personal skaliert nicht",
+      "Schwierigkeit, den Impact des Assistenten zu attribuieren"
+    ],
+    "jtbd": "Effizienz der Werbeausgaben maximieren: Kostenintensiven Traffic in treue Kunden verwandeln, indem Kaufhemmnisse durch sofortigen, intelligenten Dialog gelöst werden.",
+    "messaging": [
+      "Schnelle Bereitstellung: Nahtloses No-Code-Onboarding, um in wenigen Minuten live zu gehen und Ergebnisse zu sehen.",
+      "Granulare Attribution: Direkte Zuordnung von KI-Gesprächen zu abgeschlossenen Bestellungen für klare Performance-Sichtbarkeit.",
+      "Reibungslose Conversion: Ein optimierter Weg von der Expertenberatung direkt in den Warenkorb."
+    ],
+    "adHooks": [
+      "Klicks in Kunden verwandeln mit Echtzeit-Beratung.",
+      "Schnell live gehen + DSGVO-konform."
+    ],
+    "citations": ["16", "4"]
+  },
+  {
+    "id": "C",
+    "name": "Industrie-Distributoren",
+    "firmographics": "B2B-Hersteller & Distributoren, die komplexe Teilekataloge und verteilte Außendienstteams verwalten.",
+    "buyingCommittee": ["Leiter Digital B2B", "Sales Ops", "Produktdaten-Eigentümer", "Compliance"],
+    "pains": [
+      "Internes Wissen ist schwer zugänglich",
+      "Bedarf an geführter Suche (Teilenummern)",
+      "Außendienst benötigt Antworten direkt am Regal"
+    ],
+    "jtbd": "Technisches Wissen demokratisieren: 24/7-Zugriff auf komplexe Produktdaten ermöglichen und Außendienstmitarbeiter mit einem leistungsstarken mobilen KI-Begleiter befähigen.",
+    "messaging": [
+      "24/7 Wissenszugänglichkeit: Informationssilos beseitigen und sofortige Antworten auf technische Anfragen liefern.",
+      "Enterprise-Ready Integration: Robuste, offene APIs für die nahtlose Verbindung mit bestehenden ERP- und PIM-Systemen.",
+      "Befähigung auf der Verkaufsfläche: Ein Mobile-First KI-Begleiter, der dem Außendienst Expertenwissen am Point of Sale zur Verfügung stellt."
+    ],
+    "adHooks": [
+      "Befähigen Sie Ihren Außendienst mit KI-Wissen.",
+      "Enterprise-Integration für komplexe Kataloge."
+    ],
+    "citations": ["17", "1"]
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "budget": [
+    { "channel": "Google Search", "budget": "8.000-12.000", "rationale": "High-Intent Capture: Erfassung der aktiven Nachfrage für kategoriespezifische und lösungsorientierte Suchbegriffe." },
+    { "channel": "LinkedIn ABM", "budget": "6.000-10.000", "rationale": "Enterprise Pipeline-Aufbau: Strategisches ABM-Targeting von Entscheidungsträgern und Einkaufsgremien in Zielaccounts." },
+    { "channel": "Meta Retargeting", "budget": "1.500-3.000", "rationale": "High-Value Retargeting: Reibungsarme Verstärkung für Website-Besucher mit hoher Kaufabsicht und Testphasen-Teilnehmer." }
+  ]
+}

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-homie-primary: #0F28FF;
+  --color-homie-bg: #F8FAFC;
+  --color-homie-text: #1E293B;
+  
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+}
+
+@layer components {
+  .premium-shadow {
+    @apply shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-gray-100/50;
+  }
+  
+  .evidence-chip {
+    @apply inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-[10px] font-black text-blue-600 border border-blue-100 cursor-help hover:bg-blue-600 hover:text-white transition-all dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+  @apply font-sans text-homie-text antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+  @apply font-display;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 rounded-full hover:bg-gray-300 transition-colors;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "homie",
+  "tagline": "Der Enterprise KI-Shopping-Assistent: Sofortige Expertenberatung in großem Stil.",
+  "positioning": "Der spezialisierte KI-Shopping-Assistent für Handel & Industrie, der die Lücke zwischen digitalem E-Commerce und physischen Erlebnissen im Geschäft schließt.",
+  "differentiation": [
+    "Echte Omnichannel-Integration: Nahtlose Verbindung von E-Commerce mit physischen POS-Umgebungen.",
+    "Enterprise-Grade Compliance: EU-gehostete, DSGVO-native Architektur für maximale Datensicherheit.",
+    "Präzise Attribution: Transparente ROI-Verfolgung auf Bestellebene für performance-orientiertes Marketing."
+  ],
+  "valueProps": [
+    { "title": "Conversion-Rate-Optimierung", "description": "Experten-Produktberatung in Echtzeit auf Kategorie- und Produktseiten zur Beseitigung von Kaufhemmnissen.", "sourceId": "16" },
+    { "title": "Automatisierter Support & Routing", "description": "Intelligente Bearbeitung von Liefer- und Serviceanfragen mit nahtloser Eskalation an den menschlichen Support bei komplexen Fällen.", "sourceId": "15" },
+    { "title": "Digitale Transformation im Geschäft", "description": "POS-Terminals und QR-Code-Flows zur Reduzierung von Wartezeiten und zur Entlastung des Personals.", "sourceId": "17" }
+  ],
+  "proofPoints": [
+    { "client": "hagebau", "metric": "74% Zufriedenheit", "detail": "Automatisierte, personalisierte Beratung unter Nutzung von Live-Bestands- und Preisdaten.", "sourceId": "18" },
+    { "client": "OMR Reviews", "metric": "4,9/5 Bewertung", "detail": "Verifizierte Produktseite mit hoher Durchschnittsbewertung.", "sourceId": "23" },
+    { "client": "Branchenbeleg", "metric": "~3x Kaufwahrscheinlichkeit", "detail": "Beratene Nutzer kaufen zu signifikant höheren Raten.", "sourceId": "22" }
+  ]
+}

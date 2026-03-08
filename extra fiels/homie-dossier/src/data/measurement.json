@@ -1,0 +1,20 @@
+{
+  "stack": ["Vercel", "Cookiebot", "LinkedIn Insight Tag", "HubSpot", "GTM", "GA4"],
+  "events": [
+    { "category": "Akquisition", "event": "view_pricing", "description": "High-Intent Signal: Interaktion mit der Preisseite" },
+    { "category": "Conversion", "event": "start_free_trial", "description": "Primäre PLG-Conversion: Testphasen-Aktivierung" },
+    { "category": "Conversion", "event": "book_demo", "description": "Primäre Enterprise-Conversion: Demo-Anfrage" },
+    { "category": "Engagement", "event": "chat_open", "description": "Kern-Interaktion: Engagement mit dem Assistenten" }
+  ],
+  "lifecycle": [
+    { "stage": "Lead", "definition": "Inbound-Akquisition via Formular, Registrierung oder Buchung." },
+    { "stage": "MQL", "definition": "Marketing Qualified: Entspricht ICP + High-Intent Schwellenwert." },
+    { "stage": "SQL", "definition": "Sales Qualified: Vom Vertrieb nach strenger Qualifizierung akzeptiert." },
+    { "stage": "Opportunity", "definition": "Aktive Pipeline: Qualifizierter Deal mit projiziertem Umsatz." },
+    { "stage": "Closed Won", "definition": "Umsatzrealisierung: Erfolgreicher Vertragsabschluss." }
+  ],
+  "scoring": {
+    "fit": ["Branche: Retail/DIY", "Unternehmensgröße (Proxy)", "Region: DACH"],
+    "intent": ["Enterprise-Seite aufgerufen", "Klick auf 'Termin vereinbaren'", "Trial-Start"]
+  }
+}

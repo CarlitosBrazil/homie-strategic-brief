@@ -1,0 +1,12 @@
+[
+  { "id": "1", "hypothesis": "Motion-Optimierung: Trial-First vs. Demo-First Conversion-Pfade für High-Intent Integrations-Keywords.", "kpi": "CAC pro qualifizierter Opportunity", "success": "Niedrigerer CAC auf dem Trial-Pfad", "date": "Woche 2" },
+  { "id": "2", "hypothesis": "Vertikalspezifischer Proof: DIY-thematisierte Creatives mit vertikalspezifischen Proof-Points vs. generisches Messaging.", "kpi": "SQL-Rate Lift", "success": ">20% Lift vs. generisch", "date": "Woche 4" },
+  { "id": "3", "hypothesis": "PDP-Level Intent: Merkmalspezifische Anzeigen (z.B. Batterielaufzeit, Gewicht) vs. generische Produkt-Value-Propositions.", "kpi": "CTR & CVR", "success": "Höheres Engagement bei spezifischen Anzeigen", "date": "Woche 3" },
+  { "id": "4", "hypothesis": "Winkel-Optimierung: Support-Deflection vs. conversion-fokussiertes Messaging zur Identifizierung der Lead-Qualität.", "kpi": "Lead-Qualität", "success": "Identifizierung des Winkels mit höherem Intent", "date": "Woche 5" },
+  { "id": "5", "hypothesis": "Content-Asset-Testing: DIY-spezifischer Case Study One-Pager vs. Enterprise Security Checklist.", "kpi": "CPL", "success": "Niedrigerer CPL bei Case Study", "date": "Woche 6" },
+  { "id": "6", "hypothesis": "Persona-Performance: E-Commerce vs. Store Operations vs. IT-Leadership Zielgruppensegmente.", "kpi": "SQL-Akzeptanz", "success": "Identifizierung der bestperformenden Persona", "date": "Woche 7" },
+  { "id": "7", "hypothesis": "Frequenz-Optimierung: Varianten des 7-Tage-Frequenz-Caps zur Minimierung von Ad Fatigue und Maximierung der Conversion-Effizienz.", "kpi": "CVR", "success": "Reduzierung von Verschwendung/Fatigue", "date": "Woche 4" },
+  { "id": "8", "hypothesis": "Trust-Sequencing: Proof-First vs. Feature-First Retargeting-Sequenzen für verbesserten Vertrauensaufbau.", "kpi": "Assisted Conversion", "success": "Bessere Sequenz für Vertrauen", "date": "Woche 5" },
+  { "id": "9", "hypothesis": "Conversion-Pfad-Friktion: Kalender-Einbettung vs. Kurzform-Demo-Anfrage für höhere Abschlussraten.", "kpi": "Demo-Abschlussrate", "success": "Höherer Abschluss bei Einbettung", "date": "Woche 3" },
+  { "id": "10", "hypothesis": "Bidding-Präzision: Optimierung des Offline-Conversion-Imports für gezieltes Bidding auf SQL-Ebene.", "kpi": "CAC-Reduzierung", "success": "Besseres Bidding auf SQLs", "date": "Woche 8" }
+]

@@ -235,165 +235,189 @@ function EvidenceDrawer({ isOpen, onClose, sourceId }: { isOpen: boolean; onClos
 // --- VIEW COMPONENTS ---
 
 function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
- const [activeMotion, setActiveMotion] = useState<'trial' |'demo'>('trial');
+  const [activeMotion, setActiveMotion] = useState<'trial' | 'demo'>('trial');
 
- const benchmarkKpis = activeMotion ==='trial'
- ? [
- { label:'Ziel-CAC (Trial)', value:'€80 – €150', badge:'+12% CVR durch Retargeting', icon: Zap },
- { label:'Ziel-Aktivierungsrate', value:'25% – 40%', badge:'Setup in < 10 Min.', icon: Activity },
- { label:'Produkt-Impact', value:'Assisted CVR Lift', badge:'Metrik: Chat → Warenkorb', icon: TrendingUp },
- ]
- : [
- { label:'Ziel-CPL (Demo)', value:'€200 – €600', badge:'Via LinkedIn ABM / High-Intent Search', icon: MessageSquare },
- { label:'Ziel-SQL-Rate', value:'30% – 50%', badge:'Erfordert Offline-Conversion-Import', icon: Target },
- { label:'Pipeline-Strategie', value:'Multi-Touch-Attribution', badge:'HubSpot Lifecycle Mapping', icon: BarChart3 },
- ];
+  const benchmarkKpis = activeMotion === 'trial'
+    ? [
+      { label: 'Ziel-CAC (Trial)', value: '€80 – €150', badge: '+12% CVR durch Retargeting', icon: Zap },
+      { label: 'Ziel-Aktivierungsrate', value: '25% – 40%', badge: 'Setup in < 10 Min.', icon: Activity },
+      { label: 'Produkt-Impact', value: 'Assisted CVR Lift', badge: 'Metrik: Chat → Warenkorb', icon: TrendingUp },
+    ]
+    : [
+      { label: 'Ziel-CPL (Demo)', value: '€200 – €600', badge: 'Via LinkedIn ABM / High-Intent Search', icon: MessageSquare },
+      { label: 'Ziel-SQL-Rate', value: '30% – 50%', badge: 'Erfordert Offline-Conversion-Import', icon: Target },
+      { label: 'Pipeline-Strategie', value: 'Multi-Touch-Attribution', badge: 'HubSpot Lifecycle Mapping', icon: BarChart3 },
+    ];
 
- return (
- <div className="space-y-8">
- {/* Hero */}
- <div className="relative p-12 rounded-3xl bg-blue-600 text-white overflow-hidden shadow-xl shadow-blue-600/20">
- <div className="relative z-10 max-w-2xl">
- <h2 className="text-white/80 font-bold mb-4 uppercase tracking-widest text-sm">Zusammenfassung</h2>
- <h1 className="text-5xl font-bold font-display mb-6 leading-tight text-white">
- homie Paid &amp; Performance Growth System
- </h1>
- <p className="text-xl text-white/90 mb-8 leading-relaxed">
- Eine duale Akquisitionsmaschine, die darauf ausgelegt ist, hochkarätige Nachfrage zu erfassen und die Unternehmenspipeline für den führenden KI-Shopping-Assistenten zu skalieren.
- <Citation id="1" onClick={onOpenEvidence} />
- </p>
- <div className="flex gap-4">
- <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
- <CheckCircle2 size={16} className="text-white" />
- <span className="text-sm font-medium">DSGVO-konform</span>
- </div>
- <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
- <CheckCircle2 size={16} className="text-white" />
- <span className="text-sm font-medium">Omnichannel bereit</span>
- </div>
- </div>
- </div>
- <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-white/10 to-transparent opacity-50" />
- </div>
+  return (
+    <div className="space-y-8">
+      {/* Hero */}
+      <div className="relative p-12 rounded-3xl bg-homie-primary text-white overflow-hidden shadow-xl shadow-homie-primary/20">
+        <div className="relative z-10 max-w-2xl">
+          <h2 className="text-white/80 font-bold mb-4 uppercase tracking-widest text-sm">Management Summary</h2>
+          <h1 className="text-5xl font-bold font-display mb-6 leading-tight text-white">
+            homie Strategische Growth- &amp; Performance-Engine
+          </h1>
+          <p className="text-xl text-white/90 mb-8 leading-relaxed">
+            Eine Hochleistungs-Akquisitionsmaschine, konzipiert zur Erfassung von High-Intent-Nachfrage und zur Skalierung der Enterprise-Pipeline für den marktführenden KI-Shopping-Assistenten.
+            <Citation id="1" onClick={onOpenEvidence} />
+          </p>
+          <div className="flex gap-4">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
+              <CheckCircle2 size={16} className="text-white" />
+              <span className="text-sm font-medium">DSGVO-konform</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
+              <CheckCircle2 size={16} className="text-white" />
+              <span className="text-sm font-medium">Omnichannel bereit</span>
+            </div>
+          </div>
+        </div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-white/10 to-transparent opacity-50" />
+      </div>
 
- {/* Motion Toggle + Benchmark KPI Card — V1 style */}
- <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden premium-shadow">
- {/* Toggle bar */}
- <div className="border-b border-gray-100 bg-gray-50 p-4 flex justify-center gap-2">
- <button
- onClick={() => setActiveMotion('trial')}
- className={cn(
-"px-6 py-2 rounded-full font-bold text-sm transition-all",
- activeMotion ==='trial' ?'bg-blue-600 text-white shadow-md shadow-blue-600/30' :'text-gray-500 hover:bg-gray-200'
- )}
- >
- Trial-Led Modell (PLG)
- </button>
- <button
- onClick={() => setActiveMotion('demo')}
- className={cn(
-"px-6 py-2 rounded-full font-bold text-sm transition-all",
- activeMotion ==='demo' ?'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' :'text-gray-500 hover:bg-gray-200'
- )}
- >
- Sales-Led Modell (Enterprise)
- </button>
- </div>
+      {/* Motion Toggle + Benchmark KPI Card — V1 style */}
+      <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden premium-shadow">
+        {/* Toggle bar */}
+        <div className="border-b border-gray-100 bg-gray-50 p-4 flex justify-center gap-2">
+          <button
+            onClick={() => setActiveMotion('trial')}
+            className={cn(
+              "px-6 py-2 rounded-full font-bold text-sm transition-all",
+              activeMotion === 'trial' ? 'bg-homie-primary text-white shadow-md shadow-homie-primary/30' : 'text-gray-500 hover:bg-gray-200'
+            )}
+          >
+            Trial-Led Modell (PLG)
+          </button>
+          <button
+            onClick={() => setActiveMotion('demo')}
+            className={cn(
+              "px-6 py-2 rounded-full font-bold text-sm transition-all",
+              activeMotion === 'demo' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-gray-500 hover:bg-gray-200'
+            )}
+          >
+            Sales-Led Modell (Enterprise)
+          </button>
+        </div>
 
- {/* Benchmark KPIs */}
- <div className="p-6 md:p-8 relative min-h-[160px]">
- <AnimatePresence mode="wait">
- <motion.div
- key={activeMotion}
- initial={{ opacity: 0, y: 10 }}
- animate={{ opacity: 1, y: 0 }}
- exit={{ opacity: 0, y: -10 }}
- transition={{ duration: 0.2 }}
- className="grid grid-cols-1 md:grid-cols-3 gap-6"
- >
- {benchmarkKpis.map((kpi, i) => (
- <div
- key={kpi.label}
- className="bg-gray-50 rounded-2xl p-5 border border-gray-100"
- >
- <div className="flex items-center gap-2 mb-3">
- <div className="p-2 bg-blue-600/10 rounded-xl text-blue-600">
- <kpi.icon size={16} />
- </div>
- <p className="text-sm font-bold text-gray-500">{kpi.label}</p>
- </div>
- <p className="text-2xl font-black text-gray-900 mb-3 leading-tight">{kpi.value}</p>
- <span className="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-lg">
- {kpi.badge}
- </span>
- </div>
- ))}
- </motion.div>
- </AnimatePresence>
- </div>
- </div>
+        {/* Benchmark KPIs */}
+        <div className="p-6 md:p-8 relative min-h-[160px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeMotion}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
+              {benchmarkKpis.map((kpi, i) => (
+                <div
+                  key={kpi.label}
+                  className="bg-gray-50 rounded-2xl p-5 border border-gray-100"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="p-2 bg-homie-primary/10 rounded-xl text-homie-primary">
+                      <kpi.icon size={16} />
+                    </div>
+                    <p className="text-sm font-bold text-gray-500">{kpi.label}</p>
+                  </div>
+                  <p className="text-2xl font-black text-gray-900 mb-3 leading-tight">{kpi.value}</p>
+                  <span className="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-lg">
+                    {kpi.badge}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
 
- {/* Exec Summary + Day 90 cards */}
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
- <h3 className="font-bold text-lg mb-4 flex items-center">
- <Zap className="w-5 h-5 mr-2 text-yellow-500" /> Zusammenfassung
- </h3>
- <ul className="space-y-3 text-sm text-gray-700">
- <li>• Trial- &amp; Demo-Modelle parallel betreiben, segmentiert nach Intent-Stufen.<Citation id="3" onClick={onOpenEvidence} /></li>
- <li>• Bestehenden Tech-Stack (Consent Mode, LinkedIn Tag, HubSpot) für Full-Funnel-Tracking nutzen.<Citation id="4" onClick={onOpenEvidence} /></li>
- <li>• Kanäle skalieren: Google Search (Intent) → LinkedIn (ABM) → Meta (Retargeting).</li>
- </ul>
- </div>
- <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
- <h3 className="font-bold text-lg mb-4 flex items-center">
- <Rocket className="w-5 h-5 mr-2 text-blue-600" /> Ziel nach 90 Tagen
- </h3>
- <p className="text-sm text-gray-700 leading-relaxed mb-4">
- Ein skalierbares Paid-Growth-System: Stabiles Tracking, vorhersehbarer wöchentlicher SQL-Flow und erste CAC-zu-ARR Benchmarks als Basis für Skalierung.
- </p>
- <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
- <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-blue-500 to-blue-600 rounded-full" />
- </div>
- <div className="flex justify-between text-[10px] mt-2 text-gray-400 font-bold uppercase tracking-wider">
- <span>Tag 1</span><span>Tag 30</span><span>Tag 60</span><span>Tag 90 ✓</span>
- </div>
- </div>
- </div>
+      {/* Exec Summary + Day 90 cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="font-bold text-lg mb-4 flex items-center">
+            <Zap className="w-5 h-5 mr-2 text-yellow-500" /> Zusammenfassung
+          </h3>
+          <ul className="space-y-3 text-sm text-gray-700">
+            <li>• Betrieb paralleler Trial- & Demo-Modelle, präzise segmentiert nach Intent-Stufen für maximale Conversion-Effizienz.<Citation id="3" onClick={onOpenEvidence} /></li>
+            <li>• Maximale Nutzung des Tech-Stacks (Consent Mode v2, LinkedIn Insight Tag, HubSpot) für lückenloses Full-Funnel-Tracking und Attribution.<Citation id="4" onClick={onOpenEvidence} /></li>
+            <li>• Strategische Kanalskalierung: Google Search (Demand Capture) → LinkedIn (ABM/Demand Generation) → Meta (High-Frequency Retargeting).</li>
+          </ul>
+        </div>
+        <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="font-bold text-lg mb-4 flex items-center">
+            <Rocket className="w-5 h-5 mr-2 text-homie-primary" /> Ziel nach 90 Tagen
+          </h3>
+          <p className="text-sm text-gray-700 leading-relaxed mb-4">
+            Ein skalierbares Paid-Growth-System: Stabiles Tracking, vorhersehbarer wöchentlicher SQL-Flow und erste CAC-zu-ARR Benchmarks als Basis für Skalierung.
+          </p>
+          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-blue-500 to-homie-primary rounded-full" />
+          </div>
+          <div className="flex justify-between text-[10px] mt-2 text-gray-400 font-bold uppercase tracking-wider">
+            <span>Tag 1</span><span>Tag 30</span><span>Tag 60</span><span>Tag 90 ✓</span>
+          </div>
+        </div>
+      </div>
 
- {/* Roadmap Snapshot */}
- <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
- <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Ausblick: 30 / 60 / 90 Tage</p>
- <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
- {/* Connector Line */}
- <div className="hidden md:block absolute top-8 left-[16.66%] w-[66.66%] h-0.5 bg-gradient-to-r from-emerald-200 via-blue-200 to-indigo-200 z-0" />
+      {/* Why this role is important now */}
+      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-4 flex items-center">
+          <Info className="w-5 h-5 mr-2 text-homie-primary" /> Warum diese Rolle gerade jetzt wichtig ist
+        </h3>
+        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+          Diese Rolle wirkt weniger wie eine reine Kanalmanagement-Funktion und mehr wie eine Schnittstelle zwischen Paid Acquisition, Revenue-Logik, Messbarkeit und Sales-Alignment.
+        </p>
+        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+          Auch das breitere Hiring-Muster ist relevant. Mehrere Sales-Rollen, regionale Expansion und zusätzliche Produkt-/Tech-Rollen deuten darauf hin, dass homie in eine neue Go-to-Market-Phase eintritt. In diesem Kontext wird Paid & Performance weniger zu einer Kampagnenfunktion und mehr zu einem Baustein eines wirtschaftlich belastbaren Growth-Systems.
+        </p>
+        <p className="text-sm text-gray-700 leading-relaxed">
+          Diese Rolle ist deshalb strategisch wichtig: nicht nur, um mehr Nachfrage zu erzeugen, sondern um sicherzustellen, dass Nachfrage, Signalqualität, Sales-Kapazität und Umsatz logik sauber zusammenlaufen.
+        </p>
+      </div>
 
- {[
- { day:'30', title:'Fundament', desc:'Tracking aktiv, erste SQLs attribuiert, Basis-Kampagnen in der Google-Suche laufen.', color:'bg-emerald-500', ring:'ring-emerald-100', text:'text-emerald-700', badge:'bg-emerald-50', kpi:'Erster attribuierbarer SQL' },
- { day:'60', title:'Skalierung', desc:'Stabilisierung des SQL-Volumens, Retargeting aktiv, erste branchenspezifische Playbooks im Einsatz.', color:'bg-blue-500', ring:'ring-blue-100', text:'text-blue-700', badge:'bg-blue-50', kpi:'10+ SQLs / Monat' },
- { day:'90', title:'System Live', desc:'Wiederholbarer Growth-Engine – ABM erweitert, CAC-zu-ARR Benchmarks etabliert.', color:'bg-indigo-500', ring:'ring-indigo-100', text:'text-indigo-700', badge:'bg-indigo-50', kpi:'Vorhersehbare Pipeline' }
- ].map((item, i) => (
- <div key={item.day} className={cn("relative z-10 flex flex-col p-6 rounded-2xl border", item.badge)}>
- <div className="flex items-center gap-4 mb-4">
- <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4", item.color, item.ring)}>
- {item.day}
- </div>
- <div>
- <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Tag</p>
- <h4 className={cn("text-lg font-bold", item.text)}>{item.title}</h4>
- </div>
- </div>
- <p className="text-sm text-gray-600 leading-relaxed mb-4">{item.desc}</p>
- <div className="mt-auto pt-4 border-t border-gray-200">
- <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Ziel-KPI</p>
- <p className={cn("text-sm font-bold", item.text)}>{item.kpi}</p>
- </div>
- </div>
- ))}
- </div>
- </div>
- </div>
- );
+      {/* Roadmap Snapshot */}
+      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Ausblick: 30 / 60 / 90 Tage</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          {/* Connector Line */}
+          <div className="hidden md:block absolute top-12 left-[16.66%] w-[66.66%] h-0.5 bg-gray-200 z-0" />
+
+          {[
+            { day: '30', title: 'Fundament', desc: 'Tracking aktiv, erste SQLs attribuiert, Basis-Kampagnen in der Google-Suche laufen.', color: 'bg-emerald-500', ring: 'ring-emerald-100', text: 'text-emerald-700', badge: 'bg-emerald-50', kpi: 'Erster attribuierbarer SQL' },
+            { day: '60', title: 'Skalierung', desc: 'Stabilisierung des SQL-Volumens, Retargeting aktiv, erste branchenspezifische Playbooks im Einsatz.', color: 'bg-blue-500', ring: 'ring-blue-100', text: 'text-blue-700', badge: 'bg-blue-50', kpi: '10+ SQLs / Monat' },
+            { day: '90', title: 'System Live', desc: 'Wiederholbarer Growth-Engine – ABM erweitert, CAC-zu-ARR Benchmarks etabliert.', color: 'bg-indigo-500', ring: 'ring-indigo-100', text: 'text-indigo-700', badge: 'bg-indigo-50', kpi: 'Vorhersehbare Pipeline' }
+          ].map((item, i) => (
+            <div key={item.day} className={cn("relative z-10 flex flex-col p-6 rounded-2xl border border-gray-100 shadow-sm", item.badge)}>
+              <div className="flex items-center gap-4 mb-4">
+                <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4", item.color, item.ring)}>
+                  {item.day}
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Tag</p>
+                  <h4 className={cn("text-lg font-bold", item.text)}>{item.title}</h4>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">{item.desc}</p>
+              <div className="mt-auto pt-4 border-t border-gray-200">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Ziel-KPI</p>
+                <p className={cn("text-sm font-bold", item.text)}>{item.kpi}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Research Conclusion */}
+      <div className="p-8 rounded-3xl bg-gray-50 border border-gray-100 premium-shadow">
+        <h3 className="text-xl font-bold font-display mb-4">Research-Fazit</h3>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Die Rolle wirkt weniger wie eine isolierte Kanalfunktion und mehr wie der Aufbau eines wirtschaftlich belastbaren Growth-Systems. Die wiederholte Betonung von Pipeline-Qualität, Attribution, CRM-Integration und Sales-Alignment deutet darauf hin, dass homie nicht nur mehr Akquisition, sondern bessere Signalqualität, bessere Entscheidungsqualität und tragfähigere Voraussetzungen für skalierbares Wachstum sucht.
+        </p>
+      </div>
+    </div>
+  );
 }
 
 function MarketView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
