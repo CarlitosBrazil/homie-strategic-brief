@@ -1,32 +1,46 @@
 [
   {
-    "phase": "Monat 1: Foundation",
-    "focus": "Tracking & Setup",
+    "phase": "Tag 1–30",
+    "focus": "Wahrheit herstellen",
+    "description": "Tracking, Lifecycle-Definitionen, CRM-Attribution und die aktuelle Sicht auf Paid-to-Pipeline prüfen. Klären, welche Signale tatsächlich für Qualität stehen und wo die Verbindung zwischen Plattform, CRM und Sales-Realität bricht.",
     "deliverables": [
-      "HubSpot & GA4 Integration",
-      "Offline Conversion Tracking Setup",
-      "Kampagnen-Strukturierung"
+      "Event-Taxonomie implementiert",
+      "CRM-Lifecycle-Definitionen",
+      "Zwei-Pfad-LP-System"
     ],
-    "outcome": "Saubere Datenbasis & erste Kampagnen live"
+    "outcome": "\"Aktivierung von Google Search-Kampagnen für die Top 20 High-Intent-Keywords.\""
   },
   {
-    "phase": "Monat 2: Scale",
-    "focus": "Budget-Skalierung & Optimierung",
+    "phase": "Tag 31–60",
+    "focus": "Qualität stabilisieren",
+    "description": "ICP-Logik schärfen, Routing und Feedback-Loops mit Sales verbessern, Landingpages und Angebote überprüfen und herausarbeiten, welche Kanäle und Kampagnen die besten nachgelagerten Signale liefern.",
     "deliverables": [
-      "A/B-Testing von Creatives",
-      "Retargeting-Kampagnen aktivieren",
-      "Budget-Shift zu Top-Performern"
+      "Erster Full-Funnel-Report",
+      "Retargeting live (LinkedIn + Meta)",
+      "3–4 Creative-Tests"
     ],
-    "outcome": "Senkung des CPL um 15% & Steigerung der Lead-Qualität"
+    "outcome": "\"Operatives Dashboard, validiertes Conversion-Tracking und initiale SQL-Attribution.\""
   },
   {
-    "phase": "Monat 3: Expand",
-    "focus": "Neue Kanäle & Experimente",
+    "phase": "Tag 61–90",
+    "focus": "Skalieren, was belastbar ist",
+    "description": "Spend nur dort ausweiten, wo Signalqualität, Lead-Qualität und Conversion-Pfad tragfähig sind. Reporting auf qualifizierte Pipeline und wirtschaftliche Wirkung ausrichten, nicht nur auf Plattform-Outcome.",
     "deliverables": [
-      "Start von LinkedIn ABM",
-      "Erste Growth-Experimente (z.B. Pricing-Page)",
-      "Webinar-Promotion"
+      "DIY-Vertikalkampagnen-Set",
+      "Offline-Conversion-Import für SQL",
+      "Test-Kadenz: 2/Woche"
     ],
-    "outcome": "Diversifizierung der Lead-Quellen & Pipeline-Wachstum"
+    "outcome": "\"Etablierung eines vorhersehbaren wöchentlichen SQL-Volumens mit validierten CPL-Benchmarks.\""
+  },
+  {
+    "phase": "Tag 91+",
+    "focus": "Skalieren, was belastbar ist",
+    "description": "ABM-Ausbau, vertikale Landingpage-Varianten und Pipeline-Influence-Reporting systematisch erweitern, damit Wachstum nicht nur mehr Aktivität erzeugt, sondern belastbar mehr qualifizierte Pipeline.",
+    "deliverables": [
+      "ABM-Liste erweitern",
+      "Branchenspezifische LP-Varianten",
+      "Pipeline-Influence-Reporting"
+    ],
+    "outcome": "\"Vollständig wiederholbarer Growth-Engine mit etablierten CAC-zu-ARR Performance-Benchmarks.\""
   }
 ]

@@ -1631,7 +1631,7 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             </thead>
             <tbody className="divide-y divide-slate-50">
               {experimentsData.map((exp) => (
-                <tr key={exp.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={exp.id} className="odd:bg-slate-50/60 hover:bg-slate-100/60 transition-colors">
                   <td className="py-4 pr-6">
                     <p className="font-semibold text-indigo-900 leading-relaxed">{exp.hypothesis}</p>
                   </td>
@@ -1652,40 +1652,43 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
   return (
     <div className="space-y-8">
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-8">90-Tage Implementierungsplan</h3>
+      <div className="p-8 rounded-3xl bg-white border border-slate-100 premium-shadow mx-4">
+        <h3 className="text-xl font-bold font-display mb-10 text-slate-900">90-Tage Implementierungsplan</h3>
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-gray-200" />
+          <div className="absolute left-[27px] top-6 bottom-6 w-0.5 bg-slate-100" />
 
-          <div className="space-y-8">
-            {roadmapData.map((phase, i) => (
+          <div className="space-y-12">
+            {(roadmapData as any[]).map((phase, i) => (
               <div key={phase.phase} className="relative pl-16">
-                <div className="absolute left-0 top-1 w-14 h-14 rounded-2xl bg-white border-2 border-blue-600 flex items-center justify-center text-blue-600 font-black text-lg z-10 shadow-sm">
+                <div className="absolute left-0 top-0 w-14 h-14 rounded-2xl bg-white border-2 border-blue-600 flex items-center justify-center text-blue-600 font-bold text-lg z-10 shadow-sm">
                   {i + 1}
                 </div>
-                <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">{phase.phase}</h4>
-                      <p className="text-sm text-blue-600 font-medium">{phase.focus}</p>
-                    </div>
+                <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100/60">
+                  <div className="mb-6">
+                    <h4 className="text-lg font-bold text-slate-900 mb-1">{phase.phase}</h4>
+                    <p className="text-sm text-blue-600 font-medium mb-4">{phase.focus}</p>
+                    {phase.description && (
+                      <p className="text-sm text-slate-600 leading-relaxed pr-8">
+                        {phase.description}
+                      </p>
+                    )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Key Deliverables</p>
-                      <ul className="space-y-2">
-                        {phase.deliverables.map(item => (
-                          <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
-                            <CheckCircle2 size={14} className="text-emerald-500 mt-0.5 shrink-0" />
-                            {item}
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Zentrale Deliverables</p>
+                      <ul className="space-y-2.5">
+                        {phase.deliverables.map((item: string) => (
+                          <li key={item} className="flex items-start gap-2.5 text-sm text-slate-700">
+                            <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
+                            <span className="leading-snug">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Erwartetes Ergebnis</p>
-                      <div className="p-3 bg-white rounded-xl border border-gray-100 text-sm text-gray-700 font-medium">
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Management-Ergebnis</p>
+                      <div className="p-4 bg-white rounded-xl border border-slate-100 text-sm text-slate-700 font-medium leading-relaxed shadow-sm">
                         {phase.outcome}
                       </div>
                     </div>
@@ -1693,6 +1696,38 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Performance Memo Template */}
+      <div className="bg-[#0B1120] rounded-3xl p-12 border border-slate-800/60 premium-shadow -ml-16">
+        <h4 className="text-sm font-bold text-white uppercase tracking-[0.18em] mb-10">
+          Vorlage: Wöchentliches Performance Memo
+        </h4>
+        <div className="space-y-5">
+          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
+            <div className="w-7 h-7 rounded bg-blue-500/15 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0 mt-0.5">1</div>
+            <div>
+              <h5 className="text-base font-bold text-blue-400 mb-2">Was hat sich geändert (Metriken)</h5>
+              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "CPL sank um 15% in der Suche, aber das SQL-Volumen blieb stabil."</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
+            <div className="w-7 h-7 rounded bg-purple-500/15 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0 mt-0.5">2</div>
+            <div>
+              <h5 className="text-base font-bold text-purple-400 mb-2">Warum (Hypothese)</h5>
+              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "Gebote der Wettbewerber ließen nach, aber wir fingen eher Suchanfragen mit geringerem Intent ein."</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
+            <div className="w-7 h-7 rounded bg-emerald-500/15 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0 mt-0.5">3</div>
+            <div>
+              <h5 className="text-base font-bold text-emerald-400 mb-2">Nächste Schritte (Maßnahme)</h5>
+              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "Negative Keyword-Liste erweitern und neue Enterprise-LP testen."</p>
+            </div>
           </div>
         </div>
       </div>
