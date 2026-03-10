@@ -14,6 +14,12 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+// Assets for About Page
+import profileImg from '../assets/about/Carlos De Azevedo Jr - 2024.jpg';
+import cvPdf from '../assets/about/Carlos Azevedo C.V._ DE_2026 .pdf';
+import recPdf from '../assets/about/Carlos Azevedo Jr._Alveus Arbeitszeugnis.pdf';
+import certPdf from '../assets/about/Carlos Azevedo Jr._Zertifizierungen_2026.pdf';
+
 import ResearchDashboard from './components/ResearchDashboard';
 import GrowthDashboard from './components/GrowthDashboard';
 
@@ -356,59 +362,121 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
 
 function AuditSection() {
   return (
-    <div className="max-w-5xl mx-auto px-6 space-y-12">
-      <header className="mb-12">
-        <h2 className="text-3xl font-serif text-white mb-4">Tailored Audit Scorecard</h2>
-        <p className="text-slate-400 font-light max-w-2xl">A practical working framework for evaluating growth systems, turning complexity into reliable decision structures. Not a gimmick, but a real operational tool.</p>
-      </header>
-
-      <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-white/5 border-b border-white/10">
-              <tr>
-                <th className="p-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Dimension</th>
-                <th className="p-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Evaluation Criteria</th>
-                <th className="p-6 text-xs font-medium text-slate-400 uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {[
-                { dim: "Measurement Integrity", crit: "CRM stages map 1:1 to paid platform conversions.", status: "Review Needed" },
-                { dim: "Sales Alignment", crit: "Lead volume matches sales throughput capacity.", status: "Pending Data" },
-                { dim: "Unit Economics", crit: "CAC payback period is under 12 months for Professional tier.", status: "Modeled" },
-                { dim: "Channel Diversification", crit: "No single paid channel accounts for >60% of pipeline.", status: "Review Needed" },
-              ].map((row, i) => (
-                <tr key={i}>
-                  <td className="p-6 text-sm text-white font-medium">{row.dim}</td>
-                  <td className="p-6 text-sm text-slate-400 font-light">{row.crit}</td>
-                  <td className="p-6">
-                    <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300 whitespace-nowrap">
-                      {row.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="max-w-4xl mx-auto px-6 space-y-32 pb-32">
+      {/* 01. The Audit */}
+      <section className="pt-10 space-y-8">
+        <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">01</h2>
+        <h1 className="text-5xl md:text-7xl font-serif text-white leading-tight">
+          The Audit
+        </h1>
+        <div className="text-xl text-[var(--color-navy-text-body)] max-w-2xl font-light leading-relaxed space-y-6">
+          <p>Tracking and attribution looked like one of the likely pressure points behind the role.</p>
+          <p>So I did not just mention it.<br />I built around it.</p>
+          <p>I wanted to contribute something useful.<br />A practical gift for the team.</p>
         </div>
-      </div>
+      </section>
+
+      {/* 02. What It Reviews */}
+      <section className="space-y-12">
+        <div className="space-y-2">
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">02</h2>
+          <h2 className="text-3xl font-serif text-white">What It Reviews</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            "Tracking & attribution",
+            "CRM signal quality",
+            "Campaign structure",
+            "Reporting & feedback loops"
+          ].map((title, i) => (
+            <div key={i} className="p-8 bg-[var(--color-navy-surface)] border border-[var(--color-navy-border-light)] rounded-2xl hover:bg-[var(--color-navy-elevated)] transition-colors">
+              <h3 className="text-xl font-serif text-white">{title}</h3>
+            </div>
+          ))}
+        </div>
+        <div className="text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
+          <p>Not in isolation.<br />As one system.</p>
+        </div>
+      </section>
+
+      {/* 03. Why It Matters */}
+      <section className="space-y-8">
+        <div className="space-y-2">
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">03</h2>
+          <h2 className="text-3xl font-serif text-white">Why It Matters</h2>
+        </div>
+        <div className="space-y-6 text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
+          <p>Weak measurement makes everything downstream harder to trust.</p>
+          <p>Platform numbers can look clean.<br />Pipeline quality can say something else.</p>
+          <p>That is the gap.</p>
+        </div>
+      </section>
+
+      {/* 04. The Point */}
+      <section className="space-y-8">
+        <div className="space-y-2">
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">04</h2>
+          <h2 className="text-3xl font-serif text-white">The Point</h2>
+        </div>
+        <div className="space-y-6 text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
+          <p>This document carries real working knowledge.</p>
+          <p>Not theory.<br />Not decoration.<br />Useful judgment.</p>
+        </div>
+      </section>
+
+      {/* 05. Documents */}
+      <section className="space-y-8 pt-8 border-t border-[var(--color-navy-border-light)]">
+        <div className="space-y-2">
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">05</h2>
+          <h2 className="text-3xl font-serif text-white">Documents</h2>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a href="#" className="px-8 py-4 bg-white text-black hover:bg-slate-200 rounded-full font-medium transition-colors flex items-center justify-center gap-2">
+            <FileText className="w-4 h-4" /> Open Audit PDF
+          </a>
+          <a href="#" className="px-8 py-4 bg-[var(--color-navy-surface)] text-white hover:bg-[var(--color-navy-elevated)] border border-[var(--color-navy-border-light)] rounded-full font-medium transition-colors flex items-center justify-center gap-2">
+            <Download className="w-4 h-4" /> Download Scorecard
+          </a>
+          <a href="#" className="px-8 py-4 bg-[var(--color-navy-surface)] text-white hover:bg-[var(--color-navy-elevated)] border border-[var(--color-navy-border-light)] rounded-full font-medium transition-colors flex items-center justify-center gap-2">
+            <ExternalLink className="w-4 h-4" /> Open Audit Workbook
+          </a>
+        </div>
+      </section>
+
+      {/* 06. Closing Line */}
+      <section className="text-center pt-16">
+        <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold mb-6">06</h2>
+        <p className="text-[var(--color-navy-text-body)] font-serif italic text-lg">
+          Decision-grade signal matters more than visible activity.
+        </p>
+      </section>
     </div>
-  )
+  );
 }
 
 function AboutSection() {
   return (
     <div className="max-w-4xl mx-auto px-6 space-y-32 pb-32">
       {/* 1. Hero */}
-      <section className="pt-10 space-y-8">
-        <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">ABOUT CARLOS AZEVEDO</h2>
-        <h1 className="text-5xl md:text-7xl font-serif text-white leading-tight">
-          Hi, I’m Carlos.
-        </h1>
-        <div className="text-xl text-[var(--color-navy-text-body)] max-w-2xl font-light leading-relaxed space-y-4">
-          <p className="text-white font-medium">Growth strategist specializing in B2B SaaS and performance marketing.</p>
-          <p>I build systems that connect paid acquisition, measurement, and sales reality — so growth becomes easier to trust, not just easier to report.</p>
+      <section className="pt-10 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+        <div className="flex-1 space-y-8">
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">ABOUT CARLOS AZEVEDO</h2>
+          <h1 className="text-5xl md:text-7xl font-serif text-white leading-tight">
+            Hi, I’m Carlos.
+          </h1>
+          <div className="text-xl text-[var(--color-navy-text-body)] max-w-2xl font-light leading-relaxed space-y-4">
+            <p className="text-white font-medium">Growth strategist specializing in B2B SaaS and performance marketing.</p>
+            <p>I build systems that connect paid acquisition, measurement, and sales reality — so growth becomes easier to trust, not just easier to report.</p>
+          </div>
+        </div>
+
+        {/* Profile Image - Vertical Portrait */}
+        <div className="w-56 md:w-64 shrink-0 rounded-2xl overflow-hidden border border-[var(--color-navy-border-light)] shadow-2xl relative aspect-[3/4]">
+          <img
+            src={profileImg}
+            alt="Carlos Azevedo"
+            className="w-full h-full object-cover object-top"
+          />
         </div>
       </section>
 
@@ -419,7 +487,7 @@ function AboutSection() {
           <h2 className="text-3xl font-serif">Operating Philosophy</h2>
           <div className="space-y-6 text-lg font-light leading-relaxed text-[#475569]">
             <p>
-              I have experienced first-hand how powerful scaling can be. I have also experienced what happens when growth runs ahead of process, measurement, and structure.
+              I have experienced first-hand how powerful scaling can be — inside a business that grew from roughly 300 active clients to more than 1.9 million customers across seven countries in about two years. I have also experienced what happens when growth runs ahead of process, measurement, and structure.
             </p>
             <p>
               Part of how I work today is turning complexity into usable frameworks — audits, SOPs, scorecards, and decision structures that make growth systems more reliable.
@@ -474,12 +542,18 @@ function AboutSection() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { title: "Full CV", icon: <FileText className="w-5 h-5 text-blue-400" />, type: "PDF" },
-            { title: "Recommendation Letters", icon: <FileText className="w-5 h-5 text-emerald-400" />, type: "PDF" },
-            { title: "Certificates", icon: <Award className="w-5 h-5 text-purple-400" />, type: "PDF" },
-            { title: "LinkedIn Profile", icon: <ExternalLink className="w-5 h-5 text-slate-400" />, type: "Link" },
+            { title: "Full CV", icon: <FileText className="w-5 h-5 text-blue-400" />, type: "PDF", link: cvPdf },
+            { title: "Recommendation Letters", icon: <FileText className="w-5 h-5 text-emerald-400" />, type: "PDF", link: recPdf },
+            { title: "Certificates", icon: <Award className="w-5 h-5 text-purple-400" />, type: "PDF", link: certPdf },
+            { title: "LinkedIn Profile", icon: <ExternalLink className="w-5 h-5 text-slate-400" />, type: "Link", link: "#" },
           ].map((doc, i) => (
-            <a href="#" key={i} className="bg-[var(--color-navy-surface)] border border-[var(--color-navy-border-light)] p-6 rounded-2xl flex items-center justify-between hover:bg-[var(--color-navy-elevated)] transition-colors group">
+            <a
+              href={doc.link}
+              key={i}
+              target={doc.link.startsWith('http') || doc.link.endsWith('.pdf') ? "_blank" : undefined}
+              rel={doc.link.startsWith('http') || doc.link.endsWith('.pdf') ? "noopener noreferrer" : undefined}
+              className="bg-[var(--color-navy-surface)] border border-[var(--color-navy-border-light)] p-6 rounded-2xl flex items-center justify-between hover:bg-[var(--color-navy-elevated)] transition-colors group"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[var(--color-navy-base)] border border-[var(--color-navy-border-light)] flex items-center justify-center shrink-0 group-hover:border-blue-500/30 transition-colors">
                   {doc.icon}
