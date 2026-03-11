@@ -57,64 +57,65 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
       <div className="max-w-4xl mx-auto">
         <section className="pt-24 pb-20 text-center space-y-8">
           <h1 className="text-5xl md:text-8xl font-serif text-white leading-tight">
-            A different kind of application.<br />
-            <span className="italic" style={{ color: '#A8C7D9' }}>Built around the role.</span>
+            Eine andere Art der Bewerbung.<br />
+            <span className="italic" style={{ color: '#A8C7D9' }}>Rund um die Rolle gebaut.</span>
           </h1>
+          <p className="text-xl text-slate-400 font-light">So gedacht, dass es nützlich ist.</p>
           <div className="pt-8 flex justify-center">
             <button onClick={() => {
               document.getElementById('letter')?.scrollIntoView({ behavior: 'smooth' });
             }} className="px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-slate-200 transition-colors shadow-xl">
-              Application Letter
+              Bewerbung lesen
             </button>
           </div>
         </section>
       </div>
 
-      {/* 01 — A Letter to the homie Team */}
+      {/* 01 — Ein Brief an das homie Team */}
       <div className="max-w-4xl mx-auto w-full">
         <section id="letter" className="relative scroll-mt-32">
           <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent blur-3xl -z-10" />
           <SectionCard>
             <h3 className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">01</h3>
-            <h2 className="text-3xl font-serif text-slate-900 mb-8">A Letter to the homie Team</h2>
+            <h2 className="text-3xl font-serif text-slate-900 mb-8">Ein Brief an das homie Team</h2>
 
             <div className="space-y-6 text-slate-800 font-serif leading-relaxed text-lg max-w-2xl">
-              <p>I did not want to send a standard application.</p>
+              <p>Ich wollte mich nicht mit einer Standardbewerbung melden.</p>
               <p>
-                I read the role closely.<br />
-                To me, it looked less like a channel job and more like a growth systems job.
+                Ich habe die Rolle genau gelesen.<br />
+                Für mich sah sie weniger nach einem reinen Channel-Job aus und mehr nach einer Growth-Systems-Rolle.
               </p>
               <p>
-                Paid. Pipeline. Tracking. CRM. Sales alignment.<br />
-                Not in isolation. As one system.
+                Paid. Pipeline. Tracking. CRM. Sales Alignment.<br />
+                Nicht isoliert. Als ein System.
               </p>
-              <p>That is what pulled me in.</p>
-              <p>So instead of talking too much about how I work, I built something around the role:</p>
+              <p>Genau das hat mich interessiert.</p>
+              <p>Also habe ich nicht lange darüber gesprochen, wie ich arbeite. Ich habe etwas rund um die Rolle gebaut:</p>
               <ul className="list-disc pl-6 space-y-2 text-slate-700">
-                <li>research</li>
-                <li>a growth model</li>
-                <li>a paid media and tracking audit</li>
+                <li>Research</li>
+                <li>ein Growth Model</li>
+                <li>ein Paid-Media- und Tracking-Audit</li>
               </ul>
-              <p>Everything was built from public information only.</p>
-              <p>The model starts with the price points on your site and extends into a what-if:</p>
+              <p>Alles auf Basis öffentlicher Informationen.</p>
+              <p>Das Modell startet mit den sichtbaren Preisstufen auf eurer Website und führt zu einer schwierigeren What-if-Frage:</p>
               <div className="pl-6 border-l-2 border-blue-500/40 italic text-slate-700">
-                <p>What would need to be true for a company like homie to build toward unicorn-scale value over time?</p>
+                <p>Was müsste wahr sein, damit ein Unternehmen wie homie langfristig in Richtung Unicorn-Scale wachsen kann?</p>
               </div>
               <p>
-                Not as a prediction.<br />
-                As a sharper way to think.
+                Nicht als Prognose.<br />
+                Als schärfere Denkweise.
               </p>
-              <p>The audit is there because tracking and attribution looked like one of the likely pressure points behind the role. In my work with God Tier Ads and Midas Media, this was consistently one of the most common and most important issues.</p>
-              <p>So this page is simple.</p>
+              <p>Das Audit ist dabei, weil Tracking und Attribution wie einer der wahrscheinlichen Engpässe hinter der Rolle wirkten. In meiner Arbeit mit God Tier Ads und Midas Media war genau das immer wieder eines der häufigsten und wichtigsten Themen.</p>
+              <p>Diese Seite ist deshalb einfach.</p>
               <p>
-                I saw the challenge.<br />
-                I thought about it seriously.<br />
-                And I built the material.
+                Ich habe die Herausforderung gesehen.<br />
+                Ich habe sie ernst genommen.<br />
+                Und ich habe etwas dazu gebaut.
               </p>
-              <p>That is how I wanted to apply.</p>
-              <p>I hope it resonates with all of you.</p>
+              <p>So wollte ich mich bewerben.</p>
+              <p>Ich hoffe, es resoniert bei euch.</p>
               <p className="pt-4">
-                Best regards,<br />
+                Viele Grüße<br />
                 <span className="font-serif text-2xl italic mt-2 block text-slate-900">Carlos Azevedo</span>
               </p>
             </div>
@@ -122,21 +123,21 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
         </section>
       </div>
 
-      {/* 02 — The Role */}
+      {/* 02 — Die Rolle */}
       <section className="space-y-6">
         <SectionCard isDark={true}>
           <h3 className="text-sm font-bold text-blue-500 uppercase tracking-widest">02</h3>
-          <h2 className="text-3xl font-serif text-white mb-8">The Role</h2>
+          <h2 className="text-3xl font-serif text-white mb-8">Die Rolle</h2>
           <div className="space-y-6 text-slate-400 font-light leading-relaxed text-lg max-w-2xl">
-            <p>A data-driven performance marketer who can fix what matters for growth:</p>
+            <p>Ein datengetriebener Performance Marketer, der die Punkte lösen kann, die für Wachstum wirklich zählen:</p>
             <ul className="space-y-4 pl-6 border-l border-white/10 text-white/90">
-              <li>measurement that is not yet decision-grade</li>
-              <li>lead flow that does not always equal lead quality</li>
-              <li>platform performance that may not fully match business truth</li>
-              <li>paid, CRM, and sales signals that do not yet speak with one voice</li>
-              <li>growth ambition pressing against operating structure</li>
+              <li>Messung, die noch nicht entscheidungsreif ist</li>
+              <li>Leadfluss, der nicht immer Leadqualität bedeutet</li>
+              <li>Plattform-Performance, die nicht vollständig zur Business-Realität passt</li>
+              <li>Paid-, CRM- und Sales-Signale, die noch nicht mit einer Stimme sprechen</li>
+              <li>Wachstumsambition, die auf operative Grenzen trifft</li>
             </ul>
-            <p>Critical for growth.<br />Not in isolation. As one system.</p>
+            <p>Kritisch für Wachstum.<br />Nicht isoliert. Als ein System.</p>
             <div className="pt-4">
               <button onClick={() => onNavigate('growth')} className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-2 transition-colors">
                 Growth Model &rarr;
@@ -152,24 +153,24 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
           <h3 className="text-sm font-bold text-blue-600 uppercase tracking-widest">03</h3>
           <h2 className="text-3xl font-serif text-slate-900 mb-8">Timing</h2>
           <div className="space-y-8 text-slate-700 font-light leading-relaxed text-lg">
-            <p className="max-w-2xl">This role signals a shift.</p>
-            <p className="max-w-2xl">Not just more traffic, but more sustainable expansion.</p>
+            <p className="max-w-2xl">Diese Rolle signalisiert einen Wechsel.</p>
+            <p className="max-w-2xl">Nicht einfach mehr Traffic, sondern belastbareres Wachstum.</p>
 
             <div className="space-y-4">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">A shift from:</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Ein Wechsel von:</p>
               <div className="grid md:grid-cols-2 gap-6 w-full">
                 <div className="bg-slate-100/50 border border-slate-200/60 rounded-2xl p-8 space-y-4 transition-all duration-300">
-                  <div className="w-fit px-2 py-0.5 rounded bg-slate-200/50 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Before</div>
-                  <p className="text-slate-800 font-serif text-xl leading-snug whitespace-nowrap">Can marketing generate volume?</p>
+                  <div className="w-fit px-2 py-0.5 rounded bg-slate-200/50 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Vorher</div>
+                  <p className="text-slate-800 font-serif text-xl leading-snug whitespace-nowrap">Kann Marketing Volumen erzeugen?</p>
                 </div>
                 <div className="bg-white border border-slate-200 rounded-2xl p-8 space-y-4 shadow-xl shadow-slate-200/20 ring-1 ring-blue-500/5 transition-all duration-300 transform md:scale-[1.02]">
-                  <div className="w-fit px-2 py-0.5 rounded bg-blue-50 text-[10px] font-bold text-blue-600 uppercase tracking-widest">Now</div>
-                  <p className="text-slate-900 font-serif text-xl leading-snug">Can the business trust what marketing generates enough to scale it?</p>
+                  <div className="w-fit px-2 py-0.5 rounded bg-blue-50 text-[10px] font-bold text-blue-600 uppercase tracking-widest">Jetzt</div>
+                  <p className="text-slate-900 font-serif text-xl leading-snug">Kann das Unternehmen dem vertrauen, was Marketing erzeugt, um darauf zu skalieren?</p>
                 </div>
               </div>
             </div>
 
-            <p className="pt-2 max-w-2xl">That is the real change.</p>
+            <p className="pt-2 max-w-2xl">Das ist der eigentliche Unterschied.</p>
             <div className="pt-4">
               <button onClick={() => onNavigate('audit')} className="text-blue-700 hover:text-blue-900 font-medium flex items-center gap-2 transition-colors group">
                 Audit Scorecard <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
@@ -185,15 +186,15 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
           <h3 className="text-sm font-bold text-blue-500 uppercase tracking-widest">04</h3>
           <h2 className="text-3xl font-serif text-white mb-8">Research</h2>
           <div className="space-y-6 text-slate-400 font-light leading-relaxed text-lg max-w-2xl">
-            <p>An outside-in view of the business:</p>
+            <p>Ein Outside-in-Blick auf das Unternehmen:</p>
             <ul className="space-y-3 pl-6 border-l border-white/10 text-white/80">
-              <li>where homie looks strongest</li>
-              <li>which ICPs look most valuable</li>
-              <li>what the market seems to reward</li>
-              <li>where friction is likely to show up</li>
-              <li>what this role really needs to strengthen</li>
+              <li>wo homie besonders stark wirkt</li>
+              <li>welche ICPs am wertvollsten aussehen</li>
+              <li>was der Markt zu belohnen scheint</li>
+              <li>wo Reibung wahrscheinlich entsteht</li>
+              <li>was diese Rolle eigentlich stärken soll</li>
             </ul>
-            <p>Built to surface what matters early.</p>
+            <p>Gebaut, um früh sichtbar zu machen, was wirklich zählt.</p>
             <div className="pt-2">
               <button onClick={() => onNavigate('research')} className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-2 transition-colors">
                 Research Dashboard &rarr;
@@ -209,21 +210,21 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
           <h3 className="text-sm font-bold text-blue-600 uppercase tracking-widest">05</h3>
           <h2 className="text-3xl font-serif text-slate-900 mb-8">Growth System</h2>
           <div className="space-y-8 text-slate-700 font-light leading-relaxed text-lg">
-            <p className="max-w-2xl">Paid is not a channel in isolation.<br />It is part of a larger growth system.</p>
+            <p className="max-w-2xl">Paid ist kein Kanal in Isolation.<br />Es ist Teil eines größeren Wachstumssystems.</p>
 
             <div className="space-y-4">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">The real chain is:</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Die eigentliche Kette ist:</p>
               <div className="flex items-center gap-x-12 bg-slate-50 border border-slate-200/60 p-8 md:p-10 rounded-2xl w-full">
                 {[
-                  'budget',
-                  'qualified pipeline',
-                  'sales capacity',
-                  'retained revenue'
+                  { label: 'Budget', step: '01' },
+                  { label: 'qualifizierte Pipeline', step: '02' },
+                  { label: 'Sales-Kapazität', step: '03' },
+                  { label: 'gebundener Umsatz', step: '04' }
                 ].map((item, i, arr) => (
-                  <React.Fragment key={item}>
+                  <React.Fragment key={item.label}>
                     <div className="flex flex-col shrink-0">
-                      <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest mb-1">Step 0{i + 1}</span>
-                      <span className="font-serif text-xl text-slate-900">{item}</span>
+                      <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest mb-1">Schritt {item.step}</span>
+                      <span className="font-serif text-xl text-slate-900">{item.label}</span>
                     </div>
                     {i < arr.length - 1 && (
                       <div className="text-slate-300 hidden md:block shrink-0">
@@ -237,7 +238,7 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
               </div>
             </div>
 
-            <p className="text-slate-600 max-w-2xl">Because paid acquisition cannot scale on its own.<br />And acquisition efficiency without retention quality is false efficiency.</p>
+            <p className="text-slate-600 max-w-2xl">Denn Paid Acquisition kann nicht für sich allein skalieren.<br />Und Akquisitionseffizienz ohne Retention-Qualität ist Scheineffizienz.</p>
 
             <div className="pt-2">
               <button onClick={() => onNavigate('growth')} className="text-blue-700 hover:text-blue-900 font-medium flex items-center gap-2 transition-colors group">
@@ -248,19 +249,19 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
         </SectionCard>
       </section>
 
-      {/* 06 — The Model */}
+      {/* 06 — Das Modell */}
       <section className="space-y-6">
         <SectionCard isDark={true}>
           <h3 className="text-sm font-bold text-blue-500 uppercase tracking-widest">06</h3>
-          <h2 className="text-3xl font-serif text-white mb-8">The Model</h2>
+          <h2 className="text-3xl font-serif text-white mb-8">Das Modell</h2>
           <div className="space-y-6 text-slate-400 font-light leading-relaxed text-lg">
-            <p className="max-w-2xl">Built from public inputs only.</p>
-            <p className="max-w-2xl">It starts with the visible price points on your site and expands into a harder what-if:</p>
+            <p className="max-w-2xl">Gebaut auf Basis öffentlicher Inputs.</p>
+            <p className="max-w-2xl">Es startet mit den sichtbaren Preisstufen auf eurer Website und erweitert sie in eine anspruchsvollere What-if-Frage:</p>
             <div className="bg-[#0f0f0f] px-8 py-10 rounded-2xl border border-white/5 shadow-2xl w-full">
-              <p className="text-white text-lg font-serif italic leading-relaxed whitespace-nowrap">What would need to be true for homie to build toward unicorn-scale value over time?</p>
+              <p className="text-white text-lg font-serif italic leading-relaxed whitespace-nowrap">Was müsste wahr sein, damit homie langfristig in Richtung Unicorn-Scale wachsen kann?</p>
             </div>
-            <p className="max-w-2xl">Not as a prediction.<br />As a sharper way to think.</p>
-            <p>The screenshots below come directly from the model.</p>
+            <p className="max-w-2xl">Nicht als Prognose.<br />Als schärfere Denkweise.</p>
+            <p>Die screenshots unten stammen direkt aus dem Modell.</p>
             <div className="pt-4 pb-2">
               <p className="text-[10px] font-bold text-blue-500/80 uppercase tracking-[0.25em] mb-4">Growth Model Preview</p>
               <div
@@ -269,8 +270,8 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 <div className="absolute bottom-8 left-8 z-20 space-y-1">
-                  <p className="text-white text-xl font-medium tracking-tight">Interactive Growth Model</p>
-                  <p className="text-sm text-slate-400 font-light">Click to open</p>
+                  <p className="text-white text-xl font-medium tracking-tight">Interaktives Growth Model</p>
+                  <p className="text-sm text-slate-400 font-light">Zum Öffnen klicken</p>
                 </div>
                 <div
                   className="w-full h-full opacity-40 group-hover:opacity-60 transition-opacity duration-500 bg-cover bg-center scale-105 group-hover:scale-100"
@@ -293,22 +294,22 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
           <h3 className="text-sm font-bold text-blue-600 uppercase tracking-widest">07</h3>
           <h2 className="text-3xl font-serif text-slate-900 mb-8">Business Truth</h2>
           <div className="space-y-6 text-slate-800 font-serif leading-relaxed text-lg max-w-2xl">
-            <p>Platform performance and business performance are not always the same thing.</p>
-            <p>The real scorecard starts where paid data, CRM stages, pipeline quality, and recurring revenue meet.</p>
+            <p>Plattform-Performance und Business-Performance sind nicht immer dasselbe.</p>
+            <p>Der eigentliche Score beginnt dort, wo Paid-Daten, CRM-Stufen, Pipeline-Qualität und wiederkehrender Umsatz zusammenlaufen.</p>
           </div>
         </SectionCard>
       </section >
 
-      {/* 08 — The Audit */}
+      {/* 08 — Das Audit */}
       < section className="space-y-6" >
         <SectionCard isDark={true}>
           <h3 className="text-sm font-bold text-blue-500 uppercase tracking-widest">08</h3>
-          <h2 className="text-3xl font-serif text-white mb-8">The Audit</h2>
+          <h2 className="text-3xl font-serif text-white mb-8">Das Audit</h2>
           <div className="space-y-6 text-slate-400 font-light leading-relaxed text-lg max-w-2xl">
-            <p>I included the audit for a simple reason.</p>
-            <p>Tracking and attribution looked like one of the likely pressure points behind the role.</p>
-            <p>In my work with God Tier Ads and Midas Media, this was consistently one of the most common and most important issues.</p>
-            <p>So I did not just mention it.<br />I built around it.</p>
+            <p>Ich habe das Audit aus einem einfachen Grund aufgenommen.</p>
+            <p>Tracking und Attribution wirkten wie einer der wahrscheinlichen Engpässe hinter der Rolle.</p>
+            <p>In meiner Arbeit mit God Tier Ads und Midas Media war genau das immer wieder eines der häufigsten und wichtigsten Themen.</p>
+            <p>Also habe ich es nicht nur erwähnt.<br />Ich habe etwas darum gebaut.</p>
             <div className="pt-2">
               <button onClick={() => onNavigate('audit')} className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-2 transition-colors">
                 Audit Scorecard &rarr;
@@ -318,38 +319,38 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
         </SectionCard>
       </section >
 
-      {/* 09 — What I Would Want to Build */}
+      {/* 09 — Was ich bauen wollen würde */}
       < section className="space-y-6" >
         <SectionCard isDark={false}>
           <h3 className="text-sm font-bold text-blue-600 uppercase tracking-widest">09</h3>
-          <h2 className="text-3xl font-serif text-slate-900 mb-8">What I Would Want to Build</h2>
+          <h2 className="text-3xl font-serif text-slate-900 mb-8">Was ich bauen wollen würde</h2>
           <div className="space-y-6 text-slate-700 font-light leading-relaxed text-lg max-w-2xl">
-            <p>Not more media buying in isolation.</p>
-            <p>A growth function that sees clearly, measures honestly, and scales with more confidence.</p>
+            <p>Nicht mehr Media Buying in Isolation.</p>
+            <p>Sondern eine Growth-Funktion, die klarer sieht, ehrlicher misst und mit mehr Vertrauen skaliert.</p>
           </div>
         </SectionCard>
       </section >
 
-      {/* 10 — If This Resonates */}
+      {/* 10 — Wenn das resoniert */}
       < section className="space-y-6 pt-12 border-t border-white/10" >
         <SectionCard isDark={true}>
           <h3 className="text-sm font-bold text-blue-500 uppercase tracking-widest">10</h3>
-          <h2 className="text-3xl font-serif text-white mb-8">If This Resonates</h2>
+          <h2 className="text-3xl font-serif text-white mb-8">Wenn das resoniert</h2>
           <div className="space-y-6 text-slate-400 font-light leading-relaxed text-lg max-w-2xl">
             <p>
-              This is not meant as certainty.<br />
-              And it is not meant as a polished performance.
+              Das hier ist nicht als Gewissheit gemeint.<br />
+              Und auch nicht als polierte Performance.
             </p>
-            <p>It is simply the most honest way I know to apply:</p>
+            <p>Es ist einfach die ehrlichste Art, wie ich mich bewerben kann:</p>
             <ul className="space-y-2 pl-6 border-l border-white/10 text-white/90">
-              <li>to do the work first,</li>
-              <li>to think carefully,</li>
-              <li>and to make that thinking visible.</li>
+              <li>zuerst die Arbeit machen,</li>
+              <li>sorgfältig nachdenken,</li>
+              <li>und dieses Denken sichtbar machen.</li>
             </ul>
-            <p>If that feels useful, I would be glad to walk through the materials and discuss how I would approach the first 90 days.</p>
+            <p>Wenn sich das nützlich anfühlt, würde ich mich freuen, die Unterlagen im Gespräch einzuordnen und zu zeigen, wie ich an die ersten 90 Tage herangehen würde.</p>
             <div className="pt-12">
               <button className="px-8 py-4 bg-white text-black hover:bg-slate-200 rounded-full font-medium transition-colors">
-                Schedule a Conversation
+                Gespräch vereinbaren
               </button>
             </div>
           </div>
@@ -363,31 +364,31 @@ function BriefSection({ onNavigate }: { onNavigate: (id: string) => void }) {
 function AuditSection() {
   return (
     <div className="max-w-4xl mx-auto px-6 space-y-32 pb-32">
-      {/* 01. The Audit */}
+      {/* 01. Das Audit */}
       <section className="pt-10 space-y-8">
         <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">01</h2>
         <h1 className="text-5xl md:text-7xl font-serif text-white leading-tight">
-          The Audit
+          Das Audit
         </h1>
         <div className="text-xl text-[var(--color-navy-text-body)] max-w-2xl font-light leading-relaxed space-y-6">
-          <p>Tracking and attribution looked like one of the likely pressure points behind the role.</p>
-          <p>So I did not just mention it.<br />I built around it.</p>
-          <p>I wanted to contribute something useful.<br />A practical gift for the team.</p>
+          <p>Tracking und Attribution wirkten wie einer der wahrscheinlichen Engpässe hinter der Rolle.</p>
+          <p>Also habe ich es nicht nur erwähnt.<br />Ich habe etwas darum gebaut.</p>
+          <p>Ich wollte etwas Nützliches beitragen.<br />Ein praktisches Geschenk für das Team.</p>
         </div>
       </section>
 
-      {/* 02. What It Reviews */}
+      {/* 02. Was es prüft */}
       <section className="space-y-12">
         <div className="space-y-2">
           <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">02</h2>
-          <h2 className="text-3xl font-serif text-white">What It Reviews</h2>
+          <h2 className="text-3xl font-serif text-white">Was es prüft</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            "Tracking & attribution",
-            "CRM signal quality",
-            "Campaign structure",
-            "Reporting & feedback loops"
+            "Tracking & Attribution",
+            "CRM-Signalqualität",
+            "Kampagnenstruktur",
+            "Reporting & Feedback-Loops"
           ].map((title, i) => (
             <div key={i} className="p-8 bg-[var(--color-navy-surface)] border border-[var(--color-navy-border-light)] rounded-2xl hover:bg-[var(--color-navy-elevated)] transition-colors">
               <h3 className="text-xl font-serif text-white">{title}</h3>
@@ -395,59 +396,59 @@ function AuditSection() {
           ))}
         </div>
         <div className="text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
-          <p>Not in isolation.<br />As one system.</p>
+          <p>Nicht isoliert.<br />Als ein System.</p>
         </div>
       </section>
 
-      {/* 03. Why It Matters */}
+      {/* 03. Warum das wichtig ist */}
       <section className="space-y-8">
         <div className="space-y-2">
           <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">03</h2>
-          <h2 className="text-3xl font-serif text-white">Why It Matters</h2>
+          <h2 className="text-3xl font-serif text-white">Warum das wichtig ist</h2>
         </div>
         <div className="space-y-6 text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
-          <p>Weak measurement makes everything downstream harder to trust.</p>
-          <p>Platform numbers can look clean.<br />Pipeline quality can say something else.</p>
-          <p>That is the gap.</p>
+          <p>Schwache Messung macht alles, was danach kommt, schwerer belastbar.</p>
+          <p>Plattform-Zahlen können sauber aussehen.<br />Pipeline-Qualität kann etwas anderes sagen.</p>
+          <p>Genau das ist die Lücke.</p>
         </div>
       </section>
 
-      {/* 04. The Point */}
+      {/* 04. Der Punkt */}
       <section className="space-y-8">
         <div className="space-y-2">
           <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">04</h2>
-          <h2 className="text-3xl font-serif text-white">The Point</h2>
+          <h2 className="text-3xl font-serif text-white">Der Punkt</h2>
         </div>
         <div className="space-y-6 text-lg text-[var(--color-navy-text-body)] font-light leading-relaxed max-w-2xl">
-          <p>This document carries real working knowledge.</p>
-          <p>Not theory.<br />Not decoration.<br />Useful judgment.</p>
+          <p>Dieses Dokument trägt echtes Arbeitswissen in sich.</p>
+          <p>Keine Theorie.<br />Keine Dekoration.<br />Nützliches Urteil.</p>
         </div>
       </section>
 
-      {/* 05. Documents */}
+      {/* 05. Dokumente */}
       <section className="space-y-8 pt-8 border-t border-[var(--color-navy-border-light)]">
         <div className="space-y-2">
           <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">05</h2>
-          <h2 className="text-3xl font-serif text-white">Documents</h2>
+          <h2 className="text-3xl font-serif text-white">Dokumente</h2>
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <a href="#" className="px-8 py-4 bg-white text-black hover:bg-slate-200 rounded-full font-medium transition-colors flex items-center justify-center gap-2">
-            <FileText className="w-4 h-4" /> Open Audit PDF
+            <FileText className="w-4 h-4" /> Audit PDF öffnen
           </a>
           <a href="#" className="px-8 py-4 bg-[var(--color-navy-surface)] text-white hover:bg-[var(--color-navy-elevated)] border border-[var(--color-navy-border-light)] rounded-full font-medium transition-colors flex items-center justify-center gap-2">
-            <Download className="w-4 h-4" /> Download Scorecard
+            <Download className="w-4 h-4" /> Scorecard herunterladen
           </a>
           <a href="#" className="px-8 py-4 bg-[var(--color-navy-surface)] text-white hover:bg-[var(--color-navy-elevated)] border border-[var(--color-navy-border-light)] rounded-full font-medium transition-colors flex items-center justify-center gap-2">
-            <ExternalLink className="w-4 h-4" /> Open Audit Workbook
+            <ExternalLink className="w-4 h-4" /> Audit Workbook öffnen
           </a>
         </div>
       </section>
 
-      {/* 06. Closing Line */}
+      {/* 06. Schlusszeile */}
       <section className="text-center pt-16">
         <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold mb-6">06</h2>
         <p className="text-[var(--color-navy-text-body)] font-serif italic text-lg">
-          Decision-grade signal matters more than visible activity.
+          Entscheidungsreifes Signal ist wichtiger als sichtbare Aktivität.
         </p>
       </section>
     </div>
@@ -460,13 +461,13 @@ function AboutSection() {
       {/* 1. Hero */}
       <section className="pt-10 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
         <div className="flex-1 space-y-8">
-          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">ABOUT CARLOS AZEVEDO</h2>
+          <h2 className="text-blue-500/80 uppercase tracking-[0.2em] text-xs font-bold">ÜBER CARLOS AZEVEDO</h2>
           <h1 className="text-5xl md:text-7xl font-serif text-white leading-tight">
-            Hi, I’m Carlos.
+            Hi, ich bin Carlos.
           </h1>
           <div className="text-xl text-[var(--color-navy-text-body)] max-w-2xl font-light leading-relaxed space-y-4">
-            <p className="text-white font-medium">Growth strategist specializing in B2B SaaS and performance marketing.</p>
-            <p>I build systems that connect paid acquisition, measurement, and sales reality — so growth becomes easier to trust, not just easier to report.</p>
+            <p className="text-white font-medium">Growth- und Performance-Marketer mit einer starken Leidenschaft für Daten, Systeme und kommerzieller Klarheit — geprägt von fundiertem Finanzwissen und praktischer Marketing-Erfahrung.</p>
+            <p>Ich baue Systeme, die Paid Acquisition, Messung und Sales-Realität miteinander verbinden — damit Wachstum nicht nur gut reportet aussieht, sondern wirklich belastbar wird.</p>
           </div>
         </div>
 
@@ -487,13 +488,13 @@ function AboutSection() {
           <h2 className="text-3xl font-serif">Operating Philosophy</h2>
           <div className="space-y-6 text-lg font-light leading-relaxed text-[#475569]">
             <p>
-              I have experienced first-hand how powerful scaling can be — inside a business that grew from roughly 300 active clients to more than 1.9 million customers across seven countries in about two years. I have also experienced what happens when growth runs ahead of process, measurement, and structure.
+              Ich habe aus nächster Nähe erlebt, wie kraftvoll Skalierung sein kann — innerhalb eines Unternehmens, das in rund zwei Jahren von etwa 300 aktiven Kunden auf mehr als 1,9 Millionen Kunden in sieben Ländern gewachsen ist. Ich habe aber auch erlebt, was passiert, wenn Wachstum Prozess, Messung und Struktur überholt.
             </p>
             <p>
-              Part of how I work today is turning complexity into usable frameworks — audits, SOPs, scorecards, and decision structures that make growth systems more reliable.
+              Ein Teil meiner heutigen Arbeitsweise besteht darin, Komplexität in nutzbare Frameworks zu übersetzen — Audits, SOPs, Scorecards und Entscheidungslogiken, die Wachstumssysteme verlässlicher machen.
             </p>
             <p className="text-[#0F172A] font-medium pt-4 border-l-2 border-blue-500 pl-4 italic">
-              "Growth is not just about generating volume. It is about generating trust in the system that produces the volume."
+              "Wachstum bedeutet nicht nur, Volumen zu erzeugen. Es bedeutet, Vertrauen in das System zu schaffen, das dieses Volumen erzeugt."
             </p>
           </div>
         </div>
@@ -503,22 +504,22 @@ function AboutSection() {
       <section className="space-y-12">
         <div className="space-y-4">
           <h2 className="text-3xl font-serif text-white">Impact & Scale</h2>
-          <p className="text-[var(--color-navy-text-body)] font-light">Evidence of systematic growth and operational rigor.</p>
+          <p className="text-[var(--color-navy-text-body)] font-light">Belege für systematisches Wachstum und operative Substanz.</p>
         </div>
 
         <div className="space-y-6">
           {[
             {
-              metric: "€50M+ Managed",
-              context: "Direct paid media responsibility across B2B lead generation and e-commerce.",
+              metric: "€50M+ verwaltet",
+              context: "Direkte Verantwortung für Paid Media in B2B Leadgen und E-Commerce.",
             },
             {
-              metric: "2,800+ Trained",
-              context: "Contributed to training systems used by 2,800+ professionals and 200+ agency owners.",
+              metric: "2.800+ geschult",
+              context: "Mitgewirkt an Trainingssystemen, die von 2.800+ Professionals und 200+ Agenturinhabern genutzt wurden.",
             },
             {
-              metric: "4x Lead Growth",
-              context: "Scaled B2B lead acquisition while improving operational structure and contribution to revenue.",
+              metric: "4x Leadwachstum",
+              context: "B2B Lead Acquisition skaliert und gleichzeitig Struktur und Umsatzbeitrag verbessert.",
             }
           ].map((proof, i) => (
             <div key={i} className="flex flex-col md:flex-row gap-6 p-8 bg-[var(--color-navy-surface)] border border-[var(--color-navy-border-light)] rounded-2xl hover:bg-[var(--color-navy-elevated)] transition-colors">
@@ -536,16 +537,16 @@ function AboutSection() {
       {/* 4. Documents */}
       <section className="space-y-12 pt-8 border-t border-[var(--color-navy-border-light)]">
         <div className="space-y-4">
-          <h2 className="text-3xl font-serif text-white">Documents</h2>
-          <p className="text-[var(--color-navy-text-body)] font-light">Supporting materials and profile links.</p>
+          <h2 className="text-3xl font-serif text-white">Dokumente</h2>
+          <p className="text-[var(--color-navy-text-body)] font-light">Unterlagen und weiterführende Links.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { title: "Full CV", icon: <FileText className="w-5 h-5 text-blue-400" />, type: "PDF", link: cvPdf },
-            { title: "Recommendation Letters", icon: <FileText className="w-5 h-5 text-emerald-400" />, type: "PDF", link: recPdf },
-            { title: "Certificates", icon: <Award className="w-5 h-5 text-purple-400" />, type: "PDF", link: certPdf },
-            { title: "LinkedIn Profile", icon: <ExternalLink className="w-5 h-5 text-slate-400" />, type: "Link", link: "#" },
+            { title: "Vollständiger CV", icon: <FileText className="w-5 h-5 text-blue-400" />, type: "PDF", link: cvPdf },
+            { title: "Arbeitszeugnisse / Empfehlungsschreiben", icon: <FileText className="w-5 h-5 text-emerald-400" />, type: "PDF", link: recPdf },
+            { title: "Zertifikate", icon: <Award className="w-5 h-5 text-purple-400" />, type: "PDF", link: certPdf },
+            { title: "LinkedIn Profil", icon: <ExternalLink className="w-5 h-5 text-slate-400" />, type: "Link", link: "#" },
           ].map((doc, i) => (
             <a
               href={doc.link}
@@ -573,16 +574,16 @@ function FilesSection() {
   return (
     <div className="max-w-4xl mx-auto px-6 space-y-12">
       <header className="mb-12">
-        <h2 className="text-3xl font-serif text-white mb-4">Files & Downloads</h2>
-        <p className="text-slate-400 font-light max-w-2xl">Access the raw models and tailored audit packages supporting this brief.</p>
+        <h2 className="text-3xl font-serif text-white mb-4">Dateien & Downloads</h2>
+        <p className="text-slate-400 font-light max-w-2xl">Greifen Sie auf die Rohmodelle und maßgeschneiderten Audit-Pakete zu, die diesen Brief unterstützen.</p>
       </header>
 
       <div className="grid md:grid-cols-2 gap-6">
         {[
-          { title: "SaaS Growth Model", desc: "Interactive spreadsheet with CAC and ARR projections.", type: "XLSX", size: "1.2 MB" },
-          { title: "Dashboard Exports", desc: "PDF exports of the research and growth dashboards.", type: "PDF", size: "4.5 MB" },
-          { title: "Audit Scorecard Package", desc: "Complete framework for evaluating growth systems.", type: "ZIP", size: "2.1 MB" },
-          { title: "Briefing Document", desc: "A printable version of this strategic brief.", type: "PDF", size: "800 KB" },
+          { title: "SaaS Growth Model", desc: "Interaktive Tabelle mit CAC- und ARR-Prognosen.", type: "XLSX", size: "1.2 MB" },
+          { title: "Dashboard-Exporte", desc: "PDF-Exporte der Research- und Growth-Dashboards.", type: "PDF", size: "4.5 MB" },
+          { title: "Audit-Scorecard-Paket", desc: "Vollständiges Framework zur Bewertung von Wachstumssystemen.", type: "ZIP", size: "2.1 MB" },
+          { title: "Briefing-Dokument", desc: "Eine druckbare Version dieses Strategic Briefs.", type: "PDF", size: "800 KB" },
         ].map((file, i) => (
           <div key={i} className="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl flex items-start gap-4 hover:bg-white/5 transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
@@ -612,7 +613,7 @@ export default function App() {
     { id: 'growth', label: 'Growth Model' },
     { id: 'audit', label: 'Audit Scorecard' },
     { id: 'about', label: 'About' },
-    { id: 'files', label: 'Files' },
+    { id: 'files', label: 'Dateien' },
   ];
 
   return (
