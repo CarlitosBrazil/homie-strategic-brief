@@ -239,14 +239,14 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
 
   const benchmarkKpis = activeMotion === 'trial'
     ? [
-      { label: 'Ziel-CAC (Trial)', value: '€80 – €150', badge: '+12% CVR durch Retargeting', icon: Zap },
-      { label: 'Ziel-Aktivierungsrate', value: '25% – 40%', badge: 'Setup in < 10 Min.', icon: Activity },
-      { label: 'Produkt-Impact', value: 'Assisted CVR Lift', badge: 'Metrik: Chat → Warenkorb', icon: TrendingUp },
+      { label: 'Ziel-CAC (Trial)', value: '€80 – €150', badge: '+12% CVR via Retargeting', icon: Zap },
+      { label: 'Activation Rate', value: '25% – 40%', badge: 'Setup < 10 Min.', icon: Activity },
+      { label: 'Product Impact', value: 'Assisted CVR Lift', badge: 'Signal: Chat → Warenkorb', icon: TrendingUp },
     ]
     : [
-      { label: 'Ziel-CPL (Demo)', value: '€200 – €600', badge: 'Via LinkedIn ABM / High-Intent Search', icon: MessageSquare },
-      { label: 'Ziel-SQL-Rate', value: '30% – 50%', badge: 'Erfordert Offline-Conversion-Import', icon: Target },
-      { label: 'Pipeline-Strategie', value: 'Multi-Touch-Attribution', badge: 'HubSpot Lifecycle Mapping', icon: BarChart3 },
+      { label: 'Ziel-CPL (Demo)', value: '€200 – €600', badge: 'LinkedIn ABM + High-Intent Search', icon: MessageSquare },
+      { label: 'SQL Rate', value: '30% – 50%', badge: 'Offline Conversion Import erforderlich', icon: Target },
+      { label: 'Pipeline-Strategie', value: 'Multi-Touch Attribution', badge: 'HubSpot Lifecycle Mapping', icon: BarChart3 },
     ];
 
   return (
@@ -256,10 +256,10 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
         <div className="relative z-10 max-w-2xl">
           <h2 className="text-white/80 font-bold mb-4 uppercase tracking-widest text-sm">Management Summary</h2>
           <h1 className="text-5xl font-bold font-display mb-6 leading-tight text-white">
-            homie Strategische Growth- &amp; Performance-Engine
+            Growth- &amp; Performance-Engine.<br />Gebaut für Skalierung.
           </h1>
           <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            Eine Hochleistungs-Akquisitionsmaschine, konzipiert zur Erfassung von High-Intent-Nachfrage und zur Skalierung der Enterprise-Pipeline für den marktführenden KI-Shopping-Assistenten.
+            High-Intent Demand erfassen. Enterprise-Pipeline skalieren. Paid, CRM und Sales als ein System bauen — nicht als drei separate Funktionen.
             <Citation id="1" onClick={onOpenEvidence} />
           </p>
           <div className="flex gap-4">
@@ -269,7 +269,7 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
               <CheckCircle2 size={16} className="text-white" />
-              <span className="text-sm font-medium">Omnichannel bereit</span>
+              <span className="text-sm font-medium">Omnichannel-ready</span>
             </div>
           </div>
         </div>
@@ -287,7 +287,7 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
               activeMotion === 'trial' ? 'bg-homie-primary text-white shadow-md shadow-homie-primary/30' : 'text-gray-500 hover:bg-gray-200'
             )}
           >
-            Trial-Led Modell (PLG)
+            Trial-Led (PLG)
           </button>
           <button
             onClick={() => setActiveMotion('demo')}
@@ -296,7 +296,7 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
               activeMotion === 'demo' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-gray-500 hover:bg-gray-200'
             )}
           >
-            Sales-Led Modell (Enterprise)
+            Sales-Led (Enterprise)
           </button>
         </div>
 
@@ -337,20 +337,20 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
           <h3 className="font-bold text-lg mb-4 flex items-center">
-            <Zap className="w-5 h-5 mr-2 text-yellow-500" /> Zusammenfassung
+            <Zap className="w-5 h-5 mr-2 text-yellow-500" /> TL;DR
           </h3>
           <ul className="space-y-3 text-sm text-gray-700">
-            <li>• Betrieb paralleler Trial- & Demo-Modelle, präzise segmentiert nach Intent-Stufen für maximale Conversion-Effizienz.<Citation id="3" onClick={onOpenEvidence} /></li>
-            <li>• Maximale Nutzung des Tech-Stacks (Consent Mode v2, LinkedIn Insight Tag, HubSpot) für lückenloses Full-Funnel-Tracking und Attribution.<Citation id="4" onClick={onOpenEvidence} /></li>
-            <li>• Strategische Kanalskalierung: Google Search (Demand Capture) → LinkedIn (ABM/Demand Generation) → Meta (High-Frequency Retargeting).</li>
+            <li>• Trial- und Demo-Motion parallel betreiben — segmentiert nach Intent, nicht nach Bauchgefühl.<Citation id="3" onClick={onOpenEvidence} /></li>
+            <li>• Full-Funnel Tracking aufbauen: Consent Mode v2, LinkedIn Insight Tag, HubSpot — kein Datenloch.<Citation id="4" onClick={onOpenEvidence} /></li>
+            <li>• Kanäle in Reihenfolge skalieren: Google Search → LinkedIn ABM → Meta Retargeting.</li>
           </ul>
         </div>
         <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow">
           <h3 className="font-bold text-lg mb-4 flex items-center">
-            <Rocket className="w-5 h-5 mr-2 text-homie-primary" /> Ziel nach 90 Tagen
+            <Rocket className="w-5 h-5 mr-2 text-homie-primary" /> Ziel: Tag 90
           </h3>
           <p className="text-sm text-gray-700 leading-relaxed mb-4">
-            Ein skalierbares Paid-Growth-System: Stabiles Tracking, vorhersehbarer wöchentlicher SQL-Flow und erste CAC-zu-ARR Benchmarks als Basis für Skalierung.
+            Stabiles Tracking. Vorhersehbarer SQL-Flow. Erste CAC-zu-ARR Benchmarks. Bereit zum Skalieren.
           </p>
           <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
             <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-blue-500 to-homie-primary rounded-full" />
@@ -361,19 +361,22 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
         </div>
       </div>
 
-      {/* Why this role is important now */}
+      {/* Warum diese Rolle jetzt zählt */}
       <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
         <h3 className="text-xl font-bold font-display mb-4 flex items-center">
-          <Info className="w-5 h-5 mr-2 text-homie-primary" /> Warum diese Rolle gerade jetzt wichtig ist
+          <Info className="w-5 h-5 mr-2 text-homie-primary" /> Warum diese Rolle jetzt zählt
         </h3>
         <p className="text-sm text-gray-700 leading-relaxed mb-4">
-          Diese Rolle wirkt weniger wie eine reine Kanalmanagement-Funktion und mehr wie eine Schnittstelle zwischen Paid Acquisition, Revenue-Logik, Messbarkeit und Sales-Alignment.
+          <strong>Nicht mehr Volumen.</strong><br />
+          homie braucht keinen weiteren Traffic-Kanal. Es braucht Pipeline-Qualität, der Sales vertrauen kann.
         </p>
         <p className="text-sm text-gray-700 leading-relaxed mb-4">
-          Auch das breitere Hiring-Muster ist relevant. Mehrere Sales-Rollen, regionale Expansion und zusätzliche Produkt-/Tech-Rollen deuten darauf hin, dass homie in eine neue Go-to-Market-Phase eintritt. In diesem Kontext wird Paid & Performance weniger zu einer Kampagnenfunktion und mehr zu einem Baustein eines wirtschaftlich belastbaren Growth-Systems.
+          <strong>5 neue Sales-Rollen.</strong><br />
+          Regionale Expansion in DE, PL, UK, NL, Skandinavien. Paid muss diese Kapazität füllen — mit den richtigen Signalen.
         </p>
         <p className="text-sm text-gray-700 leading-relaxed">
-          Diese Rolle ist deshalb strategisch wichtig: nicht nur, um mehr Nachfrage zu erzeugen, sondern um sicherzustellen, dass Nachfrage, Signalqualität, Sales-Kapazität und Umsatz logik sauber zusammenlaufen.
+          <strong>GTM-Phase wechselt.</strong><br />
+          Kampagnenfunktion wird zu Growth-System. Paid, Attribution, CRM und Sales müssen im gleichen Takt laufen.
         </p>
       </div>
 
@@ -385,9 +388,9 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
           <div className="hidden md:block absolute top-12 left-[16.66%] w-[66.66%] h-0.5 bg-gray-200 z-0" />
 
           {[
-            { day: '30', title: 'Fundament', desc: 'Tracking aktiv, erste SQLs attribuiert, Basis-Kampagnen in der Google-Suche laufen.', color: 'bg-emerald-500', ring: 'ring-emerald-100', text: 'text-emerald-700', badge: 'bg-emerald-50', kpi: 'Erster attribuierbarer SQL' },
-            { day: '60', title: 'Skalierung', desc: 'Stabilisierung des SQL-Volumens, Retargeting aktiv, erste branchenspezifische Playbooks im Einsatz.', color: 'bg-blue-500', ring: 'ring-blue-100', text: 'text-blue-700', badge: 'bg-blue-50', kpi: '10+ SQLs / Monat' },
-            { day: '90', title: 'System Live', desc: 'Wiederholbarer Growth-Engine – ABM erweitert, CAC-zu-ARR Benchmarks etabliert.', color: 'bg-blue-400/80', ring: 'ring-blue-100/50', text: 'text-blue-600', badge: 'bg-blue-50', kpi: 'Vorhersehbare Pipeline' }
+            { day: '30', title: 'Fundament', desc: 'Tracking live. Erste SQLs attribuiert. Google Search aktiv.', color: 'bg-emerald-500', ring: 'ring-emerald-100', text: 'text-emerald-700', badge: 'bg-emerald-50', kpi: 'Erster attribuierbarer SQL' },
+            { day: '60', title: 'Skalierung', desc: 'SQL-Volumen stabil. Retargeting live. Erste Vertical Playbooks.', color: 'bg-blue-500', ring: 'ring-blue-100', text: 'text-blue-700', badge: 'bg-blue-50', kpi: '10+ SQLs / Monat' },
+            { day: '90', title: 'System Live', desc: 'ABM läuft. CAC-zu-ARR Benchmarks etabliert. Wiederholbar.', color: 'bg-blue-400/80', ring: 'ring-blue-100/50', text: 'text-blue-600', badge: 'bg-blue-50', kpi: 'Vorhersehbare Pipeline' }
           ].map((item, i) => (
             <div key={item.day} className={cn("relative z-10 flex flex-col p-6 rounded-2xl border border-gray-100 shadow-sm", item.badge)}>
               <div className="flex items-center gap-4 mb-4">
@@ -411,9 +414,9 @@ function OverviewView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void
 
       {/* Research Conclusion */}
       <div className="p-8 rounded-3xl bg-gray-50 border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-4">Research-Fazit</h3>
+        <h3 className="text-xl font-bold font-display mb-4">Fazit</h3>
         <p className="text-sm text-gray-600 leading-relaxed">
-          Die Rolle wirkt weniger wie eine isolierte Kanalfunktion und mehr wie der Aufbau eines wirtschaftlich belastbaren Growth-Systems. Die wiederholte Betonung von Pipeline-Qualität, Attribution, CRM-Integration und Sales-Alignment deutet darauf hin, dass homie nicht nur mehr Akquisition, sondern bessere Signalqualität, bessere Entscheidungsqualität und tragfähigere Voraussetzungen für skalierbares Wachstum sucht.
+          Diese Rolle ist kein Channel-Job. Sie ist der Aufbau eines Growth-Systems, dem Sales vertrauen kann — mit sauberer Attribution, qualifizierter Pipeline und der Disziplin, beides zu skalieren.
         </p>
       </div>
     </div>
@@ -441,9 +444,11 @@ function MarketView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
   ];
 
   const differentiation = [
-    "Echte Omnichannel-Integration: Nahtlose Verbindung von E-Commerce mit physischen POS-Umgebungen.",
-    "Enterprise-Grade Compliance: EU-gehostete, DSGVO-native Architektur für maximale Datensicherheit.",
-    "Präzise Attribution: Transparente ROI-Verfolgung auf Bestellebene für performance-orientiertes Marketing."
+    "Spezialisiert auf E-Commerce & stationären Handel",
+    "Native PIM/ERP-Integration statt generischer API",
+    "DSGVO-konforme Architektur by Design",
+    "Omnichannel: Widget, POS-Terminal, Messenger",
+    "Echtzeit-Produktdaten statt statischer Antworten"
   ];
 
   // Color accents matching V1's bordered cards
@@ -518,17 +523,17 @@ function MarketView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
 
       {/* Wahrscheinliche GTM-Friktionen */}
       <div className="space-y-6">
-        <h3 className="text-xl font-bold font-display ml-2">Wahrscheinliche GTM-Friktionen bei homie</h3>
+        <h3 className="text-xl font-bold font-display ml-2">Wahrscheinliche GTM-Friktionen</h3>
         <p className="text-sm text-gray-500 ml-2 max-w-3xl">
-          Auf Basis der Stellenausschreibung, der öffentlichen Positionierung und des breiteren Hiring-Musters sind dies die wahrscheinlichsten Wachstumsfriktionen, die diese Rolle adressieren soll.
+          Was diese Rolle lösen soll — abgeleitet aus Stellenbeschreibung, Positionierung und Hiring-Muster.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {[
-            { title: 'Pipeline-Vertrauenslücke', desc: 'Es gibt wahrscheinlich bereits Marketing-Aktivität, aber die eigentliche Frage ist, wie belastbar ihr Beitrag zur Pipeline wirklich messbar ist. Die Rolle deutet darauf hin, dass nicht nur Reichweite oder Leads zählen, sondern eine wirtschaftlich vertrauenswürdige Sicht auf Pipeline-Impact.' },
-            { title: 'Lead-Qualitäts-Mismatch', desc: 'Die wiederholte Betonung von SQL-Qualität, Lead Scoring und Feedback-Loops mit Sales spricht dafür, dass Qualität wichtiger ist als bloßes Volumen. Das deutet auf eine mögliche Lücke zwischen Marketing-Erfolg und Vertriebserfolg hin.' },
-            { title: 'Attribution nicht entscheidungsreif', desc: 'Tracking scheint wichtig zu sein, ist aber vermutlich noch nicht so sauber mit CRM, Sales-Outcome und kommerziellem Wert verbunden, dass darauf mit voller Sicherheit skaliert werden kann. Die Herausforderung ist nicht nur Datenerfassung, sondern Entscheidungsreife.' },
-            { title: 'Skalierung ohne Prozessdisziplin', desc: 'Die Rolle verlangt mehr als Kampagnensteuerung. Sie verlangt Struktur: KPI-Logik, Testing-Disziplin, klare Reporting-Muster und wiederholbare Best Practices. Das spricht für einen Bedarf an operativer Schärfung, bevor Wachstum wirklich planbar wird.' },
-            { title: 'Kapazitäts-Koordinationslücke', desc: 'Paid kann nur so gut skalieren, wie Sales und Customer Success nachgelagert mithalten. Wenn Akquisition, Vertrieb und Betreuung nicht im gleichen Takt wachsen, wird Wachstum schnell teurer und qualitativ schwächer.' }
+            { title: 'Pipeline-Vertrauen fehlt', desc: 'Marketing-Aktivität existiert. Aber wie belastbar ist ihr Beitrag zur Pipeline wirklich? Die Rolle sucht wirtschaftliche Klarheit — nicht mehr Reichweite.' },
+            { title: 'Lead-Qualität ≠ Volumen', desc: 'SQL-Qualität und Sales-Feedback werden betont. Das deutet auf eine Lücke zwischen Marketing-Erfolg und Vertriebserfolg hin.' },
+            { title: 'Attribution nicht reif', desc: 'Tracking läuft. Aber CRM, Sales-Outcome und Revenue sind noch nicht sauber verbunden. Entscheidungsreife fehlt.' },
+            { title: 'Skalierung ohne Struktur', desc: 'Kampagnen laufen. Aber KPI-Logik, Testing-Disziplin und wiederholbare Prozesse fehlen, bevor Wachstum planbar wird.' },
+            { title: 'Kapazität nicht synchron', desc: 'Paid kann nur so gut skalieren, wie Sales und CS mithalten. Wächst nur einer schneller, wird Wachstum teuer und qualitativ schwächer.' }
           ].map((item, i) => (
             <div key={i} className="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
               <h4 className="text-xs font-bold text-homie-primary mb-2 uppercase tracking-wider">{item.title}</h4>
@@ -555,11 +560,21 @@ function MarketView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
         <div className="p-8 rounded-3xl bg-homie-primary text-white overflow-hidden relative">
           <h3 className="text-xl font-bold font-display mb-6">Der homie-Vorteil</h3>
           <p className="text-gray-300 leading-relaxed mb-6">
-            homie übertrifft generische Chatbots durch eine spezialisierte Architektur für den Handel. Die native Integration in PIM- und ERP-Systeme ermöglicht die Bereitstellung von Bestands- und Preisdaten in Echtzeit – ein entscheidender Wettbewerbsvorteil.
+            Kein generischer Chatbot. Native PIM- und ERP-Integration liefert Bestands- und Preisdaten in Echtzeit — direkt im Gespräch. Das ist der Unterschied zwischen Beratung und Raten.
           </p>
-          <div className="flex items-center gap-2 text-white/80 font-bold">
-            <span>Mehr zum Tech-Stack erfahren</span>
-            <ArrowRight size={16} />
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-white/80 font-bold">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+              <span className="text-sm">PIM-Integration</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/80 font-bold">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+              <span className="text-sm">ERP Live-Daten</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/80 font-bold">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+              <span className="text-sm">Echtzeit-Preise</span>
+            </div>
           </div>
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
         </div>
@@ -573,22 +588,36 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
     {
       "id": "A",
       "name": "DIY / Baumarkthandel",
-      "firmographics": "Mittelständische bis große Einzelhändler mit tiefem Sortiment (100k+ SKUs) und bedeutender physischer Ladenpräsenz.",
+      "firmographics": "Mittelgroße bis große Händler mit tiefem Sortiment, hoher SKU-Komplexität und realer In-Store-Reibung.",
+      "description": "DIY- und Baumarktketten, bei denen Kaufentscheidungen oft an Spezifikationskomplexität, Sortimentsbreite und fehlender Beratung scheitern.",
       "buyingCommittee": ["VP E-Commerce", "Leiter Ladenbetrieb", "Kundenservice-Leitung", "IT-Architekt"],
       "pains": [
-        "Hohe Entscheidungshemmung durch komplexe Spezifikationen",
-        "Personalmangel im Geschäft",
-        "Fragmentierte Produktinfos über Systeme hinweg"
+        "Hohe Entscheidungshemmung bei komplexen Produktanforderungen",
+        "Personalmangel auf der Fläche",
+        "Produktinformationen verteilt über mehrere Systeme",
+        "Bruch zwischen Online-Recherche und In-Store-Ausführung"
       ],
-      "jtbd": "Kunden befähigen, über alle Kanäle hinweg sichere Kaufentscheidungen zu treffen, die Abhängigkeit von spezialisiertem Ladenpersonal zu verringern und gleichzeitig eine Expertenberatung aufrechtzuerhalten.",
+      "jtbd": "Kaufabbrüche durch Komplexität zu adressieren. Die Rolle der KI ist hier nicht dekorativ. Sie hilft Kunden, Anforderungen sauber zu strukturieren, schneller zur richtigen Lösung zu kommen und sicherer zu entscheiden — kanalübergreifend und ohne vollständige Abhängigkeit von verfügbarem Fachpersonal.",
       "messaging": [
-        "Projektzentrierte Beratung: Komplexe Anforderungen in vollständige, umsetzbare Einkaufslisten verwandeln.",
-        "Unified Commerce: Überbrückung von Online-Recherche und In-Store-Ausführung innerhalb eines einzigen KI-Ökosystems.",
-        "Ergebnisorientierter ROI: Transparente Attribution, die KI-Interaktionen direkt mit dem Umsatzwachstum verknüpft."
+        "Projektzentrierte Beratung: Komplexe Anforderungen in vollständige, umsetzbare Einkaufslisten übersetzen.",
+        "Unified Commerce: Online-Recherche, POS und QR in einer durchgehenden Beratungslogik verbinden.",
+        "Messbarer ROI: KI-Interaktionen nicht nur sichtbar machen, sondern direkt mit Umsatzwirkung verbinden."
+      ],
+      "messagingAngles": [
+        { "title": "Beratung dort, wo Entscheidungen fallen", "desc": "Nicht später im Funnel. Direkt auf der Produktdetailseite." },
+        { "title": "Online + POS + QR als ein System", "desc": "Weniger Medienbruch. Mehr durchgehende Kaufunterstützung." },
+        { "title": "Komplexität runter, Conversion rauf", "desc": "Wenn Spezifikationen klarer werden, werden Kaufentscheidungen leichter." }
       ],
       "adHooks": [
-        "Beratung auf der Produktdetailseite, wo Entscheidungen fallen.",
-        "Omnichannel: Online + POS + QR."
+        "Beratung auf der Produktdetailseite, nicht erst danach.",
+        "Online + POS + QR als ein verbundenes System.",
+        "Weniger Komplexität. Weniger Kaufabbruch.",
+        "Fachberatung skalieren, auch wenn Personal knapp ist."
+      ],
+      "positioningOutput": [
+        "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: Kaufabbrüche durch Komplexität.\nDie KI hilft hier, Anforderungen sauber zu strukturieren und daraus umsetzbare Einkaufslisten zu machen. So wird Beratung konkreter, Kaufentscheidungen werden sicherer, und die Abhängigkeit von verfügbarem Fachpersonal sinkt.",
+        "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: den Bruch zwischen Online-Recherche und In-Store-Ausführung.\nDie KI verbindet Produktsuche, Beratung und Umsetzung über Online, POS und QR in einer durchgehenden Logik. So werden Kaufentscheidungen konsistenter, Reibung sinkt, und Beratung bleibt kanalübergreifend nutzbar.",
+        "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: fehlende Transparenz darüber, was Beratungsleistung wirtschaftlich wirklich bewirkt.\nDie KI macht Interaktionen nicht nur sichtbar, sondern verknüpft sie mit Umsatzwirkung. So wird Beratung messbarer, Attribution belastbarer und der kommerzielle Wert der Experience klarer."
       ],
       "citations": ["18", "17"]
     },
@@ -646,6 +675,13 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
   }, [activeIcp]);
 
   const generatedMessage = useMemo(() => {
+    if (activeIcp.positioningOutput) {
+      if (Array.isArray(activeIcp.positioningOutput)) {
+        const index = activeIcp.messaging.indexOf(selectedNarrative);
+        return activeIcp.positioningOutput[index >= 0 ? index : 0];
+      }
+      return activeIcp.positioningOutput;
+    }
     return `Für ${activeIcp.name} löst homie das Problem ${activeIcp.pains[0].toLowerCase()} durch ${selectedNarrative.toLowerCase()}. Dies stellt sicher, dass ${activeIcp.jtbd.toLowerCase()}`;
   }, [activeIcp, selectedNarrative]);
 
@@ -673,7 +709,8 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h3 className="text-2xl font-bold font-display mb-2">{activeIcp.name}</h3>
-                <p className="text-gray-500">{activeIcp.firmographics}</p>
+                <p className="text-gray-500 mb-2">{activeIcp.firmographics}</p>
+                {activeIcp.description && <p className="text-sm text-gray-400 italic">{activeIcp.description}</p>}
               </div>
               <div className="px-4 py-2 bg-gray-50 rounded-xl text-xs font-bold text-gray-400">
                 ZIELSEGMENT
@@ -726,7 +763,8 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
                 ))}
               </div>
               <div className="p-6 bg-gray-50 rounded-2xl border-l-4 border-homie-primary">
-                <p className="text-lg font-medium text-gray-800 leading-relaxed">
+                <p className="text-xs font-bold text-gray-400 uppercase mb-2">Positioning Output</p>
+                <p className="text-lg font-medium text-gray-800 leading-relaxed whitespace-pre-line">
                   {generatedMessage}
                 </p>
               </div>
@@ -738,7 +776,13 @@ function ICPsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
           <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
             <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Messaging-Winkel</h4>
             <div className="space-y-4">
-              {activeIcp.messaging.map((msg, i) => (
+              {activeIcp.messagingAngles ? activeIcp.messagingAngles.map((angle: any, i: number) => (
+                <div key={i} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                  <p className="text-sm font-bold text-homie-primary mb-1">Winkel {i + 1}</p>
+                  <p className="text-sm font-bold text-gray-800 mb-1">{angle.title}</p>
+                  <p className="text-xs text-gray-500">{angle.desc}</p>
+                </div>
+              )) : activeIcp.messaging.map((msg, i) => (
                 <div key={i} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
                   <p className="text-sm font-bold text-homie-primary mb-1">Winkel {i + 1}</p>
                   <p className="text-sm text-gray-600">{msg}</p>
