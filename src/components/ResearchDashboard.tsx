@@ -1430,42 +1430,21 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
 }
 
 function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
-  const measurementData = {
-    "stack": ["Vercel", "Cookiebot", "LinkedIn Insight Tag", "HubSpot", "GTM", "GA4"],
-    "events": [
-      { "category": "Akquisition", "event": "view_pricing", "description": "High-Intent Signal: Interaktion mit der Preisseite" },
-      { "category": "Conversion", "event": "start_free_trial", "description": "Primäre PLG-Conversion: Testphasen-Aktivierung" },
-      { "category": "Conversion", "event": "book_demo", "description": "Primäre Enterprise-Conversion: Demo-Anfrage" },
-      { "category": "Engagement", "event": "chat_open", "description": "Kern-Interaktion: Engagement mit dem Assistenten" }
-    ],
-    "lifecycle": [
-      { "stage": "Lead", "definition": "Inbound-Akquisition via Formular, Registrierung oder Buchung." },
-      { "stage": "MQL", "definition": "Marketing Qualified: Entspricht ICP + High-Intent Schwellenwert." },
-      { "stage": "SQL", "definition": "Sales Qualified: Vom Vertrieb nach strenger Qualifizierung akzeptiert." },
-      { "stage": "Opportunity", "definition": "Aktive Pipeline: Qualifizierter Deal mit projiziertem Umsatz." },
-      { "stage": "Closed Won", "definition": "Umsatzrealisierung: Erfolgreicher Vertragsabschluss." }
-    ],
-    "scoring": {
-      "fit": ["Branche: Retail/DIY", "Unternehmensgröße (Proxy)", "Region: DACH"],
-      "intent": ["Enterprise-Seite aufgerufen", "Klick auf 'Termin vereinbaren'", "Trial-Start"]
-    }
-  };
-
   return (
     <div className="space-y-8">
-      {/* Measurement Risks */}
+      {/* Messrisiken */}
       <div className="space-y-6">
-        <h3 className="text-xl font-bold font-display ml-2">Messrisiken, die Wachstumsentscheidungen verzerren</h3>
+        <h3 className="text-xl font-bold font-display ml-2">Messrisiken — was Wachstumsentscheidungen verzerrt</h3>
         <p className="text-sm text-gray-500 ml-2 max-w-3xl">
-          Das Problem ist selten ein kompletter Mangel an Daten. Häufiger ist das Problem, dass auf Signale optimiert wird, die nützlich aussehen, aber wirtschaftlich irreführend sind.
+          Das Problem ist selten fehlende Daten. Es ist fast immer das falsche Signal.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {[
-            { title: 'Plattform-Wahrheit ≠ Business-Wahrheit', desc: 'Plattform-Metriken sind nützlich, aber sie sind nicht die endgültige Scorecard. Paid Performance muss gegen CRM-Stufen, Pipeline-Qualität und Umsatzrealität gespiegelt werden.' },
-            { title: 'CRM-Disconnect', desc: 'Wenn Paid-Daten nicht sauber mit CRM-Ergebnissen verbunden sind, optimiert das System schnell auf billige Aktivität statt auf wertvolle Pipeline.' },
-            { title: 'Lifecycle-Unschärfe', desc: 'Wenn Begriffe wie Lead, MQL, SQL und Opportunity nicht klar definiert sind, wird Reporting politisch statt steuerbar.' },
-            { title: 'Offline-Conversion-Blindheit', desc: 'Ohne Rückkopplung aus Sales lernen Plattformen nicht, welche Signale tatsächlich kommerzielle Qualität abbilden.' },
-            { title: 'Optimierung auf Aktivität statt Umsatz', desc: 'Die am einfachsten zählbaren Signale sind nicht automatisch die wertvollsten. Volumen ist nicht Qualität.' }
+            { title: 'Plattform ≠ Business', desc: 'Plattform-Metriken sehen gut aus. Aber sie sind nicht die Scorecard. Paid Performance muss gegen CRM-Stufen und Umsatzrealität gespiegelt werden.' },
+            { title: 'CRM-Disconnect', desc: 'Paid ohne CRM-Feedback optimiert auf billige Aktivität statt wertvolle Pipeline. Marketing wirkt effizient. Business-Qualität steigt nicht.' },
+            { title: 'Lifecycle-Unschärfe', desc: 'Wenn Lead, MQL, SQL nicht klar definiert sind, wird Reporting politisch statt steuerbar. Gleiche Zahlen — unterschiedliche Deutungen.' },
+            { title: 'Offline-Conversion-Blindheit', desc: 'Ohne Sales-Feedback lernen Plattformen nicht, was kommerzielle Qualität bedeutet. Das am leichtesten Messbare wird belohnt — nicht das Relevante.' },
+            { title: 'Aktivität ≠ Umsatz', desc: 'Volumen ist nicht Qualität. Growth-Systeme degenerieren, wenn einfach zählbare Signale stärker belohnt werden als Revenue-Impact.' }
           ].map((item, i) => (
             <div key={i} className="p-5 rounded-2xl bg-white border border-gray-100 shadow-sm">
               <h4 className="text-[10px] font-bold text-red-500 mb-2 uppercase tracking-wider">{item.title}</h4>
@@ -1477,53 +1456,57 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 
       {/* Why Tracking is Strategic */}
       <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 text-white premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-4">Warum Tracking hier strategisch ist</h3>
+        <h3 className="text-xl font-bold font-display mb-4">Tracking ist keine Reporting-Funktion.</h3>
         <p className="text-sm text-slate-300 leading-relaxed mb-4">
-          Bei homie ist Tracking keine reine Reporting-Funktion, sondern die Voraussetzung für belastbare Wachstumsentscheidungen. Erst wenn Paid-Daten, CRM-Stufen, Sales-Feedback und spätere Umsatzsignale sauber zusammenlaufen, lässt sich erkennen, welche Nachfrage tatsächlich wirtschaftlichen Wert erzeugt.
+          Bei homie ist Tracking die Voraussetzung für belastbare Wachstumsentscheidungen. Erst wenn Paid-Daten, CRM-Stufen und Sales-Feedback sauber zusammenlaufen, lässt sich erkennen, welche Nachfrage tatsächlich wirtschaftlichen Wert erzeugt.
         </p>
         <p className="text-sm text-slate-300 leading-relaxed">
-          Gerade in einem Setup mit Trial- und Demo-Pfaden entscheidet Tracking darüber, ob das System auf echte Kaufabsicht optimiert oder nur auf sichtbare Aktivität. In diesem Sinne ist Messbarkeit nicht nachgelagert, sondern ein Teil der Growth-Architektur selbst.
+          Im Setup mit Trial- und Demo-Pfaden entscheidet Tracking, ob das System auf echte Kaufabsicht optimiert — oder nur auf sichtbare Aktivität. Messbarkeit ist Teil der Growth-Architektur. Nicht nachgelagert.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 p-8 rounded-3xl bg-white border border-gray-100 premium-shadow flex flex-col justify-between">
-          <h3 className="text-xl font-bold font-display mb-2">Enterprise Measurement & Attributions-Architektur</h3>
+          <div className="mb-4">
+            <h3 className="text-xl font-bold font-display mb-2">Measurement & Attribution Stack</h3>
+            <p className="text-sm text-gray-500">Vier Ebenen. Eine Source of Truth.</p>
+          </div>
           <div className="relative py-10 my-2 flex items-center justify-between px-8 z-10">
             {/* Connector Line */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-emerald-500 via-blue-500 to-indigo-500 -translate-y-1/2 opacity-20" />
-
             {[
-              { label: 'GTM + Consent', icon: ShieldCheck, color: 'bg-emerald-500' },
-              { label: 'GA4 Events', icon: Activity, color: 'bg-blue-500' },
-              { label: 'HubSpot CRM', icon: Layers, color: 'bg-orange-500' },
-              { label: 'Lead-Dashboard', icon: LayoutDashboard, color: 'bg-indigo-500' }
+              { label: 'GTM + Consent', sub: 'Tag Management', icon: ShieldCheck, color: 'bg-emerald-500' },
+              { label: 'GA4 Events', sub: 'Behaviour Layer', icon: Activity, color: 'bg-blue-500' },
+              { label: 'HubSpot CRM', sub: 'Revenue Source', icon: Layers, color: 'bg-orange-500' },
+              { label: 'Lead Dashboard', sub: 'Decisions', icon: LayoutDashboard, color: 'bg-indigo-500' }
             ].map((node, i) => (
               <div key={node.label} className="relative z-10 flex flex-col items-center">
                 <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg mb-4", node.color)}>
                   <node.icon size={32} />
                 </div>
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{node.label}</span>
+                <span className="text-[8px] text-gray-400 font-medium uppercase mt-1">{node.sub}</span>
               </div>
             ))}
           </div>
-          <div className="p-6 bg-[#040814] rounded-2xl border border-slate-800/80 mt-2">
-            <h4 className="text-[10px] font-bold text-blue-400/80 uppercase tracking-widest mb-4">Strategische Implementierungs-Guidelines</h4>
+          <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100 mt-2">
+            <h4 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4">Implementation Guidelines</h4>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <li className="flex gap-3 text-sm text-slate-300 items-start">
-                <CheckCircle2 size={16} className="text-blue-400/80 shrink-0 mt-0.5" />
-                <span>GA4 als primäre Verhaltens-Ebene; HubSpot als Single Source of Truth für Umsatz-Attribution.</span>
+              <li className="flex gap-3 text-sm text-blue-800 items-start">
+                <CheckCircle2 size={16} className="text-blue-600 shrink-0 mt-0.5" />
+                <span>GA4 als primäre Verhaltens-Ebene. HubSpot als Single Source of Truth für Revenue-Attribution.</span>
               </li>
-              <li className="flex gap-3 text-sm text-slate-300 items-start">
-                <CheckCircle2 size={16} className="text-blue-400/80 shrink-0 mt-0.5" />
-                <span>Lückenlose Einbindung DSGVO-konformer Tags via Google Consent Mode v2.</span>
+              <li className="flex gap-3 text-sm text-blue-800 items-start">
+                <CheckCircle2 size={16} className="text-blue-600 shrink-0 mt-0.5" />
+                <span>DSGVO-konforme Tags via Google Consent Mode v2 — lückenlos auf allen Pfaden.</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-          <h3 className="text-xl font-bold font-display mb-6">Tracking-Validierung & Sanity Check</h3>
+          <h3 className="text-xl font-bold font-display mb-2">Tracking Sanity Check</h3>
+          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-6">3/7 bestätigt · 4 Items zur Validierung in Woche 1–2</p>
           <div className="space-y-4">
             {[
               "GTM-Container auf allen Seiten geladen",
@@ -1532,7 +1515,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               "HubSpot Tracking-Code aktiv",
               "LinkedIn Insight Tag feuert bei Conversion",
               "Erweiterte Conversions in Ads aktiv",
-              "Job für Offline-Conversion-Import geplant"
+              "Offline-Conversion-Import geplant"
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 bg-slate-900 rounded-xl border border-slate-800">
                 <div className="w-5 h-5 rounded border border-slate-700 flex items-center justify-center bg-slate-950">
@@ -1546,12 +1529,17 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
       </div>
 
       <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-        <h3 className="text-xl font-bold font-display mb-8">CRM Lifecycle-Architektur & Funnel-Mapping</h3>
+        <h3 className="text-xl font-bold font-display mb-8">CRM Lifecycle & Funnel-Mapping</h3>
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative">
           {/* Connector Line (Horizontal) */}
           <div className="absolute top-8 left-0 w-full h-px bg-slate-800 hidden md:block" />
-
-          {measurementData.lifecycle.map((stage, i) => (
+          {[
+            { stage: 'Visitor', definition: 'Anonymer Website-Besucher. Tracking via GA4 + Consent Mode v2.' },
+            { stage: 'Lead', definition: 'Trial gestartet oder Demo gebucht. Ins CRM übergeben.' },
+            { stage: 'MQL', definition: 'Fit + Intent Score erfüllt. Von Marketing qualifiziert.' },
+            { stage: 'SQL', definition: 'Von Sales akzeptiert. Aktive Pipeline-Opportunity.' },
+            { stage: 'Customer', definition: 'Deal geschlossen. Übergabe an CS. Expansion-Tracking beginnt.' }
+          ].map((stage, i) => (
             <div key={stage.stage} className="relative z-10 flex flex-col items-center text-center md:w-1/5 group">
               <div className="w-16 h-16 rounded-full bg-white text-slate-950 border-4 border-slate-800 shadow-sm flex items-center justify-center text-xl font-black group-hover:scale-110 transition-transform mb-4">
                 {i + 1}
@@ -1567,13 +1555,13 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
         <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow flex flex-col h-full">
-          <h4 className="text-sm font-bold text-gray-900 mb-8 uppercase tracking-widest">Event-Taxonomie</h4>
-          <div className="space-y-5 flex-1 flex flex-col justify-center">
+          <h4 className="text-sm font-bold text-gray-900 mb-6 uppercase tracking-widest">Event-Taxonomie</h4>
+          <div className="space-y-4 mb-6">
             {[
-              { label: 'Intent-Besuch:', value: 'view_enterprise' },
-              { label: 'Haupt-Conv. (Trial):', value: 'start_free_trial' },
-              { label: 'Haupt-Conv. (Demo):', value: 'book_demo' },
-              { label: 'Produkt-Aktion:', value: 'chat_open' }
+              { label: 'Intent-Besuch', value: 'view_enterprise' },
+              { label: 'Primary Conv. (Trial)', value: 'start_free_trial' },
+              { label: 'Primary Conv. (Demo)', value: 'book_demo' },
+              { label: 'Product Action', value: 'chat_open' }
             ].map(item => (
               <div key={item.label} className="flex justify-between items-center text-sm group">
                 <span className="text-gray-600 font-medium">{item.label}</span>
@@ -1583,15 +1571,21 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
               </div>
             ))}
           </div>
+          <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100 mt-auto">
+            <p className="text-[10px] font-bold text-blue-600 uppercase mb-1">Conversion Priority</p>
+            <p className="text-xs text-blue-800 leading-relaxed">
+              start_free_trial und book_demo sind primäre Conversion-Events. Alle anderen sind Supporting-Signals.
+            </p>
+          </div>
         </div>
 
         <div className="p-8 rounded-3xl bg-blue-600 text-white shadow-xl flex flex-col h-full">
-          <h4 className="text-sm font-bold text-white mb-8 uppercase tracking-widest">Lead-Scoring Rubrik</h4>
-          <div className="space-y-8 flex-1 flex flex-col justify-center">
+          <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-widest">Lead Scoring Rubrik</h4>
+          <div className="space-y-6 flex-1">
             <div>
-              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-4">Fit-Score (Firmografie)</p>
+              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-3">Fit Score — Firmografie</p>
               <div className="flex flex-wrap gap-2">
-                {measurementData.scoring.fit.map(tag => (
+                {['Branche: Retail/DIY', 'Unternehmensgröße', 'Region: DACH'].map(tag => (
                   <span key={tag} className="px-3 py-1.5 bg-white/10 rounded-xl text-[10px] font-bold border border-white/10">
                     {tag}
                   </span>
@@ -1600,15 +1594,19 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
             </div>
 
             <div>
-              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-4">Intent-Score (Verhalten)</p>
+              <p className="text-[10px] font-bold text-blue-200 uppercase tracking-[0.2em] mb-3">Intent Score — Verhalten</p>
               <div className="flex flex-wrap gap-2">
-                {measurementData.scoring.intent.map(tag => (
+                {['Enterprise-Seite besucht', 'Termin-CTA geklickt', 'Trial startet'].map(tag => (
                   <span key={tag} className="px-3 py-1.5 bg-white/20 rounded-xl text-[10px] font-bold border border-white/20">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
+          </div>
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <p className="text-[10px] font-bold text-blue-200 uppercase mb-2">MQL-Threshold</p>
+            <p className="text-lg font-bold">Fit ≥ 2 Kriterien + Intent ≥ 1 Signal</p>
           </div>
         </div>
       </div>
@@ -1617,11 +1615,11 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
         <h3 className="text-xl font-bold font-display mb-8 text-white">Was wahr sein muss, damit Skalierung funktioniert</h3>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {[
-            { title: 'Die Signalqualität muss vertrauenswürdig sein', desc: 'Ohne belastbare Signale wird Skalierung teuer und unpräzise.' },
-            { title: 'Lead-Qualität muss wichtiger sein als bloßes Volumen', desc: 'Mehr Nachfrage ist nicht automatisch besser, wenn sie nicht in tragfähige Pipeline übergeht.' },
-            { title: 'Paid- und CRM-Daten müssen sauber zusammenlaufen', desc: 'Nur dann lässt sich erkennen, welche Akquisition wirklich wirtschaftlichen Wert erzeugt.' },
-            { title: 'Sales- und Customer-Success-Kapazitäten müssen mithalten', desc: 'Wachstum verliert an Qualität, wenn nachgelagerte Teams nicht im gleichen Takt skalieren.' },
-            { title: 'Wachstum muss die Qualität des wiederkehrenden Umsatzes verbessern', desc: 'Nicht nur Conversions, sondern Retention, Expansion und Revenue-Qualität entscheiden über die Tragfähigkeit des Modells.' }
+            { title: 'Signalqualität ist vertrauenswürdig', desc: 'Ohne belastbare Signale wird Skalierung teuer und unpräzise.' },
+            { title: 'Qualität schlägt Volumen', desc: 'Mehr Leads helfen nicht, wenn sie nicht in tragfähige Pipeline übergehen.' },
+            { title: 'Paid und CRM laufen zusammen', desc: 'Nur dann lässt sich erkennen, welche Akquisition wirklich Wert erzeugt.' },
+            { title: 'Sales und CS halten mit', desc: 'Wächst nur Paid, verliert Wachstum Qualität und wird teurer.' },
+            { title: 'Retention verbessert sich mit Scale', desc: 'Nicht nur Conversions — Expansion und Revenue-Qualität entscheiden über Tragfähigkeit.' }
           ].map((item, i) => (
             <div key={i} className="p-6 bg-[#0f172a]/40 rounded-2xl border border-slate-800/60 shadow-inner flex flex-col justify-start">
               <h4 className="text-[10px] font-bold text-blue-400/80 mb-4 uppercase tracking-[0.15em] leading-relaxed">{item.title}</h4>
