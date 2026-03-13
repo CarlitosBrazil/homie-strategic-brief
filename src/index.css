@@ -8,6 +8,11 @@
   --color-homie-primary: #0F28FF;
   --color-homie-bg: #F8FAFC;
   --color-homie-text: #0F172A;
+  --color-navy-base: #050505;
+  --color-navy-surface: #0a0a0a;
+  --color-navy-border-light: rgba(255, 255, 255, 0.05);
+  --color-navy-elevated: #0f0f0f;
+  --color-navy-text-body: #94a3b8;
 }
 
 body {
@@ -20,6 +25,6 @@ body {
 
 @layer utilities {
   .premium-shadow {
-    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
   }
 }

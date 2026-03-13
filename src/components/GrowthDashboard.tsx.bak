@@ -1,0 +1,1009 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState } from 'react';
+import {
+  TrendingUp,
+  Target,
+  Euro,
+  BarChart3,
+  ArrowRight,
+  Layers,
+  Briefcase,
+  Sliders,
+  PieChart,
+  Users,
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export default function GrowthDashboard() {
+  const [activeTab, setActiveTab] = useState('growth');
+  const [barHover, setBarHover] = useState<number | null>(null);
+  const [roleHover, setRoleHover] = useState<number | null>(null);
+
+  // --- MODEL DATA (sourced from audited Excel model v21) ---
+  const YEARS = ["2026", "2027", "2028", "2029", "2030"];
+
+  const ARR_BY_PLAN = {
+    Basic: [143.2, 184.5, 211.7, 221.2, 242.0],
+    Business: [249.2, 360.5, 471.4, 549.4, 669.6],
+    Pro: [434.8, 749.2, 1166.4, 1565.2, 2188.9],
+    Enterprise: [614.4, 1314.8, 2603.2, 4600.6, 7660.0],
+  };
+
+  const TOTAL_ARR = [1.56, 2.88, 4.98, 7.92, 12.43]; // €M
+  const CUSTOMERS = [155, 226, 302, 367, 466];
+  const GROWTH_PCT = [111, 84, 73, 59, 57];
+  const SALES_REPS = [7, 8, 10, 11, 15];
+  const SM_SPEND = [456, 688, 1020, 1354, 1961]; // €K
+  const NET_BURN = [821, 155, -576, -2168, -4244]; // €K (neg = profitable)
+
+  const LOGOS = {
+    Basic: [57, 72, 81, 83, 89],
+    Business: [47, 66, 83, 93, 109],
+    Pro: [39, 64, 94, 119, 157],
+    Enterprise: [12, 24, 44, 72, 111],
+  };
+
+  const UNIT_ECON = [
+    { plan: "Basic", price: 190, gm: 78, churn: 4.0, ltv: 4.0, cac: 1008, ltvcac: 4.0, role: "Einstiegs-Netz" },
+    { plan: "Business", price: 390, gm: 80, churn: 3.0, ltv: 11.4, cac: 2224, ltvcac: 5.1, role: "SMB-Kern" },
+    { plan: "Pro", price: 790, gm: 82, churn: 2.5, ltv: 29.0, cac: 6530, ltvcac: 4.4, role: "Hero-Level" },
+    { plan: "Enterprise", price: 3500, gm: 80, churn: 1.5, ltv: 214.7, cac: 27048, ltvcac: 7.9, role: "Skalierungs-Hebel" },
+  ];
+
+  const OPEN_ROLES = [
+    { title: "Sales Manager", location: "Köln", market: "Deutschland Süd", tier: "Pro + Ent", arr: "€1.5–3M" },
+    { title: "Sales Manager", location: "Hamburg", market: "Deutschland Nord", tier: "Pro + Ent", arr: "€1.5–3M" },
+    { title: "Sales Manager", location: "Remote", market: "Polen", tier: "Biz + Pro", arr: "€0.8–1.5M" },
+    { title: "Sales Manager", location: "Remote", market: "UK / NL / Scan", tier: "Pro + Ent", arr: "€2–4M" },
+    { title: "Junior Sales", location: "Hamburg", market: "DE Inbound", tier: "Basic + Biz", arr: "€0.5–1M" },
+  ];
+
+  const PLAN_COLORS = {
+    Basic: "#94a3b8", // slate-400
+    Business: "#bfdbfe", // blue-200
+    Pro: "#2563eb", // blue-600
+    Enterprise: "#3730a3", // indigo-800
+  };
+
+  const tabs = [
+    { id: "growth", label: "5-Jahres-Wachstum", icon: <BarChart3 size={16} /> },
+    { id: "expansion", label: "Vertriebsexpansion", icon: <Users size={16} /> },
+    { id: "marketing", label: "Marketing-Maschine", icon: <Target size={16} /> },
+    { id: "economics", label: "Unit Economics", icon: <PieChart size={16} /> },
+  ];
+
+  // --- HELPERS ---
+  const fmt = (n: number, dec = 1) => n.toFixed(dec);
+  const fmtK = (n: number) => n >= 1000 ? `€${(n / 1000).toFixed(1)}M` : `€${n}K`;
+
+  // --- SUB-COMPONENTS ---
+  const Stat = ({ label, value, sub, color = "text-blue-600" }: { label: string, value: string, sub?: string, color?: string }) => (
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1 min-w-[140px]">
+      <div className="text-slate-400 text-[10px] uppercase tracking-wider font-bold mb-1">{label}</div>
+      <div className={`text-2xl font-black ${color}`}>{value}</div>
+      {sub && <div className="text-slate-500 text-xs mt-1 font-medium">{sub}</div>}
+    </div>
+  );
+
+  const StackedBar = ({ idx, ...props }: { idx: number, [key: string]: any }) => {
+    const plans: (keyof typeof ARR_BY_PLAN)[] = ["Basic", "Business", "Pro", "Enterprise"];
+    const total = plans.reduce((s, p) => s + ARR_BY_PLAN[p][idx], 0);
+    const maxTotal = Math.max(...TOTAL_ARR) * 1000;
+    const heightPct = (total / maxTotal) * 100;
+    const isHover = barHover === idx;
+
+    return (
+      <div
+        className="flex-1 flex flex-col items-center cursor-pointer relative group"
+        onMouseEnter={() => setBarHover(idx)}
+        onMouseLeave={() => setBarHover(null)}
+      >
+        <AnimatePresence>
+          {isHover && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, x: "-50%" }}
+              animate={{ opacity: 1, y: 0, x: "-50%" }}
+              exit={{ opacity: 0, y: 10, x: "-50%" }}
+              className="absolute bottom-full left-1/2 mb-4 bg-slate-900 p-4 rounded-xl shadow-2xl border border-slate-800 z-50 w-48 pointer-events-none"
+            >
+              <div className="text-blue-400 text-sm font-bold mb-3 border-b border-slate-800 pb-2">
+                {YEARS[idx]} Breakdown
+              </div>
+              <div className="space-y-2 mb-3">
+                {plans.slice().reverse().map(p => (
+                  <div key={p} className="flex justify-between items-center text-[10px]">
+                    <span className="text-slate-400">{p}:</span>
+                    <span className="text-white font-bold">€{ARR_BY_PLAN[p][idx]}K</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between items-center pt-2 border-t border-slate-800">
+                <span className="text-white text-xs font-bold">Total:</span>
+                <span className="text-emerald-400 text-xs font-black">€{fmt(total / 1000)}M</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="h-64 flex flex-col justify-end w-full px-1">
+          <motion.div
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            className="w-full flex flex-col-reverse rounded-t-lg overflow-hidden transition-all duration-300 origin-bottom"
+            style={{
+              height: `${heightPct}%`,
+              boxShadow: isHover ? `0 0 20px rgba(37, 99, 235, 0.4)` : "none",
+              transform: isHover ? "scale(1.05)" : "scale(1)"
+            }}
+          >
+            {plans.map(p => (
+              <div
+                key={p}
+                style={{
+                  height: `${(ARR_BY_PLAN[p][idx] / total) * 100}%`,
+                  backgroundColor: PLAN_COLORS[p]
+                }}
+              />
+            ))}
+          </motion.div>
+        </div>
+        <div className={`mt-3 text-xs font-bold transition-colors ${isHover ? 'text-blue-600' : 'text-slate-500'}`}>{YEARS[idx]}</div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-800">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header & Navigation */}
+        <header className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                <Layers className="text-blue-600" /> homie Wachstumsarchitektur
+              </h1>
+              <p className="text-slate-500 font-medium mt-1">Skalierungsstrategie mit Fokus auf Professional</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-4 md:mt-0 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-bold flex items-center gap-2 shadow-md"
+            >
+              <TrendingUp size={18} />
+              €100M ARR Ziel
+            </motion.div>
+          </div>
+
+          {/* Tab Switcher */}
+          <div className="flex space-x-2 border-b border-slate-200 overflow-x-auto">
+            {tabs.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(t.id)}
+                className={`px-4 py-2 font-semibold text-sm rounded-t-lg transition-colors flex items-center gap-2 whitespace-nowrap ${activeTab === t.id
+                    ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-600'
+                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                  }`}
+              >
+                {t.icon} {t.label}
+              </button>
+            ))}
+          </div>
+        </header>
+
+        <AnimatePresence mode="wait">
+          {/* ════════════════════════════════ TAB 1: GROWTH MODEL */}
+          {activeTab === "growth" && (
+            <motion.div
+              key="growth"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+            >
+              <div className="lg:col-span-2 space-y-6">
+                <div className="flex flex-wrap gap-4">
+                  <Stat label="ARR 2026" value="€1.56M" sub="+111% YoY" />
+                  <Stat label="ARR 2028" value="€4.98M" sub="Break-even Jahr" color="text-emerald-600" />
+                  <Stat label="ARR 2030" value="€12.43M" sub="466 Kunden" color="text-indigo-800" />
+                </div>
+
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                  <div className="mb-8">
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                      <BarChart3 className="text-blue-600" /> ARR-Aufbau nach Plan
+                    </h2>
+                    <p className="text-slate-500 text-sm mt-1">Enterprise wird bis 2030 zum dominierenden Hebel</p>
+                  </div>
+
+                  <div className="flex h-80 items-end gap-6 px-4">
+                    {YEARS.map((_, i) => (
+                      <StackedBar key={i} idx={i} />
+                    ))}
+                  </div>
+
+                  <div className="flex justify-center gap-6 mt-8 flex-wrap">
+                    {Object.entries(PLAN_COLORS).reverse().map(([p, c]) => (
+                      <div key={p} className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                        <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: c }} /> {p}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="font-bold text-slate-900 mb-4">Kundenanzahl nach Plan</h3>
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="text-slate-400 uppercase tracking-wider">
+                        <th className="text-left pb-3">Plan</th>
+                        {YEARS.map(y => <th key={y} className="text-right pb-3">{y}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {Object.keys(LOGOS).map(p => (
+                        <tr key={p}>
+                          <td className="py-2.5 font-bold" style={{ color: PLAN_COLORS[p as keyof typeof PLAN_COLORS] }}>{p}</td>
+                          {LOGOS[p as keyof typeof LOGOS].map((v, i) => (
+                            <td key={i} className="text-right text-slate-600">{v}</td>
+                          ))}
+                        </tr>
+                      ))}
+                      <tr className="bg-blue-50/50">
+                        <td className="py-2.5 font-black text-blue-700">GESAMT</td>
+                        {CUSTOMERS.map((v, i) => (
+                          <td key={i} className="text-right font-black text-blue-700">{v}</td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="font-bold text-slate-900 mb-4">Profitabilitäts-Pfad</h3>
+                  <div className="space-y-4">
+                    {YEARS.map((y, i) => {
+                      const profitable = NET_BURN[i] < 0;
+                      const absBurn = Math.abs(NET_BURN[i]);
+                      const progress = Math.min((absBurn / 4500) * 100, 100);
+                      return (
+                        <div key={y}>
+                          <div className="flex justify-between text-[11px] mb-1.5">
+                            <span className="font-bold text-slate-500">{y}</span>
+                            <span className={`font-bold ${profitable ? 'text-emerald-600' : 'text-amber-500'}`}>
+                              {profitable ? `+€${absBurn}K Gewinn` : `-€${absBurn}K Burn`}
+                            </span>
+                          </div>
+                          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${progress}%` }}
+                              className={`h-full rounded-full ${profitable ? 'bg-emerald-500' : 'bg-amber-400'}`}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-[11px] text-emerald-700 font-medium">
+                    ✓ Break-even wird 2028 bei €4.98M ARR erreicht
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ════════════════════════════════ TAB 2: SALES EXPANSION */}
+          {activeTab === "expansion" && (
+            <motion.div
+              key="expansion"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-6"
+            >
+              <div className="bg-slate-900 rounded-2xl p-8 border border-slate-800 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div className="max-w-xl">
+                  <h2 className="text-2xl font-bold text-white mb-2">Hiring-Signal: 5 neue Sales-Rollen</h2>
+                  <p className="text-slate-400 text-sm">
+                    homie expandiert aktiv von 2 auf 7 Sales-Reps in DE, PL, UK, NL und Skandinavien.
+                    Dies verändert das Wachstumsmodell fundamental.
+                  </p>
+                </div>
+                <div className="flex gap-8 items-center shrink-0">
+                  <div className="text-center">
+                    <div className="text-[10px] text-slate-500 font-bold uppercase mb-1">Vorher</div>
+                    <div className="text-3xl font-black text-amber-500">2</div>
+                    <div className="text-[10px] text-slate-400">Reps</div>
+                  </div>
+                  <ArrowRight className="text-slate-700" size={24} />
+                  <div className="text-center">
+                    <div className="text-[10px] text-slate-500 font-bold uppercase mb-1">Nachher</div>
+                    <div className="text-3xl font-black text-emerald-500">7</div>
+                    <div className="text-[10px] text-slate-400">Reps</div>
+                  </div>
+                  <div className="w-px h-12 bg-slate-800 mx-2" />
+                  <div className="text-center">
+                    <div className="text-[10px] text-slate-500 font-bold uppercase mb-1">ARR 2030</div>
+                    <div className="text-3xl font-black text-blue-500">€12.4M</div>
+                    <div className="text-[10px] text-slate-400">vs €1.7M Base</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="font-bold text-slate-900 mb-6 text-lg">Aktuelle Stellenausschreibungen</h3>
+                  <div className="space-y-3">
+                    {OPEN_ROLES.map((r, i) => (
+                      <div
+                        key={i}
+                        onMouseEnter={() => setRoleHover(i)}
+                        onMouseLeave={() => setRoleHover(null)}
+                        className={`p-4 rounded-xl border transition-all ${roleHover === i ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-100'
+                          } flex justify-between items-center`}
+                      >
+                        <div>
+                          <div className="font-bold text-slate-900 text-sm">{r.title}</div>
+                          <div className="text-xs text-slate-500">{r.location} · {r.market}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xs font-bold text-blue-600">{r.tier}</div>
+                          <div className="text-xs font-black text-emerald-600">{r.arr} Potential</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-xl flex justify-between items-center group">
+                    <span className="text-emerald-800 font-bold text-sm">Kombiniertes Markt-Potential</span>
+                    <span className="text-emerald-600 font-black text-lg">€6.3M – €12.5M</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 className="font-bold text-slate-900 mb-6">Vertriebskapazität vs. Anforderung</h3>
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="text-slate-400 uppercase tracking-wider">
+                          <th className="text-left pb-3">Jahr</th>
+                          <th className="text-center pb-3">Reps im Team</th>
+                          <th className="text-center pb-3">Bedarf</th>
+                          <th className="text-center pb-3">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {YEARS.map((y, i) => {
+                          const hired = SALES_REPS[i];
+                          const needed = [5, 7, 10, 11, 15][i];
+                          const ok = hired >= needed;
+                          return (
+                            <tr key={y}>
+                              <td className="py-3 font-bold text-slate-500">{y}</td>
+                              <td className="py-3 text-center font-black text-slate-900">{hired}</td>
+                              <td className="py-3 text-center text-slate-400">{needed}</td>
+                              <td className="py-3 text-center">
+                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${ok ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                                  }`}>
+                                  {ok ? '✓ Gedeckt' : 'Skalierend'}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 className="font-bold text-slate-900 mb-6">ARR Impact: Vor vs. Nach Scaling</h3>
+                    <div className="space-y-5">
+                      {YEARS.map((y, i) => {
+                        const expanded = TOTAL_ARR[i];
+                        const base = [0.91, 1.22, 1.41, 1.55, 1.75][i];
+                        const uplift = ((expanded / base - 1) * 100).toFixed(0);
+                        return (
+                          <div key={y}>
+                            <div className="flex justify-between text-[11px] mb-1.5 font-bold">
+                              <span className="text-slate-500">{y}</span>
+                              <span className="text-emerald-600">+{uplift}% ARR Uplift</span>
+                            </div>
+                            <div className="flex h-2.5 gap-1">
+                              <div style={{ flex: base / expanded }} className="bg-amber-400/40 rounded-l-full" />
+                              <div style={{ flex: (expanded - base) / expanded }} className="bg-emerald-500 rounded-r-full shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                            </div>
+                            <div className="flex justify-between text-[10px] mt-1 text-slate-400 font-medium">
+                              <span>Base: €{base}M</span>
+                              <span>Expanded: €{expanded}M</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ════════════════════════════════ TAB 3: MARKETING ENGINE */}
+          {activeTab === "marketing" && (
+            <motion.div
+              key="marketing"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-6"
+            >
+              <div className="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                <h3 className="text-xl font-bold text-slate-900 mb-1">Kampagnen-Architektur</h3>
+                <p className="text-slate-500 text-sm mb-8">Budget-Allokation nach Segment & GTM-Motion</p>
+
+                <div className="space-y-6">
+                  {[
+                    {
+                      tier: "Professional", pct: "60–80%", color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100",
+                      channels: ["LinkedIn ABM", "Google High-Intent Search", "Retargeting"],
+                      motion: "Sales-assisted", cac: "€6,530", payback: "< 12 Mo.",
+                      note: "Haupt-Invest. Liefert High-Intent SQLs direkt an Sales. Fokus auf LTV:CAC."
+                    },
+                    {
+                      tier: "Enterprise", pct: "10–15%", color: "text-indigo-700", bg: "bg-indigo-50", border: "border-indigo-100",
+                      channels: ["LinkedIn Outbound", "Event ABM", "CS-led Expansion"],
+                      motion: "Sales-led", cac: "€27,048", payback: "12 Mo.",
+                      note: "Kleineres Werbebudget, aber höchster ACV (€42K/Jahr). CS treibt Expansion."
+                    },
+                    {
+                      tier: "Basic + Business", pct: "10–20%", color: "text-slate-600", bg: "bg-slate-50", border: "border-slate-100",
+                      channels: ["Meta Broad", "Google Performance Max", "SEO Content"],
+                      motion: "Self-serve", cac: "€1.0k–2.2k", payback: "9 Mo.",
+                      note: "Automatisierter Funnel. Refinanziert CAC und füllt die Upgrade-Pipeline."
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className={`p-5 rounded-2xl border ${item.bg} ${item.border}`}>
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <div className={`text-lg font-black ${item.color}`}>{item.tier}</div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {item.channels.map(c => (
+                              <span key={c} className="bg-white/80 px-2 py-0.5 rounded text-[10px] font-bold text-slate-500 border border-slate-200/50">{c}</span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-2xl font-black ${item.color}`}>{item.pct}</div>
+                          <div className="text-[10px] font-bold text-slate-400 uppercase">Budget</div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-4 border-t border-slate-200/50 pt-4 mb-4">
+                        <div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase mb-1">Target CAC</div>
+                          <div className="text-xs font-bold text-slate-700">{item.cac}</div>
+                        </div>
+                        <div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase mb-1">Payback</div>
+                          <div className="text-xs font-bold text-slate-700">{item.payback}</div>
+                        </div>
+                        <div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase mb-1">Motion</div>
+                          <div className="text-xs font-bold text-slate-700">{item.motion}</div>
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-slate-500 italic leading-relaxed">{item.note}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-3 space-y-6">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="font-bold text-slate-900 mb-4">S&M Budget-Skalierung</h3>
+                  <div className="space-y-4">
+                    {YEARS.map((y, i) => {
+                      const spend = SM_SPEND[i];
+                      const maxSpend = Math.max(...SM_SPEND);
+                      return (
+                        <div key={y}>
+                          <div className="flex justify-between text-[11px] mb-1.5 font-bold">
+                            <span className="text-slate-500">{y}</span>
+                            <span className="text-slate-900">€{spend}K / Jahr <span className="text-slate-400 font-normal">· €{Math.round(spend / 12)}K/Mo.</span></span>
+                          </div>
+                          <div className="h-2 bg-slate-50 rounded-full overflow-hidden border border-slate-100">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${(spend / maxSpend) * 100}%` }}
+                              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-800 text-white">
+                  <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                    <TrendingUp className="text-blue-400" size={20} /> Pro-Tier Funnel-Logik (per €100K Spend)
+                  </h3>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Clicks (CPC €8)", value: "12,500", color: "bg-slate-800" },
+                      { label: "Leads (LP CVR 6%)", value: "750", color: "bg-slate-800" },
+                      { label: "MQLs (Lead Qual. 30%)", value: "225", color: "bg-blue-900/40 border-blue-800" },
+                      { label: "SQLs / Demos (MQL→SQL 32%)", value: "72", color: "bg-blue-600" },
+                      { label: "Gewonnene Deals (SQL→Won 20%)", value: "14.4", color: "bg-emerald-600" },
+                      { label: "Neuer Pro-ARR (@ €9,480/J.)", value: "€136.5K", color: "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.4)]" },
+                    ].map((step, i) => (
+                      <div key={i} className={`flex justify-between items-center p-3.5 rounded-xl border border-transparent ${step.color}`}>
+                        <span className="text-sm font-medium">{step.label}</span>
+                        <span className="text-lg font-black font-mono">{step.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-xs text-center leading-relaxed">
+                    Der effektive <strong>Blended CAC von €6,944</strong> liegt innerhalb des Ziels von €6,530. <br />Payback-Zeitraum bleibt stabil unter 12 Monaten.
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="font-bold text-slate-900 mb-6">Churn & Expansion (NRR Treiber)</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { label: "Pro Churn/Mo.", value: "2.5%", note: "~27% jährlich", color: "text-amber-500" },
+                      { label: "Enterprise Churn", value: "1.5%", note: "~17% jährlich", color: "text-emerald-600" },
+                      { label: "Pro Expansion", value: "12%", note: "Overages & Upgrades", color: "text-blue-600" },
+                      { label: "Enterprise Exp.", value: "18%", note: "Seat-Wachstum & ABM", color: "text-indigo-700" },
+                    ].map((item, i) => (
+                      <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div className={`text-2xl font-black ${item.color}`}>{item.value}</div>
+                        <div className="text-xs font-bold text-slate-900 mt-1">{item.label}</div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">{item.note}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ════════════════════════════════ TAB 4: UNIT ECONOMICS */}
+          {activeTab === "economics" && (
+            <motion.div
+              key="economics"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-8"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {UNIT_ECON.map((u, i) => (
+                  <div key={i} className={`bg-white p-8 rounded-2xl shadow-sm border-2 relative overflow-hidden flex flex-col ${u.plan === "Pro" ? "border-blue-600 shadow-blue-100" : "border-slate-100"
+                    }`}>
+                    {u.plan === "Pro" && (
+                      <div className="absolute top-4 right-4 bg-blue-600 text-[9px] font-black text-white px-2 py-0.5 rounded uppercase tracking-widest">
+                        Hero Tier
+                      </div>
+                    )}
+                    <div className="mb-6">
+                      <div className="text-2xl font-black text-slate-900" style={{ color: PLAN_COLORS[u.plan as keyof typeof PLAN_COLORS] }}>{u.plan}</div>
+                      <div className="text-xs font-bold text-slate-400 mt-1">{u.role}</div>
+                    </div>
+
+                    <div className="space-y-4 mb-8">
+                      <div className="flex justify-between items-end border-b border-slate-50 pb-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Preis</span>
+                        <span className="text-lg font-black text-slate-900">{u.plan === "Enterprise" ? "Individuell" : `€${u.price}/mo`}</span>
+                      </div>
+                      <div className="flex justify-between items-end border-b border-slate-50 pb-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gross Margin</span>
+                        <span className="text-lg font-black text-emerald-600">{u.gm}%</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3.5 mb-8">
+                      {[
+                        { label: "Mtl. Churn", value: `${u.churn}%`, color: u.churn > 3 ? "text-amber-500" : "text-emerald-600" },
+                        { label: "LTV p. Kunde", value: `€${u.ltv}K`, color: "text-blue-600" },
+                        { label: "Target CAC", value: `€${u.cac.toLocaleString()}`, color: "text-slate-900" },
+                        { label: "LTV : CAC", value: `${u.ltvcac}×`, color: u.ltvcac >= 5 ? "text-emerald-600 font-black" : "text-blue-600 font-black" },
+                      ].map((row, ri) => (
+                        <div key={ri} className="flex justify-between items-center text-xs">
+                          <span className="text-slate-500 font-medium">{row.label}</span>
+                          <span className={row.color}>{row.value}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto space-y-2">
+                      <div className="flex justify-between text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+                        <span>LTV:CAC Ratio</span>
+                        <span className="text-blue-600">{u.ltvcac}×</span>
+                      </div>
+                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden p-0.5">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.min((u.ltvcac / 10) * 100, 100)}%` }}
+                          className={`h-full rounded-full ${u.ltvcac >= 5 ? 'bg-emerald-500' : 'bg-blue-600'}`}
+                        />
+                      </div>
+                      <div className="flex justify-between text-[8px] text-slate-400 font-bold">
+                        <span>0×</span>
+                        <span className="text-amber-500">3× MIN</span>
+                        <span>10×</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+                <h3 className="text-xl font-bold text-slate-900 mb-8 font-serif">Strategische Erkenntnisse</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  {[
+                    {
+                      title: "Professional ist der wirtschaftliche Motor",
+                      body: "Mit einem LTV:CAC-Verhältnis von 4,4× liefert das Pro-Segment die beste Balance zwischen Volumen und Wertdichte. Daher fließen 60–80% des Budgets hierhin.",
+                      color: "bg-blue-600"
+                    },
+                    {
+                      title: "Enterprise ist der Bewertungs-Hebel",
+                      body: "Mit 7,9× LTV:CAC und €214K LTV pro Kunde schafft jedes Enterprise-Logo massive ARR-Dichte. Die Expansion auf 7 Sales-Reps skaliert diesen Hebel.",
+                      color: "bg-indigo-800"
+                    },
+                    {
+                      title: "Basic/Business als CAC-Refinanzierung",
+                      body: "Automatisierte Funnels sind hier nicht der Wachstumstreiber, sondern ein Kapital-Recycling-Mechanismus für Upgrades unter 9 Monaten Payback.",
+                      color: "bg-slate-400"
+                    },
+                    {
+                      title: "Churn-Optimierung = Compounding ARR",
+                      body: "Jede Reduktion des monatlichen Pro-Churns um 0,5% steigert den ARR-Output 2030 signifikant durch Zinseszinseffekte der Kundenbasis.",
+                      color: "bg-amber-400"
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-6 items-start">
+                      <div className={`w-1 rounded-full aspect-[1/10] shrink-0 mt-2 ${item.color}`} />
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-2 leading-tight">{item.title}</h4>
+                        <p className="text-sm text-slate-500 leading-relaxed">{item.body}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </div>
+  );
+}
+                  <h3 className="text-sm font-bold text-slate-900 mb-4">Sales-Kapazität vs. Bedarf</h3>
+                  <p className="text-xs text-slate-500 mb-4">
+                    2026–2027 zeigt absichtliche Überkapazität (Hired Reps) zur Beschleunigung des Wachstums ab 2028.
+                    <br />
+                    <em>2026–2027 intentionally includes surplus capacity to support later growth.</em>
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs border-collapse">
+                      <thead>
+                        <tr>
+                          {["Jahr", "Hired Reps", "Bedarf", "Status"].map((h, i) => (
+                            <th key={h} className={`text-slate-500 font-semibold pb-3 text-[10px] uppercase ${i === 0 ? 'text-left' : 'text-center'}`}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {YEARS.map((y, i) => {
+                          const needed = [5, 7, 10, 11, 15][i];
+                          const ok = HIRED_REPS[i] >= needed;
+                          return (
+                            <tr key={y} className="border-t border-slate-100">
+                              <td className="py-2.5 text-slate-600 font-semibold">{y}</td>
+                              <td className="text-center py-2.5 text-slate-900 font-bold">{HIRED_REPS[i]}</td>
+                              <td className="text-center py-2.5 text-slate-500">{needed}</td>
+                              <td className="text-center py-2.5">
+                                <span className={`px-2 py-1 rounded-md text-[10px] font-bold ${
+                                  ok ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                                }`}>
+                                  {ok ? "✓ OK" : "Skalierung"}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div >
+
+  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+    <h3 className="text-sm font-bold text-slate-900 mb-4">ARR Uplift vs. Base Case</h3>
+    <div className="space-y-4">
+      {YEARS.map((y, i) => {
+        const expanded = TOTAL_ARR[i];
+        const base = [0.91, 1.22, 1.41, 1.55, 1.75][i];
+        const uplift = Math.round((expanded / base - 1) * 100);
+        return (
+          <div key={y}>
+            <div className="flex justify-between text-xs mb-1.5">
+              <span className="text-slate-600 font-semibold">{y}</span>
+              <span className="text-emerald-600 font-bold">+{uplift}% Uplift</span>
+            </div>
+            <div className="flex gap-1 h-2">
+              <div className="bg-amber-400 rounded-full opacity-60" style={{ flex: base / expanded }} />
+              <div className="bg-emerald-500 rounded-full" style={{ flex: (expanded - base) / expanded }} />
+            </div>
+            <div className="flex gap-3 text-[10px] mt-1.5 text-slate-500">
+              <span>Base Case €{base}M</span>
+              <span className="text-emerald-600 font-semibold">Mit Expansion €{expanded}M</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+              </div >
+            </motion.div >
+          )}
+
+{/* ══════════════════════════════ TAB 3: MARKETING ENGINE */ }
+{
+  activeTab === 'marketing' && (
+    <motion.div
+      key="marketing"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+    >
+      {/* Campaign architecture */}
+      <div className="space-y-6">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-full">
+          <h2 className="text-lg font-bold text-slate-800 mb-1">Kampagnen-Architektur</h2>
+          <p className="text-slate-500 text-xs mb-6">Budgetallokation nach Tarif und GTM-Motion</p>
+
+          <div className="space-y-4">
+            {[
+              {
+                tier: "Professional", pct: "60–80%", color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200",
+                channels: ["LinkedIn ABM", "Google High-Intent", "Retargeting"],
+                motion: "Sales-Assisted", cac: "€6,530", payback: "12 mo",
+                note: "Primärer S&M Spend. Liefert SQLs direkt an Sales. Stärkste LTV/CAC-Disziplin.",
+              },
+              {
+                tier: "Enterprise", pct: "10–15%", color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-200",
+                channels: ["LinkedIn Outbound", "Event ABM", "CS Expansion"],
+                motion: "Sales-Led", cac: "€27,048", payback: "12 mo",
+                note: "Kleineres Ad-Budget, höchster ACV (€42K/Jahr). CS übernimmt Expansion-Pipeline.",
+              },
+              {
+                tier: "Basic + Business", pct: "10–20%", color: "text-slate-600", bg: "bg-slate-50", border: "border-slate-200",
+                channels: ["Meta Broad", "Google PMax", "SEO Content"],
+                motion: "Self-Serve / Automated", cac: "€1K–€2.2K", payback: "9 mo",
+                note: "Kapital-recycelnder Funnel. Low-touch, füttert die Upgrade-Pipeline über Zeit.",
+              },
+            ].map((item, i) => (
+              <div key={i} className={`p-4 rounded-xl border ${item.border} ${item.bg}`}>
+                <div className="flex justify-between mb-3">
+                  <div>
+                    <div className={`font-bold text-sm mb-2 ${item.color}`}>{item.tier}</div>
+                    <div className="flex gap-1.5 flex-wrap">
+                      {item.channels.map(c => (
+                        <span key={c} className="bg-white border border-slate-200 text-slate-600 text-[10px] px-2 py-0.5 rounded font-semibold">
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className={`font-black text-xl leading-none ${item.color}`}>{item.pct}</div>
+                    <div className="text-slate-500 text-[10px] mt-1">des Ad-Budgets</div>
+                  </div>
+                </div>
+                <div className="flex gap-4 mb-2">
+                  {[["CAC", item.cac], ["Payback", item.payback], ["Motion", item.motion]].map(([k, v]) => (
+                    <span key={k} className="text-[11px] text-slate-500">
+                      {k}: <strong className="text-slate-700">{v}</strong>
+                    </span>
+                  ))}
+                </div>
+                <div className="text-slate-500 text-[11px] italic">{item.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* S&M spend + funnel + retention */}
+      <div className="space-y-6">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 mb-4">S&M Budget-Skalierung</h3>
+          <div className="space-y-3">
+            {YEARS.map((y, i) => {
+              const pct = SM_SPEND[i] / Math.max(...SM_SPEND);
+              return (
+                <div key={y}>
+                  <div className="flex justify-between text-xs mb-1.5">
+                    <span className="text-slate-600 font-semibold">{y}</span>
+                    <span className="text-slate-700 font-bold">€{SM_SPEND[i]}K/Jahr · €{Math.round(SM_SPEND[i] / 12)}K/Monat</span>
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                      style={{ width: `${pct * 100}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 mb-4">Pro-Tarif Funnel (pro €100K Spend)</h3>
+          <div className="space-y-1.5">
+            {[
+              { label: "Clicks (CPC €8)", value: "12,500", highlight: false },
+              { label: "Leads (LP CVR 6.4%)", value: "800", highlight: false },
+              { label: "MQLs (Qual. 30%)", value: "240", highlight: false },
+              { label: "SQLs / Demos (MQL→SQL 32%)", value: "76.8", highlight: false },
+              { label: "Closed Won (SQL→Won 20%)", value: "15.36", highlight: true },
+              { label: "Neuer Pro ARR (€9,480/Jahr)", value: "€145.6K", highlight: true },
+            ].map((row, i) => (
+              <div key={i} className={`flex justify-between p-2.5 rounded-lg border ${row.highlight ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-100'
+                }`}>
+                <span className="text-slate-600 text-xs">{row.label}</span>
+                <span className={`font-bold text-sm ${row.highlight ? 'text-emerald-600' : 'text-slate-800'}`}>{row.value}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-700">
+            <strong>Blended CAC: €6,510</strong> — innerhalb des €6,530 Ziels · Payback &lt;12 Monate
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 mb-4">Retention & Expansion (Modell-Inputs)</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: "Pro Monthly Churn", value: "2.5%", note: "~27% jährlich", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
+              { label: "Enterprise Churn", value: "1.5%", note: "~17% jährlich", color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200" },
+              { label: "Pro Expansion Rate", value: "12%", note: "Overages + Upgrades", color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
+              { label: "Ent. Expansion", value: "18%", note: "ABM Upsell / Seats", color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-200" },
+            ].map((item, i) => (
+              <div key={i} className={`p-3 rounded-xl border ${item.border} ${item.bg}`}>
+                <div className={`font-black text-2xl leading-none ${item.color}`}>{item.value}</div>
+                <div className="text-slate-800 text-[11px] font-bold mt-2">{item.label}</div>
+                <div className="text-slate-500 text-[10px] mt-1">{item.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+{/* ══════════════════════════════ TAB 4: UNIT ECONOMICS */ }
+{
+  activeTab === 'economics' && (
+    <motion.div
+      key="economics"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {UNIT_ECON.map((u) => (
+          <div key={u.plan} className={`bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative border-t-4 ${u.plan === 'Pro' ? 'border-t-blue-600' : 'border-t-slate-200'
+            }`}>
+            {u.plan === "Pro" && (
+              <div className="absolute top-4 right-4 bg-blue-600 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                Hero Tier
+              </div>
+            )}
+            <div className="font-black text-xl mb-1" style={{ color: PLAN_COLORS[u.plan] }}>{u.plan}</div>
+            <div className="text-slate-500 text-xs mb-5">{u.role}</div>
+
+            <div className="flex justify-between mb-4">
+              <div>
+                <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider mb-1">Preis</div>
+                <div className="font-bold text-lg text-slate-800">
+                  {u.plan === "Enterprise" ? "Custom" : `€${u.price}/mo`}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider mb-1">Gross Margin</div>
+                <div className="font-bold text-lg text-emerald-600">{u.gm}%</div>
+              </div>
+            </div>
+
+            <div className="h-px bg-slate-100 mb-4" />
+
+            <div className="space-y-3">
+              {[
+                { label: "Monthly Churn", value: `${u.churn}%/mo`, color: u.churn > 3 ? 'text-amber-600' : 'text-emerald-600' },
+                { label: "Customer LTV", value: `€${u.ltv}K`, color: 'text-blue-600' },
+                { label: "Illustr. CAC", value: `€${u.cac.toLocaleString()}`, color: 'text-slate-800' },
+                { label: "LTV : CAC", value: `${u.ltvcac}×`, color: u.ltvcac >= 5 ? 'text-emerald-600' : 'text-blue-600' },
+              ].map((row, ri) => (
+                <div key={ri} className={`flex justify-between pb-2 ${ri < 3 ? 'border-b border-slate-100' : ''}`}>
+                  <span className="text-slate-500 text-xs">{row.label}</span>
+                  <span className={`font-bold text-sm ${row.color}`}>{row.value}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5">
+              <div className="text-[10px] text-slate-500 mb-1.5">LTV:CAC (3× Minimum)</div>
+              <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full ${u.ltvcac >= 5 ? 'bg-emerald-500' : 'bg-blue-500'}`}
+                  style={{ width: `${Math.min((u.ltvcac / 10) * 100, 100)}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-1.5">
+                <span className="text-[9px] text-slate-400">0×</span>
+                <span className="text-[9px] text-amber-500">3× min</span>
+                <span className="text-[9px] text-slate-400">10×</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Insights */}
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h3 className="text-lg font-bold text-slate-800 mb-4">Strategische Erkenntnisse</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              title: "Professional ist der Wirtschaftsmotor",
+              body: "Mit €29K LTV vs €6.5K CAC (4.4× Ratio) liefert Pro die beste Balance aus Volumen und Wertdichte. 60–80% des Ad-Budgets gehören hierhin.",
+              color: "text-blue-700", bg: "bg-blue-50", border: "border-blue-200"
+            },
+            {
+              title: "Enterprise ist der Bewertungshebel",
+              body: "Mit 7.9× LTV:CAC and €214K LTV pro Logo bringt Enterprise überproportionale ARR-Dichte. Die 5 neuen Hires erschließen dieses Tier skaliert.",
+              color: "text-indigo-700", bg: "bg-indigo-50", border: "border-indigo-200"
+            },
+            {
+              title: "Basic/Business refinanzieren CAC",
+              body: "Automatisierte Funnels für niedrigere Tiers sind nicht der Wachstumsmotor — sie sind Kapital-Recycling und eine Upgrade-Pipeline. Payback < 9 Monate ist das Ziel.",
+              color: "text-slate-700", bg: "bg-slate-50", border: "border-slate-200"
+            },
+            {
+              title: "Churn-Verbesserung = Compounding ARR",
+              body: "Jede 0.5% Reduktion im Pro Monthly Churn fügt dem 2030 ARR ~€200K hinzu (bei aktuellen Logo-Zahlen). Retention ist der höchste ROI-Hebel nach der Akquise.",
+              color: "text-amber-700", bg: "bg-amber-50", border: "border-amber-200"
+            },
+          ].map((item, i) => (
+            <div key={i} className={`p-4 rounded-xl border ${item.border} ${item.bg}`}>
+              <div className={`font-bold text-sm mb-2 ${item.color}`}>{item.title}</div>
+              <div className="text-slate-600 text-xs leading-relaxed">{item.body}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+        </AnimatePresence >
+      </div >
+    </div >
+  );
+}
