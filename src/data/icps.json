@@ -1,12 +1,109 @@
 [
   {
-    "id": "1",
-    "name": "ICP 1",
-    "firmographics": "Firm 1",
-    "buyingCommittee": ["Role 1"],
-    "pains": ["Pain 1"],
-    "messaging": ["Msg 1"],
-    "adHooks": ["Hook 1"],
-    "jtbd": "JTBD 1"
+    "id": "A",
+    "name": "DIY / Baumarkthandel",
+    "firmographics": "DIY / Baumarkthandel",
+    "description": "Mittelgroße bis große Händler mit tiefem Sortiment, hoher SKU-Komplexität und realer In-Store-Reibung.",
+    "buyingCommittee": ["VP E-Commerce", "Leiter Ladenbetrieb", "Kundenservice-Leitung", "IT-Architekt"],
+    "pains": [
+      "Hohe Entscheidungshemmung bei komplexen Produktanforderungen",
+      "Personalmangel auf der Fläche",
+      "Produktinformationen verteilt über mehrere Systeme",
+      "Bruch zwischen Online-Recherche und In-Store-Ausführung"
+    ],
+    "jtbd": "Kaufabbrüche durch Komplexität zu adressieren. Die Rolle der KI ist hier nicht dekorativ. Sie hilft Kunden, Anforderungen sauber zu strukturieren, schneller zur richtigen Lösung zu kommen und sicherer zu entscheiden — kanalübergreifend und ohne vollständige Abhängigkeit von verfügbarem Fachpersonal.",
+    "messaging": [
+      "Projektzentrierte Beratung",
+      "Unified Commerce",
+      "Messbarer ROI"
+    ],
+    "messagingAngles": [
+      { "title": "Beratung dort, wo Entscheidungen fallen", "desc": "Nicht später im Funnel. Direkt auf der Produktdetailseite." },
+      { "title": "Online + POS + QR als ein System", "desc": "Weniger Medienbruch. Mehr durchgehende Kaufunterstützung." },
+      { "title": "Komplexität runter, Conversion rauf", "desc": "Wenn Spezifikationen klarer werden, werden Kaufentscheidungen leichter." }
+    ],
+    "adHooks": [
+      "Beratung auf der Produktdetailseite, nicht erst danach.",
+      "Online + POS + QR als ein verbundenes System.",
+      "Weniger Komplexität. Weniger Kaufabbruch.",
+      "Fachberatung skalieren, auch wenn Personal knapp ist."
+    ],
+    "positioningOutput": [
+      "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: Kaufabbrüche durch Komplexität.\nDie KI hilft hier, Anforderungen sauber zu strukturieren und daraus umsetzbare Einkaufslisten zu machen. So wird Beratung konkreter, Kaufentscheidungen werden sicherer, und die Abhängigkeit von verfügbarem Fachpersonal sinkt.",
+      "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: den Bruch zwischen Online-Recherche und In-Store-Ausführung.\nDie KI verbindet Produktsuche, Beratung und Umsetzung über Online, POS und QR in einer durchgehenden Logik. So werden Kaufentscheidungen konsistenter, Reibung sinkt, und Beratung bleibt kanalübergreifend nutzbar.",
+      "Für DIY- und Baumarkthändler adressiert homie ein zentrales Problem: fehlende Transparenz darüber, was Beratungsleistung wirtschaftlich wirklich bewirkt.\nDie KI macht Interaktionen nicht nur sichtbar, sondern verknüpft sie mit Umsatzwirkung. So wird Beratung messbarer, Attribution belastbarer und der kommerzielle Wert der Experience klarer."
+    ],
+    "citations": ["18", "17"]
+  },
+  {
+    "id": "B",
+    "name": "Spezialisierte E-Commerce-Händler",
+    "firmographics": "Spezialisierte E-Commerce-Händler",
+    "description": "Wachstumsstarke Händler in Kategorien wie Elektronik, Möbel oder Sport — meist mit modernen Setups auf Shopify oder Shopware und hohem Druck auf Conversion-Effizienz.",
+    "buyingCommittee": ["Leiter Performance Marketing", "Produktleiter", "Kundensupport-Manager"],
+    "pains": [
+      "Paid Traffic ist teuer und Conversion-Deckel werden schnell sichtbar",
+      "Support skaliert nicht im gleichen Tempo wie Nachfrage",
+      "Der wirtschaftliche Beitrag des Assistenten ist schwer sauber zu attribuieren"
+    ],
+    "jtbd": "Effizienz der Werbeausgaben maximieren: Kostenintensiven Traffic in treue Kunden verwandeln, indem Kaufhemmnisse durch sofortigen, intelligenten Dialog gelöst werden.",
+    "messaging": [
+      "Schnelle Bereitstellung",
+      "Granulare Attribution",
+      "Reibungslose Conversion"
+    ],
+    "messagingAngles": [
+      { "title": "Traffic besser monetarisieren", "desc": "Nicht mehr Klicks. Mehr Wert aus den Klicks, die schon bezahlt werden." },
+      { "title": "Beratung ohne Support-Flaschenhals", "desc": "Sofortige Antworten, ohne dass das Serviceteam linear mitwachsen muss." },
+      { "title": "Attribution, die näher an Umsatz ist", "desc": "Nicht nur Interaktionen zählen. Sondern verstehen, was wirklich Revenue bewegt." }
+    ],
+    "adHooks": [
+      "Klicks in Käufer verwandeln — mit Beratung im richtigen Moment.",
+      "Schnell live gehen und DSGVO-konform bleiben.",
+      "Weniger Reibung zwischen Produktfrage und Warenkorb.",
+      "Mehr Klarheit darüber, was der Assistent wirtschaftlich wirklich bringt."
+    ],
+    "positioningOutput": [
+      "Für spezialisierte E-Commerce-Händler adressiert homie ein zentrales Problem: teurer Traffic trifft auf langsame operative Umsetzung.\nDie KI lässt sich schnell einführen, ohne langes Integrationsprojekt. So wird aus bezahlter Reichweite schneller nutzbare Beratung — und aus Besuchern werden früher Käufer.",
+      "Für spezialisierte E-Commerce-Händler adressiert homie ein zentrales Problem: fehlende Klarheit darüber, was der Assistent wirtschaftlich wirklich bewirkt.\nDie KI macht Gespräche nicht nur sichtbar, sondern ordnet sie Bestellungen und Umsatzwirkung zu. So wird Attribution belastbarer und Paid Performance besser steuerbar.",
+      "Für spezialisierte E-Commerce-Händler adressiert homie ein zentrales Problem: teurer Traffic trifft auf unnötige Reibung im Kaufprozess.\nDie KI hilft, offene Fragen direkt im Entscheidungsmoment zu klären und den Weg in den Warenkorb kürzer zu machen. So sinkt Kaufhemmung, Conversion wird effizienter, und bezahlter Traffic lässt sich besser monetarisieren."
+    ],
+    "citations": ["16", "4"]
+  },
+  {
+    "id": "C",
+    "name": "Industrie-Distributoren",
+    "firmographics": "Industrie-Distributoren",
+    "description": "B2B-Hersteller und Distributoren mit komplexen Teilekatalogen, viel internem Produktwissen und verteilten Teams in Vertrieb und Außendienst.",
+    "buyingCommittee": ["Leiter Digital B2B", "Sales Ops", "Produktdaten-Eigentümer", "Compliance"],
+    "pains": [
+      "Internes Wissen ist schwer zugänglich",
+      "Komplexe Teilekataloge brauchen geführte Suche statt bloßer Navigation",
+      "Außendienst und Vertrieb brauchen Antworten direkt im Einsatzmoment",
+      "Produkt-, ERP- und PIM-Daten liegen oft nicht in einer sauberen Beratungslogik vor"
+    ],
+    "jtbd": "Technisches Wissen demokratisieren: 24/7-Zugriff auf komplexe Produktdaten ermöglichen und Außendienstmitarbeiter mit einem leistungsstarken mobilen KI-Begleiter befähigen.",
+    "messaging": [
+      "24/7 Wissenszugänglichkeit",
+      "Enterprise-Ready Integration",
+      "Befähigung auf der Verkaufsfläche"
+    ],
+    "messagingAngles": [
+      { "title": "Wissen verfügbar machen, nicht nur speichern", "desc": "Technische Informationen sind nur dann wertvoll, wenn sie im richtigen Moment nutzbar werden." },
+      { "title": "Komplexe Kataloge handhabbar machen", "desc": "Nicht mehr Suche über Umwege. Sondern geführte Orientierung durch Teile, Spezifikationen und Anwendungsfälle." },
+      { "title": "Außendienst operativ stärker machen", "desc": "Beratung direkt am Regal, beim Kunden oder im Gespräch — ohne Rückfrageketten und Medienbruch." }
+    ],
+    "adHooks": [
+      "Außendienst mit KI-gestütztem Expertenwissen befähigen.",
+      "Enterprise-Integration für komplexe Kataloge und Systemlandschaften.",
+      "Weniger Wissenssilos. Schnellere technische Antworten.",
+      "Geführte Suche statt reiner Teilenummern-Navigation."
+    ],
+    "positioningOutput": [
+      "Für Industrie-Distributoren adressiert homie ein zentrales Problem: relevantes Produkt- und Anwendungswissen ist zwar vorhanden, aber im Alltag schwer zugänglich.\nDie KI macht technisches Wissen sofort nutzbar — für Vertrieb, Außendienst und Kundenservice. So sinkt Suchaufwand, Antworten kommen schneller, und Beratung wird verlässlicher.",
+      "Für Industrie-Distributoren adressiert homie ein zentrales Problem: wertvolle Produktdaten liegen in mehreren Systemen, aber nicht in einer durchgehenden Beratungslogik.\nDie KI verbindet ERP-, PIM- und Katalogdaten zu einer nutzbaren Antwortschicht. So wird aus komplexer Systemlandschaft eine belastbare Beratungsinfrastruktur.",
+      "Für Industrie-Distributoren adressiert homie ein zentrales Problem: Außendienst und Vertrieb brauchen schnelle, präzise Antworten genau im Einsatzmoment.\nDie KI bringt Expertenwissen direkt dorthin, wo Entscheidungen fallen — mobil, kontextnah und sofort nutzbar. So steigt Beratungssicherheit, ohne dass Wissen nur bei einzelnen Spezialisten hängen bleibt."
+    ],
+    "citations": ["17", "1"]
   }
 ]
