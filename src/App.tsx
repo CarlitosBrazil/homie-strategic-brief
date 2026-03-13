@@ -4,7 +4,9 @@ import {
   FileText,
   Download,
   ExternalLink,
-  Award
+  Award,
+  ShieldCheck,
+  TrendingUp
 } from 'lucide-react';
 
 import ResearchDashboard from './components/ResearchDashboard';
@@ -143,33 +145,38 @@ function FilesSection() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {[
+          { title: "SaaS Paid Media Audit Guide", desc: "Strategischer Leitfaden zur Bewertung von Performance-Systemen.", type: "PDF", size: "190 KB", link: "/downloads/audit-scorecard/B2B SaaS Paid Media Audit_Guide_V2_DE.pdf" },
           { title: "SaaS Growth Model", desc: "Interaktive Tabelle mit CAC- und ARR-Prognosen (Homie Starter v20).", type: "XLSX", size: "52 KB", link: "/downloads/growth-model/Homie_Model_Starter_v20_DE.xlsx" },
-          { title: "Audit-Scorecard (DE)", desc: "Vollständiges Framework zur Bewertung von Wachstumssystemen.", type: "XLSX", size: "154 KB", link: "/downloads/audit-scorecard/SaaS_Paid_Media_Audit_Scorecard_v1.0_de.xlsx" },
-          { title: "Audit-Guide (DE)", desc: "Professioneller Leitfaden zum B2B SaaS Paid Media Audit.", type: "PDF", size: "190 KB", link: "/downloads/audit-scorecard/B2B SaaS Paid Media Audit_Guide_V2_DE.pdf" },
-          { title: "Strategic Brief", desc: "Eine druckbare Version dieses Strategic Briefs (in Vorbereitung).", type: "PDF", size: "-", link: "#" },
+          { title: "Audit Scorecard (DE)", desc: "Das Haupt-Framework zur quantitativen Auditierung (Deutsch).", type: "XLSX", size: "154 KB", link: "/downloads/audit-scorecard/SaaS_Paid_Media_Audit_Scorecard_v1.0_de.xlsx" },
+          { title: "Modellanpassung & Logik", desc: "Supporting Doc: Wie und warum ich dieses Modell gebaut habe.", type: "PDF", size: "82 KB", link: "/downloads/growth-model/Homie Growth Model_DE.pdf" },
         ].map((file, i) => (
-          <a 
-            key={i} 
-            href={file.link} 
-            download={file.link !== "#"}
-            className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl backdrop-blur-md flex items-start gap-4 hover:bg-slate-900/60 transition-colors cursor-pointer group"
-          >
-            <div className="w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-blue-500/30 transition-colors">
-              <Download className="w-6 h-6 text-slate-400" />
-            </div>
-            <div>
-              <h4 className="text-slate-200 font-medium mb-1">{file.title}</h4>
-              <p className="text-sm text-slate-500 font-light mb-3">{file.desc}</p>
-              <div className="flex gap-3 text-xs font-medium text-slate-600">
-                <span className="px-2 py-1 bg-slate-950/50 rounded border border-slate-800/50">{file.type}</span>
-                <span className="px-2 py-1 bg-slate-950/50 rounded border border-slate-800/50">{file.size}</span>
-              </div>
-            </div>
-          </a>
+          <DownloadCard key={i} file={file} />
         ))}
       </div>
     </div>
-  )
+  );
+}
+
+function DownloadCard({ file }: { file: any; key?: React.Key }) {
+  return (
+    <a 
+      href={file.link} 
+      download={file.link !== "#"}
+      className="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl backdrop-blur-md flex items-start gap-4 hover:bg-slate-900/60 transition-all cursor-pointer group"
+    >
+      <div className="w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-blue-500/30 transition-colors">
+        <Download className="w-6 h-6 text-slate-400" />
+      </div>
+      <div>
+        <h4 className="text-slate-200 font-medium mb-1">{file.title}</h4>
+        <p className="text-sm text-slate-500 font-light mb-3 leading-relaxed">{file.desc}</p>
+        <div className="flex gap-3 text-xs font-medium text-slate-600">
+          <span className="px-2 py-1 bg-slate-950/50 rounded border border-slate-800/50">{file.type}</span>
+          <span className="px-2 py-1 bg-slate-950/50 rounded border border-slate-800/50">{file.size}</span>
+        </div>
+      </div>
+    </a>
+  );
 }
 
 export default function App() {

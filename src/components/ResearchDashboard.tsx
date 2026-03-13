@@ -112,7 +112,7 @@ export default function ResearchDashboard() {
       <motion.aside
         initial={false}
         animate={{ width: isSidebarOpen ? 280 : 80 }}
-        className="bg-white border-r border-gray-100 flex flex-col z-30 relative"
+        className="bg-white border-r border-slate-100 flex flex-col z-30 relative"
       >
         <div className="p-6 flex items-center gap-3">
           <svg viewBox="0 0 100 100" className="h-8 w-8 text-[#0F28FF] fill-current flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@ export default function ResearchDashboard() {
 
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center text-black shadow-sm z-40"
+          className="absolute -right-3 top-20 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-black shadow-sm z-40"
         >
           {isSidebarOpen ? <ChevronRight size={14} className="rotate-180" /> : <ChevronRight size={14} />}
         </button>

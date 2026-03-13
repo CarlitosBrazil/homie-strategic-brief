@@ -203,7 +203,7 @@ export default function StrategicBrief({ onNavigate }: StrategicBriefProps) {
 
             <div className="space-y-4">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Die eigentliche Kette ist:</p>
-              <div className="flex items-center gap-x-12 bg-slate-50 border border-slate-200/60 p-8 md:p-10 rounded-2xl w-full">
+              <div className="flex items-center gap-x-4 md:gap-x-8 justify-between bg-slate-50 border border-slate-200/60 p-6 md:p-8 rounded-2xl w-full overflow-hidden">
                 {[
                   { label: 'Budget', step: '01' },
                   { label: 'qualifizierte Pipeline', step: '02' },
@@ -213,7 +213,7 @@ export default function StrategicBrief({ onNavigate }: StrategicBriefProps) {
                   <React.Fragment key={item.label}>
                     <div className="flex flex-col shrink-0">
                       <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest mb-1">Schritt {item.step}</span>
-                      <span className="font-serif text-xl text-slate-900">{item.label}</span>
+                      <span className="font-serif text-base md:text-lg text-slate-900 leading-tight tracking-tight">{item.label}</span>
                     </div>
                     {i < arr.length - 1 && (
                       <div className="text-slate-300 hidden md:block shrink-0">
