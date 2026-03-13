@@ -76,7 +76,7 @@ export default function GrowthDashboard() {
     <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-800">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header & Navigation */}
-        <header className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <header className="bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-slate-200/60 sticky top-0 z-30">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -136,7 +136,7 @@ export default function GrowthDashboard() {
                     { label: "ARR 2030",      value: "€10.76M", sub: "466 Kunden gesamt",  color: "text-indigo-600", border: "border-t-indigo-600"  },
                     { label: "Gross Margin",  value: "~80%",    sub: "Alle Jahre, alle Tiers", color: "text-amber-600", border: "border-t-amber-600"   },
                   ].map(k => (
-                    <div key={k.label} className={`bg-white border border-slate-200 rounded-xl p-4 shadow-sm border-t-4 ${k.border}`}>
+                    <div key={k.label} className={`bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-xl p-4 shadow-sm border-t-4 ${k.border}`}>
                       <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">{k.label}</div>
                       <div className={`text-2xl font-black leading-tight ${k.color}`}>{k.value}</div>
                       <div className="text-xs text-slate-500 mt-1">{k.sub}</div>
@@ -145,7 +145,7 @@ export default function GrowthDashboard() {
                 </div>
 
                 {/* Bar chart */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <div className="mb-6">
                     <h2 className="text-lg font-bold text-slate-800 m-0">
                       ARR Build-up nach Plan
@@ -237,7 +237,7 @@ export default function GrowthDashboard() {
               {/* Right Column: Customers & Burn */}
               <div className="space-y-6 lg:col-span-1">
                 {/* Customer count */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="m-0 mb-4 text-sm font-bold text-slate-900">
                     Kunden nach Plan
                   </h3>
@@ -272,7 +272,7 @@ export default function GrowthDashboard() {
                 </div>
 
                 {/* Burn path */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="m-0 mb-4 text-sm font-bold text-slate-900">
                     Burn & Profitabilität
                   </h3>
@@ -347,7 +347,7 @@ export default function GrowthDashboard() {
 
               {/* Open roles */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-lg font-bold text-slate-800 mb-4">Offene Positionen</h3>
                   <div className="space-y-2">
                     {OPEN_ROLES.map((r, i) => (
@@ -381,7 +381,7 @@ export default function GrowthDashboard() {
 
               {/* Impact */}
               <div className="lg:col-span-1 space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-sm font-bold text-slate-900 mb-4">Sales-Kapazität vs. Bedarf</h3>
                   <p className="text-xs text-slate-500 mb-4">
                     2026–2027 zeigt absichtliche Überkapazität (Hired Reps) zur Beschleunigung des Wachstums ab 2028.
@@ -421,7 +421,7 @@ export default function GrowthDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-sm font-bold text-slate-900 mb-4">ARR Uplift vs. Base Case</h3>
                   <div className="space-y-4">
                     {YEARS.map((y, i) => {
@@ -463,7 +463,7 @@ export default function GrowthDashboard() {
             >
               {/* Campaign architecture */}
               <div className="space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-full">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60 h-full">
                   <h2 className="text-lg font-bold text-slate-800 mb-1">Kampagnen-Architektur</h2>
                   <p className="text-slate-500 text-xs mb-6">Budgetallokation nach Tarif und GTM-Motion</p>
                   
@@ -521,7 +521,7 @@ export default function GrowthDashboard() {
 
               {/* S&M spend + funnel + retention */}
               <div className="space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-sm font-bold text-slate-900 mb-4">S&M Budget-Skalierung</h3>
                   <div className="space-y-3">
                     {YEARS.map((y, i) => {
@@ -544,7 +544,7 @@ export default function GrowthDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-sm font-bold text-slate-900 mb-4">Pro-Tarif Funnel (pro €100K Spend)</h3>
                   <div className="space-y-1.5">
                     {[
@@ -568,7 +568,7 @@ export default function GrowthDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                   <h3 className="text-sm font-bold text-slate-900 mb-4">Retention & Expansion (Modell-Inputs)</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -601,7 +601,7 @@ export default function GrowthDashboard() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {UNIT_ECON.map((u) => (
-                  <div key={u.plan} className={`bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative border-t-4 ${
+                  <div key={u.plan} className={`bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60 relative border-t-4 ${
                     u.plan === 'Pro' ? 'border-t-blue-600' : 'border-t-slate-200'
                   }`}>
                     {u.plan === "Pro" && (
@@ -660,7 +660,7 @@ export default function GrowthDashboard() {
               </div>
 
               {/* Insights */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+              <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-slate-200/60">
                 <h3 className="text-lg font-bold text-slate-800 mb-4">Strategische Erkenntnisse</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {[
