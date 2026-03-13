@@ -188,8 +188,8 @@ export default function ResearchDashboard() {
               {activeSection === 'funnel' && <FunnelView onOpenEvidence={openEvidence} />}
               {activeSection === 'paid' && <PaidView onOpenEvidence={openEvidence} />}
               {activeSection === 'measurement' && <MeasurementView onOpenEvidence={openEvidence} />}
-              {activeSection === 'experiments' && <ExperimentsView onOpenEvidence={openEvidence} />}
-              {activeSection === 'roadmap' && <RoadmapView onOpenEvidence={openEvidence} />}
+              {activeSection === 'experiments' && <ExperimentsView onOpenEvidence={openEvidence} handlePrint={handlePrint} />}
+              {activeSection === 'roadmap' && <RoadmapView onOpenEvidence={openEvidence} handlePrint={handlePrint} />}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -1807,7 +1807,7 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
   );
 }
 
-function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+function ExperimentsView({ onOpenEvidence, handlePrint }: { onOpenEvidence: (id: string) => void, handlePrint: () => void }) {
   const [activeCategory, setActiveCategory] = useState('Alle');
   const [selectedExp, setSelectedExp] = useState<any>(null);
 
@@ -1830,7 +1830,10 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
       <div className="p-10 rounded-[40px] bg-slate-950 text-white shadow-xl relative overflow-hidden group">
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="relative z-10">
-          <h3 className="text-3xl font-black mb-6 font-display">Experiment-Logik</h3>
+          <h3 className="text-3xl font-black mb-6 font-display">
+            Experiment-Logik
+            <Citation id="1" onClick={onOpenEvidence} />
+          </h3>
           <p className="text-sm text-slate-400 leading-relaxed max-w-3xl mb-8 font-medium">
             Tests hier validieren nicht Conversion-Raten — sie validieren Signal-Qualität, ICP-Fit und Pipeline-Wert. 
             Ziel: Entscheidungsqualität verbessern — nicht Aktivität maximieren.
@@ -2002,12 +2005,49 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
           </motion.div>
         )}
       </AnimatePresence>
+
+      <PerformanceMemo handlePrint={handlePrint} />
     </div>
   );
 }
 
+const PerformanceMemo = ({ handlePrint }: { handlePrint: () => void }) => (
+  <div className="mx-4 p-12 rounded-[40px] bg-[#0B1120] border border-slate-800 premium-shadow mt-20 relative overflow-hidden group">
+    <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
+    
+    <div className="relative z-10">
+      <div className="flex justify-between items-center mb-10">
+        <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] block">TEMPLATE: WÖCHENTLICHES PERFORMANCE MEMO</span>
+        <button 
+          onClick={handlePrint}
+          className="p-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:bg-white/10 transition-all"
+        >
+          <Printer size={16} />
+        </button>
+      </div>
 
-function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { id: 1, title: 'Was hat sich geändert', content: '"CPL sank 15% in Search — aber SQL-Volumen blieb stabil."', color: 'bg-blue-500/10 text-blue-400', border: 'border-blue-500/20' },
+          { id: 2, title: 'Warum (Hypothese)', content: '"Competitor-Bids ließen nach — wir fingen Queries mit geringerem Intent ein."', color: 'bg-indigo-500/10 text-indigo-400', border: 'border-indigo-500/20' },
+          { id: 3, title: 'Next Steps (Maßnahme)', content: '"Negative Keyword-Liste erweitern + neue Enterprise-LP testen."', color: 'bg-emerald-500/10 text-emerald-400', border: 'border-emerald-500/20' }
+        ].map((item) => (
+          <div key={item.id} className={cn("p-8 rounded-[32px] bg-slate-900/40 border transition-all duration-300 hover:bg-slate-900/60 hover:scale-[1.02]", item.border)}>
+             <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black mb-6", item.color)}>
+              {item.id}
+            </div>
+            <h4 className={cn("text-base font-black mb-3", item.color.split(' ')[1])}>{item.title}</h4>
+            <p className="text-sm italic text-slate-400 leading-relaxed font-medium">{item.content}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+
+
+function RoadmapView({ onOpenEvidence, handlePrint }: { onOpenEvidence: (id: string) => void, handlePrint: () => void }) {
   const [expandedPhase, setExpandedPhase] = useState<number | null>(null);
 
   const phases = [
@@ -2092,7 +2132,10 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
       <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h2 className="text-4xl font-black font-display tracking-tight text-gray-900 mb-2">90-Tage Plan</h2>
+            <h2 className="text-4xl font-black font-display tracking-tight text-gray-900 mb-2">
+              90-Tage Plan
+              <Citation id="3" onClick={onOpenEvidence} />
+            </h2>
             <p className="text-sm text-gray-400 font-medium tracking-wide">Drei Phasen. Ein Ziel: vorhersehbare Pipeline.</p>
           </div>
           <div className="px-6 py-3 bg-amber-50 text-amber-900 rounded-full text-xs font-black uppercase tracking-widest border border-amber-100 shadow-sm whitespace-nowrap">
@@ -2261,34 +2304,7 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
         </div>
       </div>
 
-      {/* Performance Memo Template */}
-      <div className="mx-4 p-12 rounded-[40px] bg-[#0B1120] border border-slate-800 premium-shadow mt-20 relative overflow-hidden group">
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
-        
-        <div className="relative z-10">
-          <div className="mb-12">
-            <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2 block">Template</span>
-            <h2 className="text-3xl font-black font-display tracking-tight text-white mb-2">Wöchentliches Performance Memo</h2>
-            <p className="text-sm text-slate-500 font-medium">Gleiche Struktur jede Woche. Kein Rauschen — nur Signal.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { id: 1, title: 'Was hat sich geändert', content: '"CPL sank 15% in Search — aber SQL-Volumen blieb stabil."', color: 'bg-blue-500/10 text-blue-400', border: 'border-blue-500/20' },
-              { id: 2, title: 'Warum (Hypothese)', content: '"Competitor-Bids ließen nach — wir fingen Queries mit geringerem Intent ein."', color: 'bg-indigo-500/10 text-indigo-400', border: 'border-indigo-500/20' },
-              { id: 3, title: 'Next Steps (Maßnahme)', content: '"Negative Keyword-Liste erweitern + neue Enterprise-LP testen."', color: 'bg-emerald-500/10 text-emerald-400', border: 'border-emerald-500/20' }
-            ].map((item) => (
-              <div key={item.id} className={cn("p-8 rounded-[32px] bg-slate-900/40 border transition-all duration-300 hover:bg-slate-900/60 hover:scale-[1.02]", item.border)}>
-                 <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black mb-6", item.color)}>
-                  {item.id}
-                </div>
-                <h4 className={cn("text-base font-black mb-3", item.color.split(' ')[1])}>{item.title}</h4>
-                <p className="text-sm text-slate-400 leading-relaxed font-medium">{item.content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <PerformanceMemo handlePrint={handlePrint} />
     </div>
   );
 }
