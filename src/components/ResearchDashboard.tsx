@@ -997,123 +997,137 @@ function CompetitorsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 }
 
 function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
-  const modelData = {
-    "assumptions": {
-      "sessions": 10000,
-      "engagementRate": 0.15,
-      "leadRate": 0.08,
-      "mqlRate": 0.5,
-      "sqlRate": 0.4,
-      "closeRate": 0.2,
-      "avgArr": 18000
-    }
+  const a = {
+    budget: 38000,
+    cpc: 8,
+    engagementRate: 0.15,
+    leadRate: 0.08,
+    mqlRate: 0.50,
+    sqlRate: 0.40,
+    closeRate: 0.20,
+    proArpa: 9480
   };
 
-  const a = modelData.assumptions;
-
-  // Explicit step-by-step computation (lead rate applies to engaged sessions)
-  const engagedSessions = Math.round(a.sessions * a.engagementRate);
+  const sessions = a.budget / a.cpc;
+  const engagedSessions = Math.round(sessions * a.engagementRate);
   const leads = Math.round(engagedSessions * a.leadRate);
   const mqls = Math.round(leads * a.mqlRate);
   const sqls = Math.round(mqls * a.sqlRate);
   const closedDealsExact = sqls * a.closeRate;
-  const closedDeals = Math.round(closedDealsExact);
-  const arrExact = closedDealsExact * a.avgArr;
-  const arrRounded = Math.round(arrExact / 1000) * 1000;
+  const closedDeals = Math.round(closedDealsExact * 10) / 10; // 2.4
+  const arrExact = Math.round(closedDealsExact * a.proArpa); // 22752
+  const arrRounded = Math.round(arrExact / 1000) * 1000; // 23000
 
   const funnelData = [
-    { stage: 'Paid-Sitzungen', volume: a.sessions },
-    { stage: 'Engaged-Sitzungen', volume: engagedSessions },
-    { stage: 'Leads (Trial+Demo)', volume: leads },
-    { stage: 'MQLs', volume: mqls },
-    { stage: 'SQLs', volume: sqls },
-    { stage: 'Closed Deals', volume: closedDeals },
+    { stage: 'Sessions', volume: sessions, color: '#10B981' },
+    { stage: 'Engaged', volume: engagedSessions, color: '#10B981', opacity: 0.8 },
+    { stage: 'Leads', volume: leads, color: '#10B981', opacity: 0.6 },
+    { stage: 'MQLs', volume: mqls, color: '#3b82f6', opacity: 1 },
+    { stage: 'SQLs', volume: sqls, color: '#3b82f6', opacity: 0.8 },
+    { stage: 'Closed', volume: closedDeals, color: '#3b82f6', opacity: 0.6 },
   ];
 
-  const funnelSteps = [
-    { label: 'Sitzungen', value: a.sessions.toLocaleString(), note: 'Sitzungen insgesamt (Paid)' },
-    { label: 'Interaktionen', value: engagedSessions.toLocaleString(), note: `${(a.engagementRate * 100).toFixed(0)}% der Sitzungen` },
-    { label: 'Leads', value: leads.toLocaleString(), note: `${(a.leadRate * 100).toFixed(0)}% der Interaktionen` },
-    { label: 'MQLs', value: mqls.toLocaleString(), note: `${(a.mqlRate * 100).toFixed(0)}% der Leads` },
-    { label: 'SQLs', value: sqls.toLocaleString(), note: `${(a.sqlRate * 100).toFixed(0)}% der MQLs` },
-    { label: 'Abschlüsse', value: `${closedDealsExact.toFixed(1)} (~${closedDeals})`, note: `${(a.closeRate * 100).toFixed(0)}% der SQLs` },
-    { label: 'Monatlicher ARR', value: `€${arrExact.toLocaleString()} (~€${arrRounded.toLocaleString()})`, note: `Abschlüsse × €${a.avgArr.toLocaleString()} Ø ARR` },
+  const parameters = [
+    { key: 'Monatliches Budget', val: `€${a.budget.toLocaleString()}`, sub: '' },
+    { key: 'CPC (Pro Search)', val: `€${a.cpc}`, sub: '' },
+    { key: 'Engagement Rate', val: `${(a.engagementRate * 100).toFixed(0)}%`, sub: '' },
+    { key: 'Lead Rate', val: `${(a.leadRate * 100).toFixed(0)}%`, sub: '' },
+    { key: 'MQL Rate', val: `${(a.mqlRate * 100).toFixed(0)}%`, sub: '' },
+    { key: 'SQL Rate', val: `${(a.sqlRate * 100).toFixed(0)}%`, sub: '' },
+    { key: 'Close Rate', val: `${(a.closeRate * 100).toFixed(0)}%`, sub: '' },
+    { key: 'Pro ARPA / Jahr', val: `€${a.proArpa.toLocaleString()}`, sub: '' },
   ];
-  const data = funnelData;
 
   return (
     <div className="space-y-8">
+      {/* Top Section: Funnel and Parameters */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-          <h3 className="text-xl font-bold font-display mb-8">Growth-Funnel: Strategisches Basis-Szenario</h3>
-          <div className="h-[400px]">
+        {/* Growth Funnel Card */}
+        <div className="p-10 rounded-[40px] bg-slate-950 border border-slate-800 premium-shadow text-white relative overflow-hidden group">
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
+          <h3 className="text-2xl font-black font-display mb-2">Growth Funnel — Basis-Szenario</h3>
+          <p className="text-xs text-slate-500 mb-10 font-medium">Year 1 · €38K/mo Paid Budget · Pro-Tier Fokus</p>
+          
+          <div className="h-[400px] relative z-10">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 layout="vertical"
-                data={data}
-                margin={{ top: 5, right: 30, left: 130, bottom: 5 }}
+                data={funnelData}
+                margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#475569" strokeOpacity={0.5} />
                 <XAxis type="number" hide />
                 <YAxis
                   dataKey="stage"
                   type="category"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fontSize: 11, fontWeight: 700, fill: '#ffffff' }}
-                  width={125}
+                  tick={{ fontSize: 11, fontWeight: 900, fill: '#ffffff', textAnchor: 'start' }}
+                  width={100}
+                  dx={-100}
                 />
                 <Tooltip
-                  cursor={{ fill: '#0f172a' }}
-                  contentStyle={{ backgroundColor: '#020617', borderRadius: '12px', border: '1px solid #1e293b', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)' }}
-                  itemStyle={{ color: '#fff' }}
+                  cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                  contentStyle={{ backgroundColor: '#020617', borderRadius: '16px', border: '1px solid #1e293b', padding: '12px' }}
                 />
                 <Bar dataKey="volume" radius={[0, 8, 8, 0]}>
-                  {data.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={index < 3 ? '#10B981' : '#3b82f6'} fillOpacity={1 - index * 0.1} />
+                  {funnelData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} fillOpacity={entry.opacity || 1} />
                   ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
+          <p className="text-[10px] text-slate-500 text-center mt-6 uppercase tracking-widest font-black">Hover over a bar to inspect the volume at each stage.</p>
         </div>
 
-        <div className="space-y-6">
-          <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-            <h3 className="text-xl font-bold font-display mb-6">Strategische Pipeline-Parameter</h3>
+        {/* Right Column: Parameters and Projizierter Output */}
+        <div className="space-y-8">
+          {/* Pipeline-Parameter */}
+          <div className="p-8 rounded-[40px] bg-white border border-gray-100 premium-shadow">
+            <h3 className="text-xl font-black font-display mb-8">Pipeline-Parameter</h3>
             <div className="grid grid-cols-2 gap-4">
-              {([
-                { key: 'Sitzungen', val: a.sessions.toLocaleString() },
-                { key: 'Interaktionsrate', val: `${(a.engagementRate * 100).toFixed(0)}%` },
-                { key: 'Lead-Rate', val: `${(a.leadRate * 100).toFixed(0)}%` },
-                { key: 'MQL-Rate', val: `${(a.mqlRate * 100).toFixed(0)}%` },
-                { key: 'SQL-Rate', val: `${(a.sqlRate * 100).toFixed(0)}%` },
-                { key: 'Abschlussrate', val: `${(a.closeRate * 100).toFixed(0)}%` },
-                { key: 'Ø ARR', val: `€${a.avgArr.toLocaleString()}` },
-              ] as { key: string; val: string }[]).map(({ key, val }) => (
-                <div key={key} className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{key}</p>
-                  <p className="text-xl font-bold text-homie-primary">{val}</p>
+              {parameters.map((p) => (
+                <div key={p.key} className="p-5 bg-gray-50 rounded-[24px] border border-gray-100 transition-all hover:bg-gray-100/50">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">{p.key}</p>
+                  <p className="text-2xl font-black text-slate-900 tracking-tight">{p.val}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-[10px] text-gray-400 italic">
-              Modell: Basis-Szenario – Die Lead-Rate bezieht sich auf die Interaktionen.
+            <p className="mt-6 text-[11px] text-gray-400 leading-relaxed font-medium">
+              Basis-Szenario Year 1. Budget aus Excel-Modell v21. Conversion-Rates sind Branchen-Benchmarks — werden in Woche 1–2 validiert.
             </p>
           </div>
 
-          <div className="p-8 rounded-3xl bg-homie-primary text-white">
-            <h3 className="text-xl font-bold font-display mb-6">Projizierte Performance-Outcomes</h3>
-            <div className="flex justify-between items-end">
+          {/* Projizierter Output */}
+          <div className="p-10 rounded-[40px] bg-blue-600 text-white shadow-2xl shadow-blue-200 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32 transition-transform duration-700 group-hover:scale-125" />
+            <h3 className="text-xl font-black font-display mb-8 relative z-10">Projizierter Output</h3>
+            
+            <div className="grid grid-cols-2 gap-y-10 mb-8 relative z-10">
+              <div className="col-span-1">
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-2">Zusätzlicher ARR / Monat</p>
+                <p className="text-5xl font-black tracking-tighter">€{arrRounded.toLocaleString()}</p>
+                <p className="text-xs text-white/50 mt-2 font-bold uppercase tracking-widest">Exakt: €{arrExact.toLocaleString()}</p>
+              </div>
+              <div className="col-span-1 text-right">
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-2">Closed Deals / Monat</p>
+                <p className="text-3xl font-black tracking-tighter">~2</p>
+                <p className="text-xs text-white/50 mt-2 font-bold uppercase tracking-widest">2.4 exakt</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 relative z-10">
               <div>
-                <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-1">Zusätzlicher monatlicher ARR</p>
-                <p className="text-4xl font-bold text-white">€{arrRounded.toLocaleString()}</p>
-                <p className="text-xs text-white/50 mt-1">Exakt: €{arrExact.toLocaleString()}</p>
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-1">CAC (Pro)</p>
+                <p className="text-lg font-black tracking-tight">€6.530</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-1">Payback</p>
+                <p className="text-lg font-black tracking-tight">12 Mo.</p>
               </div>
               <div className="text-right">
-                <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-1">Abschlüsse / Monat</p>
-                <p className="text-xl font-bold">~{closedDeals}</p>
-                <p className="text-xs text-white/50 mt-1">{closedDealsExact.toFixed(1)} exakt</p>
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-widest mb-1">LTV:CAC</p>
+                <p className="text-lg font-black tracking-tight">4.4×</p>
               </div>
             </div>
           </div>
@@ -1121,23 +1135,41 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
       </div>
 
       {/* Funnel Model Detail Table */}
-      <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-6">Funnel-Details</h3>
+      <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-2xl font-black font-display mb-10 tracking-tight">Funnel-Details</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="pb-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Stufe</th>
-                <th className="pb-3 text-xs font-bold text-gray-400 uppercase tracking-widest text-right">Anzahl / Wert</th>
-                <th className="pb-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Basis</th>
+                <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Stufe</th>
+                <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Anzahl / Wert</th>
+                <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Basis</th>
+                <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Drop-off</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {funnelSteps.map(({ label, value, note }) => (
-                <tr key={label} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-3 font-bold text-gray-800">{label}</td>
-                  <td className="py-3 pr-8 font-mono font-bold text-homie-primary text-right">{value}</td>
-                  <td className="py-3 text-sm text-gray-500 italic">{note}</td>
+              {[
+                { label: 'Paid Sessions', value: sessions.toLocaleString(), note: `€${a.budget.toLocaleString()} ÷ CPC €${a.cpc}`, drop: null },
+                { label: 'Engaged Sessions', value: engagedSessions.toLocaleString(), note: '15% der Sessions', drop: '-85%', color: 'text-red-400' },
+                { label: 'Leads (Trial + Demo)', value: leads.toLocaleString(), note: '8% der Engaged', drop: '-92%', color: 'text-red-400' },
+                { label: 'MQLs', value: mqls.toLocaleString(), note: '50% der Leads', drop: '-51%', color: 'text-red-400' },
+                { label: 'SQLs', value: sqls.toLocaleString(), note: '40% der MQLs', drop: '-61%', color: 'text-red-400' },
+                { label: 'Closed Won', value: `${closedDealsExact.toFixed(1)} (~${Math.round(closedDealsExact)})`, note: '20% der SQLs', drop: '-80%', color: 'text-emerald-500', labelColor: 'text-emerald-600' },
+                { label: 'Monatlicher ARR', value: `€${arrRounded.toLocaleString()}`, note: `Abschlüsse × €${a.proArpa.toLocaleString()} Pro-ARPA`, drop: '×ARPA', color: 'text-emerald-500', labelColor: 'text-emerald-600' },
+              ].map((row) => (
+                <tr key={row.label} className="group hover:bg-gray-50 transition-all duration-300">
+                  <td className={cn("py-5 font-black text-gray-900", row.labelColor)}>{row.label}</td>
+                  <td className={cn("py-5 pr-8 font-black text-right tracking-tight", row.color || "text-blue-600")}>{row.value}</td>
+                  <td className="py-5 text-[13px] text-gray-500 font-medium italic">{row.note}</td>
+                  <td className="py-5 text-right">
+                    {row.drop && (
+                      <span className={cn("px-2.5 py-1 rounded-lg text-[10px] font-black tracking-widest", 
+                        row.drop.startsWith('×') ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-400"
+                      )}>
+                        {row.drop}
+                      </span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -1146,99 +1178,98 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
       </div>
 
       {/* Paid Performance as Revenue System */}
-      <div className="p-8 rounded-3xl bg-gray-50 border border-gray-100">
-        <h3 className="text-lg font-bold mb-4">Paid Performance als Revenue-System</h3>
-        <p className="text-sm text-gray-600 mb-6">
-          Paid sollte nicht isoliert bewertet werden. Budget schafft nur dann Wert, wenn daraus qualifizierte Pipeline entsteht, Sales diese Pipeline verarbeiten kann und die gewonnenen Kunden stark genug sind, um zu bleiben und sich weiterzuentwickeln.
-          <br /><br />
-          Aus dieser Perspektive ist Paid nicht einfach ein Lead-Kanal, sondern ein Input in ein größeres Revenue-System. Erst wenn Signalqualität, Routing, Sales-Verarbeitung und Retention zusammenpassen, entsteht skalierbares Wachstum.
+      <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow relative overflow-hidden">
+        <h3 className="text-2xl font-black font-display mb-6 tracking-tight">Paid ist kein Kanal. Es ist ein Input.</h3>
+        <p className="text-sm text-gray-500 mb-10 leading-relaxed font-medium max-w-4xl">
+          Budget erzeugt nur dann Wert, wenn daraus qualifizierte Pipeline entsteht, Sales diese verarbeiten kann und gewonnene Kunden stark genug sind, um zu bleiben. Signalqualität, Routing und Retention müssen zusammenlaufen — sonst ist Skalierung Scheineffizienz.
         </p>
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-6 flex-wrap relative z-10">
           {['Budget', 'Qualifizierte Pipeline', 'Sales-Kapazität', 'Retained ARR'].map((step, i) => (
             <React.Fragment key={step}>
-              <div className="px-4 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-homie-primary shadow-sm">
+              <div className="px-6 py-3 bg-white border border-gray-100 rounded-[20px] text-[11px] font-black text-blue-600 shadow-sm uppercase tracking-widest">
                 {step}
               </div>
-              {i < 3 && <ArrowRight size={14} className="text-gray-300" />}
+              {i < 3 && <ArrowRight size={18} className="text-gray-200" />}
             </React.Fragment>
           ))}
         </div>
       </div>
 
-      {/* Dual Path Visualization */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold font-display ml-2">Intelligente Routing-Logik basierend auf Intent-Segmentierung. <Citation id="3" onClick={onOpenEvidence} /></h3>
+      {/* Routing-Logik: Intent-Segmentierung */}
+      <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-2xl font-black font-display mb-2 tracking-tight">Routing-Logik: Intent-Segmentierung</h3>
+        <p className="text-sm text-gray-400 mb-12 font-medium">Zwei Pfade. Ein System.</p>
+        
+        <div className="space-y-4">
+          {/* Path 1: Trial-First */}
+          <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow-sm relative group overflow-hidden">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500" />
+            <div className="flex flex-col xl:flex-row items-center gap-6 relative z-10">
+              <div className="xl:w-64 shrink-0">
+                <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1 block">Pfad 1</span>
+                <h4 className="text-lg font-black text-gray-900">Trial-First (PLG)</h4>
+                <p className="text-[11px] text-gray-400 font-bold uppercase tracking-tight">High-Intent · Basic / Pro</p>
+              </div>
 
-        {/* Path 1: PLG */}
-        <div className="p-6 rounded-2xl bg-white border border-gray-100 premium-shadow relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-blue-500" />
-          <div className="flex flex-col md:flex-row items-center gap-4 relative z-10">
-            <div className="md:w-64">
-              <h4 className="font-bold text-gray-900">Pfad 1: Product-Led Growth (PLG) / Trial-First Motion</h4>
-            </div>
-
-            <div className="flex-1 flex flex-wrap items-center gap-3">
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">High-Intent Anzeige</p>
-                <p className="text-[10px] text-gray-400 italic">z.B. 'Shopify KI Berater'</p>
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex items-center justify-start gap-4 min-w-max py-4">
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">High-Intent Ad</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">z.B. "Shopify KI Berater"</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Trial Landing Page</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Live in &lt; 10 Min.</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-5 bg-blue-600 rounded-2xl min-w-[160px] text-center shadow-xl shadow-blue-200">
+                    <p className="text-[11px] font-black text-white mb-1">Testphase starten</p>
+                    <p className="text-[10px] text-white/70 font-bold italic">Primäre Conversion</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Aktivierung</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Widget ist live</p>
+                  </div>
+                </div>
               </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">Trial-First Landingpage</p>
-                <p className="text-[10px] text-gray-400 italic">Live in wenigen Minuten</p>
-              </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-homie-primary p-3 rounded-xl min-w-[140px] shadow-lg shadow-homie-primary/20">
-                <p className="text-[10px] font-bold text-white mb-1">Testphase starten</p>
-                <p className="text-[10px] text-white/50 italic">Primäre Conversion</p>
-              </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">Aktivierung</p>
-                <p className="text-[10px] text-gray-400 italic">Widget ist live</p>
-              </div>
-            </div>
-
-            <div className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity">
-              <Activity size={80} />
             </div>
           </div>
-        </div>
 
-        {/* Path 2: Sales-Led */}
-        <div className="p-6 rounded-2xl bg-white border border-gray-100 premium-shadow relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500" />
-          <div className="flex flex-col md:flex-row items-center gap-4 relative z-10">
-            <div className="md:w-64">
-              <h4 className="font-bold text-gray-900">Pfad 2: Sales-Led Growth (SLG) / Enterprise-First Motion</h4>
-            </div>
+          {/* Path 2: Sales-Led */}
+          <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow-sm relative group overflow-hidden">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
+            <div className="flex flex-col xl:flex-row items-center gap-6 relative z-10">
+              <div className="xl:w-64 shrink-0">
+                <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-1 block">Pfad 2</span>
+                <h4 className="text-lg font-black text-gray-900">Demo-First (Sales-Led)</h4>
+                <p className="text-[11px] text-gray-400 font-bold uppercase tracking-tight">Enterprise · ABM</p>
+              </div>
 
-            <div className="flex-1 flex flex-wrap items-center gap-3">
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">Omnichannel Anzeige</p>
-                <p className="text-[10px] text-gray-400 italic">z.B. 'POS KI Terminal'</p>
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex items-center justify-start gap-4 min-w-max py-4">
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Omnichannel Ad</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">z.B. "POS KI Terminal"</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Demo Landing Page</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Proof + Sicherheit</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-5 bg-indigo-600 rounded-2xl min-w-[160px] text-center shadow-xl shadow-indigo-100 font-medium">
+                    <p className="text-[11px] font-black text-white mb-1">Demo buchen</p>
+                    <p className="text-[10px] text-white/70 font-bold italic">Lead ins CRM</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">SQL / Pipeline</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Von Sales akzeptiert</p>
+                  </div>
+                </div>
               </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">Demo-First Landingpage</p>
-                <p className="text-[10px] text-gray-400 italic">Proof + Sicherheit</p>
-              </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-indigo-600 p-3 rounded-xl min-w-[140px] shadow-lg shadow-indigo-600/20">
-                <p className="text-[10px] font-bold text-white mb-1">Demo buchen</p>
-                <p className="text-[10px] text-white/50 italic">Lead-Erfassung im CRM</p>
-              </div>
-              <ChevronRight size={16} className="text-gray-200" />
-              <div className="bg-gray-50 border border-gray-100 p-3 rounded-xl min-w-[140px]">
-                <p className="text-[10px] font-bold text-gray-900 mb-1">SQL / Pipeline</p>
-                <p className="text-[10px] text-gray-400 italic">Vom Vertrieb akzeptiert</p>
-              </div>
-            </div>
-
-            <div className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity">
-              <svg viewBox="0 0 24 24" className="w-[80px] h-[80px] fill-current" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 21h18v-2H3v2zm2-4h1v-4H5v4zm4 0h1v-4H9v4zm4 0h1v-4h-1v4zm4 0h1v-4h-1v4zM5 11h14V9L12 3 5 9v2z" />
-              </svg>
             </div>
           </div>
         </div>
@@ -1246,6 +1277,7 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
     </div>
   );
 }
+
 
 function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
   const scalingData = [
