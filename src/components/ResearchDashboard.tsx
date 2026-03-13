@@ -1247,27 +1247,39 @@ function FunnelView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }
 }
 
 function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
-  const paidPlanData = {
-    "budget": [
-      { "channel": "Google Search", "budget": "8.000-12.000", "rationale": "High-Intent Capture: Erfassung der aktiven Nachfrage für kategoriespezifische und lösungsorientierte Suchbegriffe." },
-      { "channel": "LinkedIn ABM", "budget": "6.000-10.000", "rationale": "Enterprise Pipeline-Aufbau: Strategisches ABM-Targeting von Entscheidungsträgern und Einkaufsgremien in Zielaccounts." },
-      { "channel": "Meta Retargeting", "budget": "1.500-3.000", "rationale": "High-Value Retargeting: Reibungsarme Verstärkung für Website-Besucher mit hoher Kaufabsicht und Testphasen-Teilnehmer." }
-    ]
-  };
+  const scalingData = [
+    { year: '2026', smYear: '€456K', smMonth: '€38K', arrTarget: '€1.56M', budgetPct: 29 },
+    { year: '2027', smYear: '€688K', smMonth: '€57K', arrTarget: '€2.88M', budgetPct: 24 },
+    { year: '2028', smYear: '€1020K', smMonth: '€85K', arrTarget: '€4.98M', budgetPct: 20 },
+    { year: '2029', smYear: '€1354K', smMonth: '€113K', arrTarget: '€7.92M', budgetPct: 17 },
+    { year: '2030', smYear: '€1961K', smMonth: '€163K', arrTarget: '€12.43M', budgetPct: 16 },
+  ];
 
-  const modelData = {
-    "assumptions": {
-      "sessions": 10000,
-      "engagementRate": 0.15,
-      "leadRate": 0.08,
-      "mqlRate": 0.5,
-      "sqlRate": 0.4,
-      "closeRate": 0.2
-    }
-  };
+  const funnelMetrics = [
+    { label: 'Sessions (CPC €8)', value: '12.500' },
+    { label: 'Engaged (15%)', value: '1.875' },
+    { label: 'Leads (8% engaged)', value: '150' },
+    { label: 'MQLs (50% leads)', value: '75' },
+    { label: 'SQLs (40% MQLs)', value: '30' },
+  ];
+
+  const cacLtvData = [
+    { tier: 'Basic', price: '€190/mo', ratio: '4× LTV:CAC', cac: '€1.008', payback: '9 Mo.', ltv: '€4.0K', color: 'bg-blue-400' },
+    { tier: 'Business', price: '€390/mo', ratio: '5.1× LTV:CAC', cac: '€2.224', payback: '9 Mo.', ltv: '€11.4K', color: 'bg-indigo-500' },
+    { tier: 'Pro', price: '€790/mo', ratio: '4.4× LTV:CAC', cac: '€6.530', payback: '12 Mo.', ltv: '€29.0K', color: 'bg-blue-600' },
+    { tier: 'Enterprise', price: 'Custom', ratio: '7.9× LTV:CAC', cac: '€27.048', payback: '12 Mo.', ltv: '€214.7K', color: 'bg-indigo-700' },
+  ];
+
+  const frameworkSteps = [
+    { period: '2026', title: 'Seed / Early GTM', range: '€1M–€4M', tasks: 'LinkedIn ABM · Google Search · SEO seed content', color: 'border-emerald-200 bg-emerald-50/30' },
+    { period: '2027–28', title: 'Growth / Expansion', range: '€4M–€15M', tasks: 'Retargeting · Intent data (G2/Bombora) · Nurture automation', color: 'border-blue-200 bg-blue-50/30' },
+    { period: '2029–30', title: 'Scale', range: '€15M–€25M', tasks: 'Multi-market DE/PL/UK/NL · Partner co-marketing · Events', color: 'border-purple-200 bg-purple-50/30' },
+    { period: '2031–35', title: 'Maturity', range: '€25M–€100M', tasks: 'Brand campaigns · Gartner/analyst relations · ABM at scale', color: 'border-amber-200 bg-amber-50/30' },
+  ];
 
   return (
     <div className="space-y-8">
+      {/* Top 3 Channel Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Google Search Card */}
         <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
@@ -1277,27 +1289,27 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             </div>
             <h3 className="text-xl font-bold font-display text-gray-900">Google Search</h3>
           </div>
-          <p className="text-sm text-gray-500 mb-8 font-medium">Präzise Erfassung von High-Intent-Nachfrage für wettbewerbsrelevante Kategorie- und Lösungsbegriffe.</p>
+          <p className="text-sm text-gray-500 mb-8 font-medium">High-Intent Demand erfassen. Eine plausible Lesart: Wer aktiv sucht, dürfte bereits bereit sein.</p>
 
           <div className="space-y-6">
             <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
-              <h4 className="text-sm font-bold text-blue-600 mb-4">Category Search</h4>
-              <div className="flex flex-wrap gap-2">
+              <h4 className="text-[10px] font-bold text-blue-600 mb-4 uppercase tracking-widest">Category Search</h4>
+              <div className="flex flex-col gap-2">
                 {['KI-Shopping-Assistent', 'Guided Selling Software', 'E-Commerce KI-Assistent'].map(kw => (
-                  <span key={kw} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-[10px] font-bold text-gray-400">
+                  <div key={kw} className="px-3 py-2 bg-white border border-gray-100 rounded-xl text-[11px] font-bold text-gray-400 text-center shadow-sm">
                     {kw}
-                  </span>
+                  </div>
                 ))}
               </div>
             </div>
 
             <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
-              <h4 className="text-sm font-bold text-blue-600 mb-4">Integration Search</h4>
-              <div className="flex flex-wrap gap-2">
+              <h4 className="text-[10px] font-bold text-blue-600 mb-4 uppercase tracking-widest">Integration Search</h4>
+              <div className="flex flex-col gap-2">
                 {['Shopify KI-Assistent', 'Shopware Produktberater', 'GTM Consent Mode'].map(kw => (
-                  <span key={kw} className="px-3 py-1 bg-white border border-gray-100 rounded-lg text-[10px] font-bold text-gray-400">
+                  <div key={kw} className="px-3 py-2 bg-white border border-gray-100 rounded-xl text-[11px] font-bold text-gray-400 text-center shadow-sm">
                     {kw}
-                  </span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -1312,19 +1324,19 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
             </div>
             <h3 className="text-xl font-bold font-display text-gray-900">LinkedIn ABM</h3>
           </div>
-          <p className="text-sm text-gray-500 mb-8 font-medium">Skalierbarer Enterprise-Pipeline-Aufbau durch strategisches ABM-Targeting relevanter Einkaufsgremien.</p>
+          <p className="text-sm text-gray-500 mb-8 font-medium">Enterprise-Pipeline aufbauen. Spricht dafür, das Buying Committee direkt zu targetieren.</p>
 
           <div className="space-y-4">
             <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
-              <h4 className="text-sm font-bold text-blue-600 mb-1">Tier 1 (Named)</h4>
-              <p className="text-[10px] text-gray-400 mb-3">Baumarktketten, Elektronikfachmärkte, große Fachhändler.</p>
-              <p className="text-[11px] font-bold text-blue-700">Angebot: Retail KI Berater ROI & Compliance (Demo)</p>
+              <h4 className="text-[10px] font-bold text-blue-600 mb-1 uppercase tracking-widest">Tier 1 — Named Accounts</h4>
+              <p className="text-[11px] text-gray-400 mb-4">Baumarktketten, Elektronikfachmärkte, große Fachhändler.</p>
+              <p className="text-xs font-bold text-blue-700">Offer: Retail KI ROI & Compliance Demo</p>
             </div>
 
             <div className="p-6 bg-gray-50/50 rounded-2xl border border-gray-100/50">
-              <h4 className="text-sm font-bold text-blue-600 mb-1">Tier 2 (Category)</h4>
-              <p className="text-[10px] text-gray-400 mb-3">E-Commerce-Händler + B2B-Distributoren nach Firmografie.</p>
-              <p className="text-[11px] font-bold text-blue-700">Angebot: DIY Vertical Playbook (Download)</p>
+              <h4 className="text-[10px] font-bold text-blue-600 mb-1 uppercase tracking-widest">Tier 2 — Category</h4>
+              <p className="text-[11px] text-gray-400 mb-4">E-Commerce-Händler + B2B-Distributoren nach Firmografie.</p>
+              <p className="text-xs font-bold text-blue-700">Offer: DIY Vertical Playbook (Download)</p>
             </div>
           </div>
         </div>
@@ -1332,97 +1344,259 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
         {/* Meta Retargeting Card */}
         <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-pink-600">
+            <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-rose-500">
               <Instagram size={22} />
             </div>
             <h3 className="text-xl font-bold font-display text-gray-900">Meta Retargeting</h3>
           </div>
-          <p className="text-sm text-gray-500 mb-8 font-medium">Reibungslose Conversion-Verstärkung für Website-Besucher und Trial-Nutzer zur Maximierung des ROAS.</p>
+          <p className="text-sm text-gray-500 mb-8 font-medium">Warme Zielgruppen konvertieren. Könnte den ROAS nachhaltig maximieren.</p>
 
-          <div className="space-y-5 px-4 pt-4">
+          <div className="space-y-3 mb-8">
             {[
               'Website-Besucher',
               'Preisseiten-Besucher',
-              'Testnutzer'
+              'Trial-Nutzer (nicht aktiviert)'
             ].map(item => (
-              <div key={item} className="flex items-center gap-3">
-                <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center">
+              <div key={item} className="flex items-center gap-3 p-3 bg-gray-50/80 rounded-2xl border border-gray-100/50">
+                <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center bg-white shadow-sm">
                   <Check size={12} className="text-blue-500" />
                 </div>
-                <span className="text-sm font-medium text-gray-600">{item}</span>
+                <span className="text-[13px] font-bold text-gray-600">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+            <h4 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-2">Ziel-Signal</h4>
+            <p className="text-sm font-bold text-blue-900">Trial-Start oder Demo-Buchung</p>
+          </div>
+        </div>
+      </div>
+
+      {/* S&M Budget Table */}
+      <div className="p-8 rounded-[32px] bg-[#0B1120] border border-slate-800 premium-shadow text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
+        
+        <div className="relative z-10">
+          <h3 className="text-2xl font-black font-display mb-2 tracking-tight">S&M Budget — 5-Jahres-Skalierung</h3>
+          <p className="text-sm text-slate-400 mb-10 font-medium">Aus Excel-Modell v21 · Skaliert mit ARR · CAC-Disziplin aufrechterhalten</p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-slate-800/60 transition-colors">
+                  <th className="pb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Jahr</th>
+                  <th className="pb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">S&M / Jahr</th>
+                  <th className="pb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">S&M / Monat</th>
+                  <th className="pb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">ARR Ziel</th>
+                  <th className="pb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Budget als % ARR</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/40">
+                {scalingData.map((row) => (
+                  <tr key={row.year} className="group hover:bg-slate-800/20 transition-all duration-300">
+                    <td className="py-6 font-bold text-slate-300 text-lg">{row.year}</td>
+                    <td className="py-6 font-black text-emerald-400 text-lg tracking-tight">{row.smYear}</td>
+                    <td className="py-6 font-bold text-slate-300 text-lg tracking-tight">{row.smMonth}</td>
+                    <td className="py-6 font-bold text-slate-200 text-lg tracking-tight">{row.arrTarget}</td>
+                    <td className="py-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden shrink-0">
+                          <div 
+                            className="h-full bg-blue-500 rounded-full transition-all duration-1000 group-hover:bg-blue-400" 
+                            style={{ width: `${row.budgetPct * 2}%` }} 
+                          />
+                        </div>
+                        <span className="text-lg font-bold text-slate-300">{row.budgetPct}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* Middle Row: Funnel & CAC/LTV */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Pro-Tier Funnel */}
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="text-xl font-bold font-display text-gray-900 mb-2">Pro-Tier Funnel — pro €100K Spend</h3>
+          <p className="text-xs text-gray-400 mb-8 font-medium">Basis: CPC €8 · Markttypische Modell-Rates (Plausible Lesart)</p>
+          
+          <div className="space-y-6">
+            {funnelMetrics.map((item, idx) => (
+              <div key={item.label} className="flex justify-between items-center group">
+                <span className="text-sm font-medium text-gray-500 group-hover:text-gray-900 transition-colors">{item.label}</span>
+                <span className="text-sm font-black text-gray-900 tracking-tight">{item.value}</span>
+              </div>
+            ))}
+            
+            <div className="pt-4 space-y-3">
+              <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex justify-between items-center">
+                <span className="text-sm font-bold text-emerald-900">Closed Won (20% SQLs)</span>
+                <span className="text-lg font-black text-emerald-600">6.0</span>
+              </div>
+              <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex justify-between items-center">
+                <span className="text-sm font-bold text-emerald-900">New Pro ARR (€9.480/Jahr)</span>
+                <span className="text-lg font-black text-emerald-600">€56.880</span>
+              </div>
+            </div>
+
+            <div className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100/50">
+              <p className="text-[11px] text-blue-800 leading-relaxed font-medium">
+                <span className="font-bold">Blended CAC: €16.667</span> — liegt über dem hypothetischen Ziel-CAC von €6.530. Spricht für eine Korrektur durch Enterprise-Mix und Retargeting-Effizienz.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CAC & LTV:CAC nach Tarif */}
+        <div className="p-8 rounded-3xl bg-white border border-gray-100 premium-shadow">
+          <h3 className="text-xl font-bold font-display text-gray-900 mb-2">CAC & LTV:CAC nach Tarif</h3>
+          <p className="text-xs text-gray-400 mb-8 font-medium">Aus Außensicht modellierte Economics · Excel-Modell v21</p>
+          
+          <div className="grid grid-cols-1 gap-4">
+            {cacLtvData.map((item) => (
+              <div key={item.tier} className="p-5 bg-gray-50/50 rounded-2xl border border-gray-100/50 hover:border-blue-200 transition-all group overflow-hidden relative">
+                <div className="absolute top-0 right-0 w-24 h-full bg-blue-500/0 group-hover:bg-blue-500/5 transition-all skew-x-12 translate-x-12" />
+                <div className="flex justify-between items-start relative z-10">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-black text-gray-900">{item.tier}</h4>
+                      <span className="text-[10px] text-gray-400 font-medium">{item.price}</span>
+                    </div>
+                    <div className="flex gap-4 text-[10px] font-bold text-gray-500">
+                      <span>CAC <span className="text-gray-900">{item.cac}</span></span>
+                      <span>Payback <span className="text-gray-900">{item.payback}</span></span>
+                      <span>LTV <span className="text-gray-900">{item.ltv}</span></span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-black text-blue-600">{item.ratio}</span>
+                    <div className="w-24 h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
+                      <div className={cn("h-full rounded-full", item.color)} style={{ width: `${(parseFloat(item.ratio) / 8) * 100}%` }} />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 premium-shadow text-white">
-        <h3 className="text-xl font-bold font-display mb-6">Strategische Budget-Allokation (Initiales Starter-System)</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b border-slate-800">
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Kanal</th>
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Starter-Budget (EUR)</th>
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Begründung</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-900">
-              {paidPlanData.budget.map((item) => (
-                <tr key={item.channel} className="hover:bg-slate-900/50 transition-colors">
-                  <td className="py-4 font-bold text-emerald-400">{item.channel}</td>
-                  <td className="py-4 text-sm font-bold text-slate-200">€{item.budget}</td>
-                  <td className="py-4 text-sm text-slate-400 italic">{item.rationale}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Marketing Investment Framework */}
+      <div className="p-8 rounded-[32px] bg-white border border-gray-100 premium-shadow overflow-hidden relative">
+        <h3 className="text-2xl font-black font-display mb-2 tracking-tight">Marketing Investment Framework</h3>
+        <p className="text-sm text-gray-400 mb-10 font-medium whitespace-nowrap overflow-hidden">Plausibler Pfad von €1M → €100M ARR · Außensicht basierend auf Sales Expansion Scenario</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+          {/* Connector Line */}
+          <div className="hidden md:block absolute top-[68px] left-0 w-full h-0.5 bg-gray-100 -z-0" />
+          
+          {frameworkSteps.map((step, idx) => (
+            <div key={step.title} className="relative z-10 group">
+              <div className={cn("p-6 rounded-2xl border transition-all duration-300 group-hover:scale-[1.02]", step.color)}>
+                <span className="text-[11px] font-black text-gray-400 mb-1 block">{step.period}</span>
+                <h4 className="text-sm font-black text-gray-900 mb-0.5">{step.title}</h4>
+                <p className="text-xs font-black text-emerald-600 mb-3 tracking-tight">{step.range}</p>
+                <p className="text-[10px] text-gray-500 leading-relaxed font-bold">{step.tasks}</p>
+              </div>
+              {idx < 3 && (
+                <div className="hidden md:block absolute top-[68px] -right-3 w-6 h-6 bg-white border border-gray-100 rounded-full flex items-center justify-center shadow-sm text-gray-300">
+                  <ChevronRight size={14} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-4 bg-amber-50 rounded-2xl border border-amber-100">
+          <p className="text-[11px] text-amber-800 leading-relaxed font-bold">
+            <span className="uppercase tracking-widest text-[9px] text-amber-600 block mb-1">Modell-Caveat</span>
+            Diese Rekonstruktion basiert auf einer Außensicht und öffentlich zugänglichen Inputs. Es handelt sich nicht um einen internen Forecast, sondern um ein Framework, das die Dynamik der Growth-Mechanismen veranschaulicht.
+          </p>
         </div>
       </div>
 
-      {/* Baseline Math Model Chart */}
-      <div className="p-8 rounded-2xl bg-white border border-gray-100 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-8">Mathematisches Basis-Modell (Validierung in Woche 1-2)</h3>
-        <div className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            {(() => {
-              const a = modelData.assumptions;
-              const engagedSessions = Math.round(a.sessions * a.engagementRate);
-              const leads = Math.round(engagedSessions * a.leadRate);
-              const mqls = Math.round(leads * a.mqlRate);
-              const sqls = Math.round(mqls * a.sqlRate);
-              const closedDeals = Math.round(sqls * a.closeRate);
-              const chartData = [
-                { stage: 'Sitzungen', volume: a.sessions },
-                { stage: 'Interaktionen', volume: engagedSessions },
-                { stage: 'Leads', volume: leads },
-                { stage: 'MQLs', volume: mqls },
-                { stage: 'SQLs', volume: sqls },
-                { stage: 'Abschlüsse', volume: closedDeals },
-              ];
-              return (
-                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                  <XAxis
-                    dataKey="stage"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 11, fontWeight: 500, fill: '#94a3b8' }}
-                  />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#94a3b8' }} />
-                  <Tooltip
-                    cursor={{ fill: '#f8fafc' }}
-                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
-                  />
-                  <Bar dataKey="volume" radius={[4, 4, 0, 0]} barSize={60}>
-                    {chartData.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#3b82f6' : '#6366f1'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              );
-            })()}
-          </ResponsiveContainer>
+      {/* Routing-Logik: Intent-Segmentierung */}
+      <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
+        <h3 className="text-2xl font-black font-display mb-2 tracking-tight">Routing-Logik: Intent-Segmentierung</h3>
+        <p className="text-sm text-gray-400 mb-12 font-medium">Zwei Pfade. Ein System. (Plausible Einordnung der GTM-Ebenen)</p>
+        
+        <div className="space-y-4">
+          {/* Path 1: Trial-First */}
+          <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow-sm relative group overflow-hidden">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500" />
+            <div className="flex flex-col xl:flex-row items-center gap-6 relative z-10">
+              <div className="xl:w-64 shrink-0">
+                <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1 block">Pfad 1</span>
+                <h4 className="text-lg font-black text-gray-900">Trial-First (PLG)</h4>
+                <p className="text-[11px] text-gray-400 font-bold uppercase tracking-tight">High-Intent · Basic / Pro</p>
+              </div>
+
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex items-center justify-start gap-3 min-w-max py-4">
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">High-Intent Ad</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">z.B. "Shopify KI Berater"</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Trial Landing Page</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Live in &lt; 10 Min.</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-5 bg-blue-600 rounded-2xl min-w-[160px] text-center shadow-xl shadow-blue-200">
+                    <p className="text-[11px] font-black text-white mb-1">Testphase starten</p>
+                    <p className="text-[10px] text-white/70 font-bold italic">Primäre Conversion</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Aktivierung</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Widget ist live</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Path 2: Sales-Led */}
+          <div className="p-6 rounded-3xl bg-white border border-gray-100 premium-shadow-sm relative group overflow-hidden">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
+            <div className="flex flex-col xl:flex-row items-center gap-6 relative z-10">
+              <div className="xl:w-64 shrink-0">
+                <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-1 block">Pfad 2</span>
+                <h4 className="text-lg font-black text-gray-900">Demo-First (Sales-Led)</h4>
+                <p className="text-[11px] text-gray-400 font-bold uppercase tracking-tight">Enterprise · ABM</p>
+              </div>
+
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex items-center justify-start gap-3 min-w-max py-4">
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Omnichannel Ad</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">z.B. "POS KI Terminal"</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">Demo Landing Page</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Proof + Sicherheit</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-5 bg-indigo-600 rounded-2xl min-w-[160px] text-center shadow-xl shadow-indigo-100">
+                    <p className="text-[11px] font-black text-white mb-1">Demo buchen</p>
+                    <p className="text-[10px] text-white/70 font-bold italic">Lead ins CRM</p>
+                  </div>
+                  <ChevronRight size={18} className="text-gray-200 shrink-0" />
+                  <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl min-w-[140px] text-center shadow-sm">
+                    <p className="text-[11px] font-black text-gray-900 mb-1">SQL / Pipeline</p>
+                    <p className="text-[10px] text-gray-400 font-bold italic">Von Sales akzeptiert</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
