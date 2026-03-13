@@ -68,13 +68,13 @@ type Section = 'overview' | 'market' | 'icps' | 'competitors' | 'funnel' | 'paid
 
 const Citation = ({ id, onClick }: { id: string; onClick: (id: string) => void }) => (
   <span
-    className="evidence-chip ml-1 align-top text-xs text-blue-500 cursor-pointer"
+    className="inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] font-black text-blue-500 bg-blue-50 border border-blue-100 rounded-md cursor-pointer hover:bg-blue-100 transition-colors align-middle"
     onClick={(e) => {
       e.stopPropagation();
       onClick(id);
     }}
   >
-    [{id}]
+    {id}
   </span>
 );
 
@@ -1808,62 +1808,204 @@ function MeasurementView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
 }
 
 function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
-  const experimentsData = [
-    { "id": "1", "hypothesis": "Motion-Optimierung: Trial-First vs. Demo-First Conversion-Pfade für High-Intent Integrations-Keywords.", "kpi": "CAC pro qualifizierter Opportunity", "success": "Niedrigerer CAC auf dem Trial-Pfad", "date": "Woche 2" },
-    { "id": "2", "hypothesis": "Vertikalspezifischer Proof: DIY-thematisierte Creatives mit vertikalspezifischen Proof-Points vs. generisches Messaging.", "kpi": "SQL-Rate Lift", "success": ">20% Lift vs. generisch", "date": "Woche 4" },
-    { "id": "3", "hypothesis": "PDP-Level Intent: Merkmalspezifische Anzeigen (z.B. Batterielaufzeit, Gewicht) vs. generische Produkt-Value-Propositions.", "kpi": "CTR & CVR", "success": "Höherer Impact bei Produktdaten", "date": "Woche 3" },
-    { "id": "4", "hypothesis": "Winkel-Optimierung: Support-Deflection vs. conversion-fokussiertes Messaging zur Identifizierung der Lead-Qualität.", "kpi": "Lead-Qualität", "success": "Identifizierung des Winkels mit höherem Intent", "date": "Woche 5" },
-    { "id": "5", "hypothesis": "Content-Asset-Testing: DIY-spezifischer Case Study One-Pager vs. Enterprise Security Checklist.", "kpi": "CPL", "success": "Niedrigerer CPL bei Case Study", "date": "Woche 6" },
-    { "id": "6", "hypothesis": "Persona-Performance: E-Commerce vs. Store Operations vs. IT-Leadership Zielgruppensegmente.", "kpi": "SQL-Akzeptanz", "success": "Identifizierung der bestperformenden Persona", "date": "Woche 7" },
-    { "id": "7", "hypothesis": "Frequenz-Optimierung: Varianten des 7-Tage-Frequenz-Caps zur Minimierung von Ad Fatigue und Maximierung der Conversion-Effizienz.", "kpi": "CVR", "success": "Reduzierung von Verschwendung/Fatigue", "date": "Woche 4" },
-    { "id": "8", "hypothesis": "Trust-Sequencing: Proof-First vs. Feature-First Retargeting-Sequenzen für verbesserten Vertrauensaufbau.", "kpi": "Assisted Conversion", "success": "Bessere Sequenz für Vertrauen", "date": "Woche 5" },
-    { "id": "9", "hypothesis": "Conversion-Pfad-Friktion: Kalender-Einbettung vs. Kurzform-Demo-Anfrage für höhere Abschlussraten.", "kpi": "Demo-Abschlussrate", "success": "Höherer Abschluss bei Einbettung", "date": "Woche 3" },
-    { "id": "10", "hypothesis": "Bidding-Präzision: Optimierung des Offline-Conversion-Imports für gezieltes Bidding auf SQL-Ebene.", "kpi": "CAC-Reduzierung", "success": "Besseres Bidding auf SQLs", "date": "Woche 8" }
+  const [activeCategory, setActiveCategory] = useState('Alle');
+  const [selectedExp, setSelectedExp] = useState<any>(null);
+
+  const categories = ['Alle', 'Landing Page', 'Audience', 'Ad Creative', 'Retargeting', 'Bidding', 'ICP Expansion', 'Offline Conv.', 'Content'];
+
+  const stats = [
+    { label: 'GEPLANT', value: '6', sub: 'ab Woche 1', color: 'text-blue-600' },
+    { label: 'BACKLOG', value: '2', sub: 'priorisierbar', color: 'text-purple-600' },
+    { label: 'HIGH IMPACT', value: '5', sub: 'von 8', color: 'text-emerald-600' },
+    { label: 'LOW EFFORT', value: '4', sub: 'schnell startbar', color: 'text-orange-500' },
   ];
 
-  return (
-    <div className="space-y-8">
-      {/* Experiment Logic */}
-      <div className="p-8 rounded-3xl bg-[#0B1120] border border-slate-800/60 premium-shadow">
-        <h3 className="text-xl font-bold font-display mb-4 text-white">Experiment-Logik</h3>
-        <p className="text-sm text-slate-300 leading-relaxed mb-4">
-          Experimente dienen hier nicht der reinen Conversion-Optimierung, sondern der Validierung von Signalqualität, ICP-Fit und Pipeline-Wert. Die zentrale Frage ist nicht nur, welche Kampagne günstiger Leads erzeugt, sondern welche Tests die belastbarsten Hinweise auf qualifizierte Pipeline und wiederholbares Wachstum liefern.
-        </p>
-        <p className="text-sm text-slate-300 leading-relaxed">
-          Gerade in einem Setup mit Trial- und Demo-Pfaden muss das Experimentieren enger an Sales-Feedback, Lead-Scoring und spätere Umsatzsignale gekoppelt werden. Erst dann entsteht ein Testprogramm, das nicht Aktivität maximiert, sondern Entscheidungsqualität verbessert.
-        </p>
-      </div>
+  const filteredExperiments = activeCategory === 'Alle' 
+    ? experimentsData 
+    : experimentsData.filter((exp: any) => exp.category === activeCategory);
 
-      <div className="p-8 rounded-3xl bg-white border border-slate-100 premium-shadow overflow-hidden">
-        <h3 className="text-xl font-bold font-display mb-6 text-slate-900">Strategischer Growth-Experiment Backlog</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b border-slate-100">
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Experiment</th>
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">KPI</th>
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Erfolgskriterium</th>
-                <th className="pb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Zieldatum</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {experimentsData.map((exp) => (
-                <tr key={exp.id} className="odd:bg-slate-50/60 hover:bg-slate-100/60 transition-colors">
-                  <td className="py-4 pr-6">
-                    <p className="font-semibold text-indigo-900 leading-relaxed">{exp.hypothesis}</p>
-                  </td>
-                  <td className="py-4 pr-6 text-sm font-medium text-slate-600">{exp.kpi}</td>
-                  <td className="py-4 pr-6 text-sm font-semibold text-blue-600">{exp.success}</td>
-                  <td className="py-4 text-sm font-medium text-slate-400 whitespace-nowrap">{exp.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  return (
+    <div className="space-y-8 pb-20">
+      {/* Experiment-Logik Header */}
+      <div className="p-10 rounded-[40px] bg-slate-950 text-white shadow-xl relative overflow-hidden group">
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="relative z-10">
+          <h3 className="text-3xl font-black mb-6 font-display">Experiment-Logik</h3>
+          <p className="text-sm text-slate-400 leading-relaxed max-w-3xl mb-8 font-medium">
+            Tests hier validieren nicht Conversion-Raten — sie validieren Signal-Qualität, ICP-Fit und Pipeline-Wert. 
+            Ziel: Entscheidungsqualität verbessern — nicht Aktivität maximieren.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {['Signal-Qualität zuerst', 'ICP-Fit validieren', 'Pipeline-Wert messen', 'Entscheidung verbessern'].map(tag => (
+              <div key={tag} className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-300">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" /> {tag}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-2">
+        {stats.map(stat => (
+          <div key={stat.label} className="bg-white p-6 rounded-3xl border border-gray-100 premium-shadow-sm hover:shadow-md transition-shadow">
+            <p className="text-[10px] font-black text-gray-400 tracking-widest mb-1 uppercase">{stat.label}</p>
+            <p className={cn("text-4xl font-black tracking-tighter", stat.color)}>{stat.value}</p>
+            <p className="text-[11px] text-gray-400 mt-1 font-bold">{stat.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2 p-1.5 bg-gray-100/50 rounded-[24px] w-fit mx-2 border border-gray-200/50">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => { setActiveCategory(cat); setSelectedExp(null); }}
+            className={cn(
+              "px-5 py-2.5 rounded-2xl text-[11px] font-black transition-all uppercase tracking-wider",
+              activeCategory === cat ? "bg-blue-600 text-white shadow-lg shadow-blue-200" : "text-gray-500 hover:bg-gray-200"
+            )}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Experiment Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2">
+        <AnimatePresence mode="popLayout">
+          {filteredExperiments.map((exp: any) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              key={exp.id}
+              onClick={() => setSelectedExp(exp)}
+              className={cn(
+                "bg-white p-8 rounded-[40px] border border-gray-100 premium-shadow hover:border-blue-500/30 transition-all cursor-pointer group relative",
+                selectedExp?.id === exp.id && "ring-2 ring-blue-600 border-transparent bg-blue-50/10"
+              )}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{exp.id} • {exp.category}</span>
+                <div className="flex gap-2">
+                  <span className="px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100">{exp.status}</span>
+                  <span className={cn("px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border", 
+                    exp.priority === 'High' ? "bg-red-50 text-red-600 border-red-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"
+                  )}>{exp.priority}</span>
+                </div>
+              </div>
+              <h4 className="text-lg font-black text-gray-900 mb-6 leading-tight group-hover:text-blue-600 transition-colors">
+                {exp.hypothesis}
+              </h4>
+              <div className="flex justify-between items-end border-t border-gray-50 pt-6">
+                <div>
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">KPI</p>
+                  <p className="text-xs font-bold text-gray-700">{exp.kpi}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Success</p>
+                  <p className="text-xs font-black text-emerald-600">{exp.success}</p>
+                </div>
+              </div>
+
+              {/* Detail Hint */}
+              <div className="mt-6 flex items-center gap-2 text-[9px] font-black text-blue-500/60 uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                ICE-Score & Details einblenden
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* Expanded ICE Detail Modal/Card Content (Shows below grid) */}
+      <AnimatePresence>
+        {selectedExp && (
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="mt-12 p-10 md:p-12 rounded-[50px] bg-white border-2 border-blue-600 premium-shadow relative mx-2 shadow-2xl shadow-blue-200/40"
+          >
+            <button onClick={() => setSelectedExp(null)} className="absolute top-10 right-10 w-12 h-12 bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full transition-all flex items-center justify-center border border-gray-100">
+              <X size={24} />
+            </button>
+            <div className="mb-10">
+              <p className="text-xs font-black text-blue-600 uppercase tracking-[0.25em] mb-3">{selectedExp.id} — {selectedExp.category}</p>
+              <h3 className="text-3xl font-black font-display mb-8 max-w-4xl leading-tight text-gray-900">{selectedExp.hypothesis}</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {[
+                { label: 'Zentraler KPI', val: selectedExp.kpi, icon: Target, color: 'text-gray-900' },
+                { label: 'Erfolgskriterium', val: selectedExp.success, icon: CheckCircle2, color: 'text-emerald-600' },
+                { label: 'Zeitraum', val: selectedExp.date, icon: Activity, color: 'text-blue-600' }
+              ].map(item => (
+                <div key={item.label} className="p-6 bg-gray-50 rounded-[32px] border border-gray-100/60 shadow-inner">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <item.icon size={14} className="opacity-40" /> {item.label}
+                  </p>
+                  <p className={cn("text-base font-black tracking-tight", item.color)}>{item.val}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-slate-950 p-10 rounded-[40px] border border-slate-800 shadow-2xl overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] -mr-32 -mt-32" />
+              <div className="relative z-10 space-y-8">
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-[10px] font-black text-blue-400 tracking-[0.3em] uppercase">Priorisierungs-Signal (ICE Score)</p>
+                  <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-[10px] font-black rounded-full border border-blue-500/30">
+                    Confidence-Level: {selectedExp.confidence}%
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                  {[
+                    { label: 'IMPACT', value: selectedExp.impact, color: 'bg-emerald-500', desc: 'Wirtschaftliche Hebelwirkung' },
+                    { label: 'CONFIDENCE', value: selectedExp.confidence, color: 'bg-blue-500', desc: 'Evidenz für Erfolgshypothese' },
+                    { label: 'EASE', value: selectedExp.ease, color: 'bg-amber-500', desc: 'Technische Umsetzbarkeit' },
+                  ].map(bar => (
+                    <div key={bar.label} className="space-y-4">
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <p className="text-[10px] font-black text-white uppercase tracking-widest mb-0.5">{bar.label}</p>
+                          <p className="text-[9px] text-slate-500 font-bold uppercase">{bar.desc}</p>
+                        </div>
+                        <span className="text-lg font-black text-white">{bar.value}%</span>
+                      </div>
+                      <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                        <motion.div 
+                          initial={{ width: 0 }} 
+                          animate={{ width: `${bar.value}%` }} 
+                          transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
+                          className={cn("h-full rounded-full shadow-[0_0_15px_rgba(0,0,0,0.3)]", bar.color)} 
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-10 flex justify-end">
+               <button 
+                 onClick={() => onOpenEvidence(selectedExp.id)}
+                 className="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors"
+               >
+                 Evidenz & Quellen prüfen <ArrowRight size={14} />
+               </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
 
 function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
   const [expandedPhase, setExpandedPhase] = useState<number | null>(null);
@@ -1950,7 +2092,7 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
       <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h2 className="text-4xl font-black font-display tracking-tight text-gray-900 mb-2 italic">90-Tage Plan</h2>
+            <h2 className="text-4xl font-black font-display tracking-tight text-gray-900 mb-2">90-Tage Plan</h2>
             <p className="text-sm text-gray-400 font-medium tracking-wide">Drei Phasen. Ein Ziel: vorhersehbare Pipeline.</p>
           </div>
           <div className="px-6 py-3 bg-amber-50 text-amber-900 rounded-full text-xs font-black uppercase tracking-widest border border-amber-100 shadow-sm whitespace-nowrap">
@@ -2026,7 +2168,7 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
                       {phase.tag}
                     </span>
                     <div>
-                      <h3 className="text-2xl font-black font-display text-gray-900 tracking-tight italic group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-2xl font-black font-display text-gray-900 tracking-tight group-hover:text-blue-600 transition-colors">
                         {phase.title}
                       </h3>
                       <p className="text-xs text-gray-400 font-medium tracking-tight mt-0.5">{phase.subtitle}</p>
@@ -2103,7 +2245,7 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
                             <div className="mt-8 p-6 rounded-3xl bg-emerald-50 border border-emerald-100 shadow-inner relative overflow-hidden">
                               <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-12 -mt-12" />
                               <h5 className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-2 relative z-10">Management Output</h5>
-                              <p className="text-sm font-black text-emerald-900 leading-relaxed relative z-10 italic">
+                              <p className="text-sm font-black text-emerald-900 leading-relaxed relative z-10">
                                 {phase.output}
                               </p>
                             </div>
@@ -2126,7 +2268,7 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
         <div className="relative z-10">
           <div className="mb-12">
             <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2 block">Template</span>
-            <h2 className="text-3xl font-black font-display tracking-tight text-white mb-2 italic">Wöchentliches Performance Memo</h2>
+            <h2 className="text-3xl font-black font-display tracking-tight text-white mb-2">Wöchentliches Performance Memo</h2>
             <p className="text-sm text-slate-500 font-medium">Gleiche Struktur jede Woche. Kein Rauschen — nur Signal.</p>
           </div>
 
@@ -2140,8 +2282,8 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
                  <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black mb-6", item.color)}>
                   {item.id}
                 </div>
-                <h4 className={cn("text-base font-black mb-3 italic", item.color.split(' ')[1])}>{item.title}</h4>
-                <p className="text-sm italic text-slate-400 leading-relaxed font-medium">{item.content}</p>
+                <h4 className={cn("text-base font-black mb-3", item.color.split(' ')[1])}>{item.title}</h4>
+                <p className="text-sm text-slate-400 leading-relaxed font-medium">{item.content}</p>
               </div>
             ))}
           </div>
@@ -2151,13 +2293,3 @@ function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void 
   );
 }
 
-function CitationNode({ id, onClick }: { id: string; onClick: (id: string) => void }) {
-  return (
-    <span
-      className="inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] font-black text-blue-500 bg-blue-50 border border-blue-100 rounded-md cursor-pointer hover:bg-blue-100 transition-colors align-middle"
-      onClick={() => onClick(id)}
-    >
-      {id}
-    </span>
-  );
-}
