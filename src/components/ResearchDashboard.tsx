@@ -1551,20 +1551,20 @@ function PaidView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) 
         <h3 className="text-2xl font-black font-display mb-2 tracking-tight">Marketing Investment Framework</h3>
         <p className="text-sm text-gray-400 mb-10 font-medium whitespace-nowrap overflow-hidden">Plausibler Pfad von €1M → €100M ARR · Außensicht basierend auf Sales Expansion Scenario</p>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative items-stretch">
           {/* Connector Line */}
-          <div className="hidden md:block absolute top-[68px] left-0 w-full h-0.5 bg-gray-100 -z-0" />
+          <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-0 w-full h-0.5 bg-gray-100 z-0" />
           
           {frameworkSteps.map((step, idx) => (
             <div key={step.title} className="relative z-10 group">
-              <div className={cn("p-6 rounded-2xl border transition-all duration-300 group-hover:scale-[1.02]", step.color)}>
+              <div className={cn("p-6 rounded-2xl border transition-all duration-300 group-hover:scale-[1.02] h-full", step.color)}>
                 <span className="text-[11px] font-black text-gray-400 mb-1 block">{step.period}</span>
                 <h4 className="text-sm font-black text-gray-900 mb-0.5">{step.title}</h4>
                 <p className="text-xs font-black text-emerald-600 mb-3 tracking-tight">{step.range}</p>
                 <p className="text-[10px] text-gray-500 leading-relaxed font-bold">{step.tasks}</p>
               </div>
               {idx < 3 && (
-                <div className="hidden md:block absolute top-[68px] -right-3 w-6 h-6 bg-white border border-gray-100 rounded-full flex items-center justify-center shadow-sm text-gray-300">
+                <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-3 w-6 h-6 bg-white border border-gray-100 rounded-full items-center justify-center shadow-sm text-gray-300 z-20">
                   <ChevronRight size={14} />
                 </div>
               )}
