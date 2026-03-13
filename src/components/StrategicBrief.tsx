@@ -7,6 +7,7 @@ interface StrategicBriefProps {
 }
 
 const SectionCard = ({ children, className = '', isDark = false }: { children: React.ReactNode, className?: string, isDark?: boolean }) => (
+
   <div
     className={`rounded-3xl shadow-2xl relative overflow-hidden transition-all duration-500 ${isDark ? 'backdrop-blur-md border border-slate-800' : ''} ${className}`}
     style={{
@@ -38,7 +39,7 @@ export default function StrategicBrief({ onNavigate }: StrategicBriefProps) {
       {/* Hero */}
       <div className="max-w-4xl mx-auto">
         <section className="pt-24 pb-20 text-center space-y-8">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-8xl font-serif text-white leading-tight"
@@ -48,13 +49,13 @@ export default function StrategicBrief({ onNavigate }: StrategicBriefProps) {
           </motion.h1>
           <p className="text-xl text-slate-400 font-light">So gedacht, dass es nützlich ist.</p>
           <div className="pt-8 flex justify-center">
-            <button 
+            <button
               onClick={() => {
                 document.getElementById('letter')?.scrollIntoView({ behavior: 'smooth' });
-              }} 
+              }}
               className="px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-slate-200 transition-colors shadow-xl"
             >
-              Bewerbung lesen
+              Motivationsschreiben
             </button>
           </div>
         </section>
@@ -318,9 +319,14 @@ export default function StrategicBrief({ onNavigate }: StrategicBriefProps) {
             </ul>
             <p>Wenn sich das nützlich anfühlt, würde ich mich freuen, die Unterlagen im Gespräch einzuordnen und zu zeigen, wie ich an die ersten 90 Tage herangehen würde.</p>
             <div className="pt-12">
-              <button className="px-8 py-4 bg-white text-black hover:bg-slate-200 rounded-full font-medium transition-colors">
+              <a 
+                href="https://calendar.app.google/SrEC32FQ2o32FCJH9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-4 bg-white text-black hover:bg-slate-200 rounded-full font-medium transition-all hover:scale-105 active:scale-95 shadow-xl"
+              >
                 Gespräch vereinbaren
-              </button>
+              </a>
             </div>
           </div>
         </SectionCard>
