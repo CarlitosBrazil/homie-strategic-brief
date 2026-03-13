@@ -28,6 +28,7 @@ import {
   Activity,
   Moon,
   Sun,
+  GitBranch,
   Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -1864,89 +1865,299 @@ function ExperimentsView({ onOpenEvidence }: { onOpenEvidence: (id: string) => v
   );
 }
 
-
 function RoadmapView({ onOpenEvidence }: { onOpenEvidence: (id: string) => void }) {
-  return (
-    <div className="space-y-8">
-      <div className="p-8 rounded-3xl bg-white border border-slate-100 premium-shadow mx-4">
-        <h3 className="text-xl font-bold font-display mb-10 text-slate-900">90-Tage Implementierungsplan</h3>
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-[27px] top-6 bottom-6 w-0.5 bg-slate-100" />
+  const [expandedPhase, setExpandedPhase] = useState<number | null>(null);
 
-          <div className="space-y-12">
-            {(roadmapData as any[]).map((phase, i) => (
-              <div key={phase.phase} className="relative pl-16">
-                <div className="absolute left-0 top-0 w-14 h-14 rounded-2xl bg-white border-2 border-blue-600 flex items-center justify-center text-blue-600 font-bold text-lg z-10 shadow-sm">
-                  {i + 1}
-                </div>
-                <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100/60">
-                  <div className="mb-6">
-                    <h4 className="text-lg font-bold text-slate-900 mb-1">{phase.phase}</h4>
-                    <p className="text-sm text-blue-600 font-medium mb-4">{phase.focus}</p>
-                    {phase.description && (
-                      <p className="text-sm text-slate-600 leading-relaxed pr-8">
-                        {phase.description}
-                      </p>
-                    )}
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  const phases = [
+    {
+      id: 1,
+      tag: 'TAG 1-30',
+      title: 'Wahrheit herstellen',
+      subtitle: 'Audit. Alignment. Fundament.',
+      goal: 'Erster attribuierbarer SQL',
+      description: 'Tracking, CRM-Attribution und Paid-to-Pipeline prüfen. Klären, welche Signale für Qualität stehen und wo die Verbindung zwischen Plattform und Sales-Realität bricht.',
+      deliverables: [
+        { text: 'GA4 + Consent Mode v2 vollständig implementiert', icon: Layers },
+        { text: 'HubSpot Lifecycle-Stufen definiert und live', icon: GitBranch },
+        { text: 'Google Search Kampagne (High-Intent) aktiv', icon: Search },
+        { text: 'Lead- und SQL-Definition mit Sales abgestimmt', icon: Users },
+        { text: 'Erstes Weekly Performance Memo an Stakeholder', icon: BarChart3 }
+      ],
+      weekly: [
+        { w: 'W1', task: 'Tracking-Audit: GTM, GA4, HubSpot' },
+        { w: 'W2', task: 'Lead-Definition mit Sales klären' },
+        { w: 'W3', task: 'Google Search live schalten' },
+        { w: 'W4', task: 'Erstes Attribution-Reporting' }
+      ],
+      output: '“Ich weiß, was wir messen. Ich weiß, was davon zählt. Erste SQLs sind attribuiert.”',
+      color: 'emerald'
+    },
+    {
+      id: 2,
+      tag: 'TAG 31-60',
+      title: 'Qualität stabilisieren',
+      subtitle: 'ICP. Routing. Feedback-Loops.',
+      goal: '10+ SQLs / Monat',
+      description: 'ICP-Logik schärfen, Routing verbessern, Feedback-Loops mit Sales aufbauen. Herausarbeiten, welche Kanäle die besten nachgelagerten Signale liefern.',
+      deliverables: [
+        { text: 'LinkedIn ABM Kampagne (Tier 1 Named Accounts) live', icon: Linkedin },
+        { text: 'Meta Retargeting für Preisseiten-Besucher aktiv', icon: Instagram },
+        { text: 'Lead-Scoring Rubrik implementiert in HubSpot', icon: Zap },
+        { text: 'Erstes Vertical Playbook (DIY/Baumarkt) fertig', icon: FileText },
+        { text: 'Sales-Feedback-Loop: wöchentliches SQL-Review', icon: MessageSquare }
+      ],
+      weekly: [
+        { w: 'W5', task: 'LinkedIn ABM Tier 1 aufsetzen' },
+        { w: 'W6', task: 'Lead-Scoring in HubSpot live' },
+        { w: 'W7', task: 'Meta Retargeting schalten' },
+        { w: 'W8', task: 'SQL-Review mit Sales etablieren' }
+      ],
+      output: '“SQL-Volumen ist stabil und vorhersehbar. Sales vertraut der Pipeline-Qualität.”',
+      color: 'blue'
+    },
+    {
+      id: 3,
+      tag: 'TAG 61-90',
+      title: 'Skalieren, was trägt',
+      subtitle: 'ABM. CAC-Benchmarks. Wiederholbar.',
+      goal: 'Vorhersehbare Pipeline',
+      description: 'Spend nur dort ausweiten, wo Signal-, Lead-Qualität und Conversion-Pfad tragen. Reporting auf qualifizierte Pipeline und wirtschaftliche Wirkung ausrichten.',
+      deliverables: [
+        { text: 'ABM Sequenz Tier 2 (Category) live', icon: Target },
+        { text: 'Offline-Conversion-Import in Google Ads aktiv', icon: Activity },
+        { text: 'CAC-zu-ARR Benchmarks pro Kanal dokumentiert', icon: TrendingUp },
+        { text: 'Erstes Experiment abgeschlossen und ausgewertet', icon: Rocket },
+        { text: '90-Tage Reporting: Pipeline, CAC, SQL-Qualität', icon: LayoutDashboard }
+      ],
+      weekly: [
+        { w: 'W9', task: 'ABM Tier 2 Kampagne starten' },
+        { w: 'W10', task: 'Offline-Conversion-Import testen' },
+        { w: 'W11', task: 'Experiment EXP-01 auswerten' },
+        { w: 'W12', task: '90-Tage Report + Ausblick Q2' }
+      ],
+      output: '“Wir haben ein System. CAC-zu-ARR ist messbar. Paid ist kein Glücksspiel mehr.”',
+      color: 'purple'
+    }
+  ];
+
+  const togglePhase = (id: number) => {
+    setExpandedPhase(expandedPhase === id ? null : id);
+  };
+
+  return (
+    <div className="space-y-12 pb-20">
+      {/* Top Card: Timeline & Goals */}
+      <div className="p-10 rounded-[40px] bg-white border border-gray-100 premium-shadow">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+          <div>
+            <h2 className="text-4xl font-black font-display tracking-tight text-gray-900 mb-2 italic">90-Tage Plan</h2>
+            <p className="text-sm text-gray-400 font-medium tracking-wide">Drei Phasen. Ein Ziel: vorhersehbare Pipeline.</p>
+          </div>
+          <div className="px-6 py-3 bg-amber-50 text-amber-900 rounded-full text-xs font-black uppercase tracking-widest border border-amber-100 shadow-sm whitespace-nowrap">
+            Bereit zum Start
+          </div>
+        </div>
+
+        {/* Horizontal Timeline Bar */}
+        <div className="relative h-1 bg-gray-100 rounded-full mb-16 mx-4">
+          <div className="absolute top-0 left-0 h-full bg-emerald-500 rounded-full w-4 flex items-center justify-end">
+            <div className="w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-50 shadow-sm" />
+          </div>
+          <div className="absolute -top-6 left-0 text-[10px] font-black text-gray-400 uppercase tracking-widest">Tag 1</div>
+          
+          <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-4 h-4 rounded-full bg-gray-200 border-4 border-white shadow-sm" />
+          <div className="absolute -top-6 left-1/3 -translate-x-1/2 text-[10px] font-black text-gray-400 uppercase tracking-widest">Tag 30</div>
+          
+          <div className="absolute top-1/2 left-2/3 -translate-y-1/2 w-4 h-4 rounded-full bg-gray-200 border-4 border-white shadow-sm" />
+          <div className="absolute -top-6 left-2/3 -translate-x-1/2 text-[10px] font-black text-gray-400 uppercase tracking-widest">Tag 60</div>
+          
+          <div className="absolute top-1/2 left-[calc(100%-16px)] -translate-y-1/2 w-4 h-4 rounded-full bg-gray-200 border-4 border-white shadow-sm" />
+          <div className="absolute -top-6 right-0 text-[10px] font-black text-gray-400 uppercase tracking-widest">Tag 90</div>
+        </div>
+
+        {/* Goal Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { tag: 'TAG-30 ZIEL', goal: 'Erster attribuierbarer SQL', color: 'border-emerald-500 text-emerald-900', icon: CheckCircle2 },
+            { tag: 'TAG-60 ZIEL', goal: '10+ SQLs / Monat', color: 'border-blue-500 text-blue-900', icon: TrendingUp },
+            { tag: 'TAG-90 ZIEL', goal: 'Vorhersehbare Pipeline', color: 'border-purple-500 text-purple-900', icon: Zap }
+          ].map((item, idx) => (
+            <div key={idx} className={cn("p-6 rounded-3xl bg-gray-50/50 border-l-4 shadow-sm", item.color)}>
+              <div className="flex items-center gap-2 mb-2">
+                <item.icon size={14} className="opacity-40" />
+                <span className="text-[10px] font-black uppercase tracking-widest opacity-50">{item.tag}</span>
+              </div>
+              <p className="text-sm font-black tracking-tight">{item.goal}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* vertical Timeline & Phases */}
+      <div className="relative px-4">
+        {/* vertical Line */}
+        <div className="absolute left-[34px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-blue-500 to-purple-500 opacity-20" />
+
+        <div className="space-y-6">
+          {phases.map((phase) => (
+            <div key={phase.id} className="relative pl-16">
+              {/* Phase Number Indicator */}
+              <div className={cn(
+                "absolute left-0 top-6 w-9 h-9 rounded-full border-2 flex items-center justify-center font-black text-xs transition-all duration-500 z-10",
+                expandedPhase === phase.id 
+                  ? "bg-white border-blue-600 text-blue-600 shadow-lg scale-110" 
+                  : "bg-gray-50 border-gray-200 text-gray-400"
+              )}>
+                {phase.id}
+              </div>
+
+              {/* Main Card */}
+              <div 
+                className={cn(
+                  "p-8 rounded-[32px] bg-white border border-gray-100 premium-shadow-sm transition-all duration-300 cursor-pointer group",
+                  expandedPhase === phase.id ? "shadow-xl ring-1 ring-blue-500/10" : "hover:bg-gray-50/50"
+                )}
+                onClick={() => togglePhase(phase.id)}
+              >
+                {/* Header Section */}
+                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                  <div className="flex items-center gap-6">
+                    <span className="px-3 py-1.5 bg-gray-50 text-[10px] font-black text-emerald-600 rounded-lg uppercase tracking-widest border border-gray-100">
+                      {phase.tag}
+                    </span>
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Zentrale Deliverables</p>
-                      <ul className="space-y-2.5">
-                        {phase.deliverables.map((item: string) => (
-                          <li key={item} className="flex items-start gap-2.5 text-sm text-slate-700">
-                            <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
-                            <span className="leading-snug">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <h3 className="text-2xl font-black font-display text-gray-900 tracking-tight italic group-hover:text-blue-600 transition-colors">
+                        {phase.title}
+                      </h3>
+                      <p className="text-xs text-gray-400 font-medium tracking-tight mt-0.5">{phase.subtitle}</p>
                     </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Management-Ergebnis</p>
-                      <div className="p-4 bg-white rounded-xl border border-slate-100 text-sm text-slate-700 font-medium leading-relaxed shadow-sm">
-                        {phase.outcome}
+                  </div>
+
+                  <div className="flex items-center gap-6 self-end xl:self-center">
+                    <div className="text-right hidden sm:block">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Ziel-KPI</span>
+                      <p className={cn("text-xs font-black tracking-tight", `text-${phase.color}-600`)}>{phase.goal}</p>
+                    </div>
+                    <div className={cn(
+                      "w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 transition-transform duration-300",
+                      expandedPhase === phase.id ? "rotate-180" : "group-hover:translate-y-0.5"
+                    )}>
+                      <ChevronRight size={18} className="rotate-90" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pulsating Detail Hint (Only when closed) */}
+                {expandedPhase !== phase.id && (
+                   <div className="mt-4 flex items-center gap-2 text-[9px] font-black text-blue-500/60 uppercase tracking-widest">
+                     <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                     Details zum Plan einblenden
+                   </div>
+                )}
+
+                {/* Collapsible Content */}
+                <AnimatePresence>
+                  {expandedPhase === phase.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: "circOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pt-10 mt-8 border-t border-gray-50 space-y-10">
+                        <p className="text-sm text-gray-500 leading-relaxed font-medium max-w-4xl">
+                          {phase.description}
+                        </p>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                          {/* Deliverables Column */}
+                          <div>
+                            <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Deliverables</h4>
+                            <div className="space-y-3">
+                              {phase.deliverables.map((item, idx) => (
+                                <div key={idx} className="flex items-center gap-4 p-4 bg-gray-50/50 border border-gray-100 rounded-2xl group/item hover:bg-white hover:shadow-sm transition-all duration-300">
+                                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gray-400 group-hover/item:text-blue-500 shadow-sm transition-colors shrink-0">
+                                    <item.icon size={18} />
+                                  </div>
+                                  <span className="text-sm font-bold text-gray-700 leading-snug">{item.text}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Weekly Focus Column */}
+                          <div>
+                            <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Wöchentlicher Fokus</h4>
+                            <div className="grid grid-cols-2 gap-4">
+                              {phase.weekly.map((w, idx) => (
+                                <div key={idx} className="p-5 rounded-3xl bg-white border border-gray-100 shadow-sm relative group/w overflow-hidden">
+                                  <div className={cn("absolute top-0 left-0 w-full h-1", `bg-${phase.color}-500`)} />
+                                  <span className={cn("text-[10px] font-black uppercase mb-1 block", `text-${phase.color}-600`)}>{w.w}</span>
+                                  <p className="text-[11px] font-bold text-gray-500 leading-relaxed">{w.task}</p>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Management Output Card */}
+                            <div className="mt-8 p-6 rounded-3xl bg-emerald-50 border border-emerald-100 shadow-inner relative overflow-hidden">
+                              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-12 -mt-12" />
+                              <h5 className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-2 relative z-10">Management Output</h5>
+                              <p className="text-sm font-black text-emerald-900 leading-relaxed relative z-10 italic">
+                                {phase.output}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Performance Memo Template */}
+      <div className="mx-4 p-12 rounded-[40px] bg-[#0B1120] border border-slate-800 premium-shadow mt-20 relative overflow-hidden group">
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="relative z-10">
+          <div className="mb-12">
+            <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2 block">Template</span>
+            <h2 className="text-3xl font-black font-display tracking-tight text-white mb-2 italic">Wöchentliches Performance Memo</h2>
+            <p className="text-sm text-slate-500 font-medium">Gleiche Struktur jede Woche. Kein Rauschen — nur Signal.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { id: 1, title: 'Was hat sich geändert', content: '"CPL sank 15% in Search — aber SQL-Volumen blieb stabil."', color: 'bg-blue-500/10 text-blue-400', border: 'border-blue-500/20' },
+              { id: 2, title: 'Warum (Hypothese)', content: '"Competitor-Bids ließen nach — wir fingen Queries mit geringerem Intent ein."', color: 'bg-indigo-500/10 text-indigo-400', border: 'border-indigo-500/20' },
+              { id: 3, title: 'Next Steps (Maßnahme)', content: '"Negative Keyword-Liste erweitern + neue Enterprise-LP testen."', color: 'bg-emerald-500/10 text-emerald-400', border: 'border-emerald-500/20' }
+            ].map((item) => (
+              <div key={item.id} className={cn("p-8 rounded-[32px] bg-slate-900/40 border transition-all duration-300 hover:bg-slate-900/60 hover:scale-[1.02]", item.border)}>
+                 <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black mb-6", item.color)}>
+                  {item.id}
                 </div>
+                <h4 className={cn("text-base font-black mb-3 italic", item.color.split(' ')[1])}>{item.title}</h4>
+                <p className="text-sm italic text-slate-400 leading-relaxed font-medium">{item.content}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Performance Memo Template */}
-      <div className="bg-[#0B1120] rounded-3xl p-12 border border-slate-800/60 premium-shadow -ml-16">
-        <h4 className="text-sm font-bold text-white uppercase tracking-[0.18em] mb-10">
-          Vorlage: Wöchentliches Performance Memo
-        </h4>
-        <div className="space-y-5">
-          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
-            <div className="w-7 h-7 rounded bg-blue-500/15 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0 mt-0.5">1</div>
-            <div>
-              <h5 className="text-base font-bold text-blue-400 mb-2">Was hat sich geändert (Metriken)</h5>
-              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "CPL sank um 15% in der Suche, aber das SQL-Volumen blieb stabil."</p>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
-            <div className="w-7 h-7 rounded bg-purple-500/15 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0 mt-0.5">2</div>
-            <div>
-              <h5 className="text-base font-bold text-purple-400 mb-2">Warum (Hypothese)</h5>
-              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "Gebote der Wettbewerber ließen nach, aber wir fingen eher Suchanfragen mit geringerem Intent ein."</p>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 flex items-start gap-5">
-            <div className="w-7 h-7 rounded bg-emerald-500/15 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0 mt-0.5">3</div>
-            <div>
-              <h5 className="text-base font-bold text-emerald-400 mb-2">Nächste Schritte (Maßnahme)</h5>
-              <p className="text-sm italic text-slate-400 leading-relaxed">z.B. "Negative Keyword-Liste erweitern und neue Enterprise-LP testen."</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+  );
+}
+
+function CitationNode({ id, onClick }: { id: string; onClick: (id: string) => void }) {
+  return (
+    <span
+      className="inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] font-black text-blue-500 bg-blue-50 border border-blue-100 rounded-md cursor-pointer hover:bg-blue-100 transition-colors align-middle"
+      onClick={() => onClick(id)}
+    >
+      {id}
+    </span>
   );
 }
