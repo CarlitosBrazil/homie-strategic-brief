@@ -6,7 +6,9 @@ import {
   ExternalLink,
   Award,
   ShieldCheck,
-  TrendingUp
+  TrendingUp,
+  LockKeyhole,
+  ArrowRight
 } from 'lucide-react';
 
 import ResearchDashboard from './components/ResearchDashboard';
@@ -19,6 +21,92 @@ import profileImg from '../assets/about/Carlos De Azevedo Jr - 2024.jpg';
 import cvPdf from '../assets/about/Carlos Azevedo C.V._ DE_2026 .pdf';
 import recPdf from '../assets/about/Carlos Azevedo Jr._Alveus Arbeitszeugnis.pdf';
 import certPdf from '../assets/about/Carlos Azevedo Jr._Zertifizierungen_2026.pdf';
+
+const ACCESS_PASSWORD = 'homie-paused';
+const ACCESS_STORAGE_KEY = 'homie-brief-unlocked';
+
+function AccessGate({ onUnlock }: { onUnlock: () => void }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (password !== ACCESS_PASSWORD) {
+      setError('Password incorrect. Please contact Carlos if you still want access.');
+      return;
+    }
+
+    window.localStorage.setItem(ACCESS_STORAGE_KEY, 'true');
+    onUnlock();
+  };
+
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-[#030712] text-slate-200">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.22),_transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(148,163,184,0.16),_transparent_30%)]" />
+      <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:32px_32px]" />
+
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-10">
+        <div className="w-full max-w-md rounded-[2rem] border border-white/10 bg-slate-950/75 p-8 shadow-[0_40px_120px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10">
+              <LockKeyhole className="h-5 w-5 text-blue-300" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-300">Private Access</p>
+              <h1 className="font-serif text-3xl text-white">This brief is now locked.</h1>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-sm leading-relaxed text-slate-400">
+            <p>
+              The strategic brief and supporting materials have been paused for now.
+            </p>
+            <p>
+              If your team would still like to review the work, please reach out to Carlos for the current password.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+            <label className="block space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Password</span>
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  if (error) {
+                    setError('');
+                  }
+                }}
+                placeholder="Enter password"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white outline-none transition focus:border-blue-400/50 focus:bg-white/8"
+              />
+            </label>
+
+            {error ? (
+              <p className="rounded-2xl border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
+                {error}
+              </p>
+            ) : null}
+
+            <button
+              type="submit"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
+            >
+              Unlock brief
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </form>
+
+          <p className="mt-6 text-xs leading-relaxed text-slate-500">
+            To change the password, update <code className="rounded bg-white/5 px-1.5 py-0.5 text-slate-300">ACCESS_PASSWORD</code> in this file before redeploying.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function AboutSection() {
   return (
@@ -181,6 +269,13 @@ function DownloadCard({ file }: { file: any; key?: React.Key }) {
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('brief');
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.localStorage.getItem(ACCESS_STORAGE_KEY) === 'true';
+  });
 
   const navItems = [
     { id: 'brief', label: 'Brief' },
@@ -190,6 +285,10 @@ export default function App() {
     { id: 'about', label: 'About' },
     { id: 'files', label: 'Dateien' },
   ];
+
+  if (!isUnlocked) {
+    return <AccessGate onUnlock={() => setIsUnlocked(true)} />;
+  }
 
   return (
     <div className="min-h-screen bg-[#030712] text-slate-300 font-sans selection:bg-blue-500/30">
