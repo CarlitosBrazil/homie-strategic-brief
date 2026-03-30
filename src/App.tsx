@@ -22,7 +22,7 @@ import cvPdf from '../assets/about/Carlos Azevedo C.V._ DE_2026 .pdf';
 import recPdf from '../assets/about/Carlos Azevedo Jr._Alveus Arbeitszeugnis.pdf';
 import certPdf from '../assets/about/Carlos Azevedo Jr._Zertifizierungen_2026.pdf';
 
-const ACCESS_PASSWORD = 'homie-paused';
+const ACCESS_PASSWORD = 'HomieBrief-30Mar2026-Carlos';
 const ACCESS_STORAGE_KEY = 'homie-brief-unlocked';
 
 function AccessGate({ onUnlock }: { onUnlock: () => void }) {
